@@ -1,8 +1,10 @@
-package com.technest.needfood;
+package com.technest.needfood.intro;
 
         import androidx.appcompat.app.AppCompatActivity;
 
         import android.os.Bundle;
+
+        import com.technest.needfood.R;
 
 public class SplashScreanActivity extends AppCompatActivity {
 

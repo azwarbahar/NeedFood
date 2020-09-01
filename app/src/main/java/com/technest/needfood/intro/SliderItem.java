@@ -1,4 +1,4 @@
-package com.technest.needfood;
+package com.technest.needfood.intro;
 
 public class SliderItem {
 

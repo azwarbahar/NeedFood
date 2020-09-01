@@ -1,17 +1,15 @@
-package com.technest.needfood;
+package com.technest.needfood.intro;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
 import com.google.android.material.tabs.TabLayout;
+import com.technest.needfood.R;
 
 import java.util.ArrayList;
 import java.util.List;
