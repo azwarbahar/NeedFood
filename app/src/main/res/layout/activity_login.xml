@@ -1,44 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_login"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_login_1"
     tools:context=".LoginActivity">
 
-
-    <com.google.android.material.textfield.TextInputLayout
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/color3"
-        android:textColorHint="@color/color3"
-        app:startIconDrawable="@drawable/ic_android_black_24dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_centerInParent="true">
+        android:layout_height="match_parent" />
 
-        <com.google.android.material.textfield.TextInputEditText
+    <RelativeLayout
+        android:id="@+id/rl_footer"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/footer_1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/login"
+            android:textColor="@color/putih"
+            android:textSize="22sp" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_username"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_below="@id/tv_login"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="30dp"
+            android:textColorHint="@color/putih"
+            app:boxStrokeColor="@color/putih"
+            app:hintTextColor="@color/putih"
+            app:startIconDrawable="@drawable/ic_android_black_24dp"
+            app:startIconTint="@color/putih">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:inputType="text"
+                android:textColor="@color/putih"
+                android:textColorHint="@color/putih" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/color3"
-
-        app:endIconMode="password_toggle"
-        android:textColorHint="@color/color3"
-        app:startIconDrawable="@drawable/ic_android_black_24dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_centerInParent="true">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:inputType="textPassword"
             android:layout_height="wrap_content"
-            android:hint="Pass" />
-    </com.google.android.material.textfield.TextInputLayout>
-</LinearLayout>
+            android:layout_below="@id/til_username"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="15dp"
+            android:textColorHint="@color/putih"
+            app:boxStrokeColor="@color/putih"
+            app:hintTextColor="@color/putih"
+            app:endIconTint="@color/putih"
+            app:startIconTint="@color/putih"
+            app:endIconMode="password_toggle"
+            app:startIconDrawable="@drawable/ic_android_black_24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:textColor="@color/putih"
+                android:textColorHint="@color/putih"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/btn_masuk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_btn_masuk"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="Masuk"
+            android:textColor="@color/hitam"
+            android:textSize="16dp" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_indikator"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rl_footer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        app:tabBackground="@drawable/indicator_selector" />
+
+</RelativeLayout>
