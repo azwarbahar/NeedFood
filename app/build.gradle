@@ -30,4 +30,13 @@ dependencies {
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.2.0'
+
+    //library sliding menu
+    implementation 'com.yarolegovich:sliding-root-nav:1.1.0'
+    implementation 'com.specyci:residemenu:1.6'
+
+    //recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha05'
+    //cardview
+    implementation 'androidx.cardview:cardview:1.0.0'
 }

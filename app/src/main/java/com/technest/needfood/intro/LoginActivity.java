@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 
         fromBottom = AnimationUtils.loadAnimation(this, R.anim.frombottom);
         rl_footer.setAnimation(fromBottom);
-        //untuk membuat layar full screen
 
         //Array background
         final int[] background_footer = {
@@ -58,9 +57,20 @@ public class LoginActivity extends AppCompatActivity {
 
         //fill list screen
         final List<SliderItem> mList = new ArrayList<>();
-        mList.add(new SliderItem("Admin","Mengatur manajemen keuanagn, mengonfirmasi pesanan dan memantau Anjay-anjay yang ada", R.drawable.ic_android_black_24dp));
-        mList.add(new SliderItem("Dapur","Memastikan kebutuhan bahan makanan alat dan barang yang ingin di gunakan dan yang di pesan oleh pemesan", R.drawable.ic_android_black_24dp));
-        mList.add(new SliderItem("Driver","Mengefisienkan waktu untuk mengantarkan pesanan para pelanggan", R.drawable.ic_android_black_24dp));
+        mList.add(new SliderItem("Admin",
+                "Mengatur manajemen keuanagn, mengonfirmasi pesanan dan memantau Anjay-anjay " +
+                        "yang ada",
+                R.drawable.ic_android_black_24dp));
+
+        mList.add(new SliderItem("Dapur",
+                "Memastikan kebutuhan bahan makanan alat dan barang yang ingin di gunakan" +
+                        " dan yang di pesan oleh pemesan",
+                R.drawable.ic_android_black_24dp));
+
+        mList.add(new SliderItem("Driver","Mengefisienkan waktu untuk mengantarkan " +
+                "pesanan para pelanggan",
+                R.drawable.ic_android_black_24dp));
+
         // setup view pager
         final ViewPager screenPager = findViewById(R.id.view_pager);
         sliderAdapter = new SliderAdapter(this, mList);
