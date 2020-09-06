@@ -79,14 +79,10 @@ public class LoginActivity extends AppCompatActivity {
         tab_indikator.setupWithViewPager(screenPager);
 
         //tablayout add change listener
-
         tab_indikator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-//
-//                if (tab.getPosition() == mList.size() - 1) {
-////                    LoadLastScreen();
-//                }
+
             }
 
             @Override
