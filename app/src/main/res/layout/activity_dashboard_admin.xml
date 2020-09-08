@@ -20,7 +20,7 @@
 
         <FrameLayout
             android:id="@+id/fltoolbar"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorAccent"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
@@ -41,10 +41,10 @@
                 android:textColor="@color/putih"
                 android:layout_gravity="center"/>
 
-            <Button
+            <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:background="@drawable/ic_menu_left"
+                android:background="@drawable/ic_menu_right"
                 android:id="@+id/title_bar_right_menu"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="10dp"/>
