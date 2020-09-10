@@ -3,61 +3,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/putih"
     android:layout_height="match_parent"
+    android:background="@color/putih"
     tools:context=".admin.DashboardAdminActivity">
 
     <RelativeLayout
-        android:orientation="vertical"
+        android:id="@+id/layout_top"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/layout_top">
+        android:orientation="vertical">
 
         <!--<ImageView-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="3dp"-->
         <!--android:background="#2ea3fe"/>-->
 
-        <FrameLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/fltoolbar"
-            android:background="@color/colorAccent"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            app:cardElevation="8dp">
 
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="@drawable/ic_menu_left"
-                android:id="@+id/title_bar_left_menu"
-                android:layout_gravity="left|center_vertical"
-                android:layout_marginLeft="10dp"/>
+            <FrameLayout
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="7dp"
-                android:text="Need Food"
-                android:textSize="24sp"
-                android:textColor="@color/putih"
-                android:layout_gravity="center"/>
+                <ImageView
+                    android:id="@+id/title_bar_left_menu"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/ic_menu_left" />
 
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:background="@drawable/ic_menu_right"
-                android:id="@+id/title_bar_right_menu"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="10dp"/>
-        </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="7dp"
+                    android:text="Need Food"
+                    android:textColor="@color/putih"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:id="@+id/title_bar_right_menu"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/ic_menu_right" />
+
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
 
 
         <FrameLayout
-            android:layout_below="@id/fltoolbar"
+            android:id="@+id/main_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/main_fragment">
-        </FrameLayout>
+            android:layout_below="@id/fltoolbar"
+            android:orientation="vertical"></FrameLayout>
 
     </RelativeLayout>
 
