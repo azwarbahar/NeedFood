@@ -32,27 +32,27 @@
 
                 <ImageView
                     android:id="@+id/title_bar_left_menu"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="left|center_vertical"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="16dp"
                     android:background="@drawable/ic_menu_left" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:padding="7dp"
+                    android:padding="12dp"
                     android:text="Need Food"
                     android:textColor="@color/putih"
-                    android:textSize="24sp" />
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/title_bar_right_menu"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="right|center_vertical"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="16dp"
                     android:background="@drawable/ic_menu_right" />
 
             </FrameLayout>

@@ -3,13 +3,20 @@ package com.technest.needfood.intro;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.technest.needfood.MainActivity;
 import com.technest.needfood.R;
+import com.technest.needfood.admin.DashboardAdminActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +29,12 @@ public class LoginActivity extends AppCompatActivity {
     private Animation fromBottom;
     private SliderAdapter sliderAdapter;
 
+    private TextView btn_masuk;
+
     private int[] bg_footer = null;
     private int[] bg_intro = null;
+
+    private ProgressDialog pd;
 
 
     @Override
@@ -31,9 +42,32 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        pd = new ProgressDialog(this);
+
         content_login = findViewById(R.id.content_login);
         rl_footer = findViewById(R.id.rl_footer);
         tab_indikator = findViewById(R.id.tab_indikator);
+
+        btn_masuk = findViewById(R.id.btn_masuk);
+        btn_masuk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pd.setMessage("Proses ... ");
+                pd.setCancelable(true);
+                pd.show();
+
+                int waktu_loading=2000;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        masukAdmin();
+
+                    }
+                },waktu_loading);
+            }
+        });
 
         fromBottom = AnimationUtils.loadAnimation(this, R.anim.frombottom);
         rl_footer.setAnimation(fromBottom);
@@ -127,6 +161,14 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    private void masukAdmin() {
+        pd.hide();
+        Intent intent = new Intent(LoginActivity.this, DashboardAdminActivity.class);
+        startActivity(intent);
+        finish();
 
     }
 }

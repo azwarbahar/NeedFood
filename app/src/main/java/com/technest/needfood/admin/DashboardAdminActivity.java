@@ -45,9 +45,22 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
         resideMenu.setSwipeDirectionDisable(0);
         resideMenu.setSwipeDirectionDisable(1);
 
-        itemHome     = new ResideMenuItem(this, R.drawable.ic_android_black_24dp, "  Home");
+        itemHome     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Home");
+        itemPesanan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Pesanan");
+        itemStokBahan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Stok Bahan");
+        itemInventori     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Inventori");
+        itemKeuangan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Keuangan");
+        itemSetting     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Setting");
+        itemLogout     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Logout");
 
         itemHome.setOnClickListener(this);
+        itemPesanan.setOnClickListener(this);
+        itemStokBahan.setOnClickListener(this);
+        itemInventori.setOnClickListener(this);
+        itemKeuangan.setOnClickListener(this);
+        itemSetting.setOnClickListener(this);
+        itemLogout.setOnClickListener(this);
+
         resideMenu.addMenuItem(itemHome, ResideMenu.DIRECTION_LEFT);
 
         findViewById(R.id.title_bar_left_menu).setOnClickListener(new View.OnClickListener() {
