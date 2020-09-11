@@ -1,4 +1,4 @@
-package com.technest.needfood.admin.pesanan;
+package com.technest.needfood.admin.setting;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,14 +11,14 @@ import androidx.fragment.app.Fragment;
 
 import com.technest.needfood.R;
 
-public class PesananFragment extends Fragment {
+public class SettingFragment extends Fragment {
 
     View v;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_pesanan, container, false);
+        v = inflater.inflate(R.layout.fragment_setting, container, false);
 
         return  v;
     }

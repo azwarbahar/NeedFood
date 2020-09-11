@@ -1,8 +1,11 @@
 package com.technest.needfood.admin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,6 +14,13 @@ import android.widget.Toast;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 import com.technest.needfood.R;
+import com.technest.needfood.admin.dompet.DompetFragment;
+import com.technest.needfood.admin.home.HomeFragment;
+import com.technest.needfood.admin.inventori.InventoriFragment;
+import com.technest.needfood.admin.pesanan.PesananFragment;
+import com.technest.needfood.admin.setting.SettingFragment;
+import com.technest.needfood.admin.stok.StokFragment;
+import com.technest.needfood.intro.LoginActivity;
 
 public class DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,6 +42,7 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
         mContext = this;
 
         setUpMenu();
+        changeFragment(new HomeFragment());
 
     }
 
@@ -42,16 +53,14 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
         resideMenu.attachToActivity(this);
         resideMenu.setMenuListener(menuListener);
         resideMenu.setScaleValue(0.6f);
-        resideMenu.setSwipeDirectionDisable(0);
-        resideMenu.setSwipeDirectionDisable(1);
 
-        itemHome     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Home");
-        itemPesanan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Pesanan");
-        itemStokBahan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Stok Bahan");
-        itemInventori     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Inventori");
-        itemKeuangan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Keuangan");
-        itemSetting     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Setting");
-        itemLogout     = new ResideMenuItem(this, R.drawable.ic_android_putih, "  Logout");
+        itemHome     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Home");
+        itemPesanan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Pesanan");
+        itemStokBahan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Stok");
+        itemInventori     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Inventori");
+        itemKeuangan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Dompet");
+        itemSetting     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Setting");
+        itemLogout     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Logout");
 
         itemHome.setOnClickListener(this);
         itemPesanan.setOnClickListener(this);
@@ -62,11 +71,25 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
         itemLogout.setOnClickListener(this);
 
         resideMenu.addMenuItem(itemHome, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemPesanan, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemStokBahan, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemInventori, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemKeuangan, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemSetting, ResideMenu.DIRECTION_RIGHT);
+        resideMenu.addMenuItem(itemLogout, ResideMenu.DIRECTION_RIGHT);
 
         findViewById(R.id.title_bar_left_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
+            }
+        });
+
+
+        findViewById(R.id.title_bar_right_menu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
             }
         });
 
@@ -89,8 +112,42 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
         }
     };
 
-    @Override
-    public void onClick(View v) {
+    private void changeFragment(Fragment targetFragment){
+        resideMenu.clearIgnoredViewList();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_fragment, targetFragment, "fragment")
+                .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
+    }
 
+    @Override
+    public void onClick(View view) {
+
+        if (view == itemHome){
+            changeFragment(new HomeFragment());
+        }else if (view == itemPesanan){
+            changeFragment(new PesananFragment());
+        }else if (view == itemStokBahan){
+            changeFragment(new StokFragment());
+        }else if (view == itemInventori){
+            changeFragment(new InventoriFragment());
+        }else if (view == itemKeuangan){
+            changeFragment(new DompetFragment());
+        }else if (view == itemSetting){
+            changeFragment(new SettingFragment());
+        }else if (view == itemLogout){
+            Intent intent = new Intent(DashboardAdminActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        resideMenu.closeMenu();
+
+    }
+
+    // What good method is to access resideMenu？
+    public ResideMenu getResideMenu(){
+        return resideMenu;
     }
 }
