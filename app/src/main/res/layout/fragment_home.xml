@@ -101,6 +101,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/tv1"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="25dp"
         android:layout_below="@id/cv_notif_home"
@@ -109,5 +110,12 @@
         android:text="Menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_below="@id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </RelativeLayout>
 
 </RelativeLayout>

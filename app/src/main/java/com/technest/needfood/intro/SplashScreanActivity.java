@@ -10,7 +10,7 @@ import com.technest.needfood.R;
 
 public class SplashScreanActivity extends AppCompatActivity {
 
-    private int waktu_loading=3000;
+    private int waktu_loading=2500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

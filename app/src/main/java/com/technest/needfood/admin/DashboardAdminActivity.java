@@ -30,7 +30,7 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
     private ResideMenuItem itemPesanan;
     private ResideMenuItem itemStokBahan;
     private ResideMenuItem itemInventori;
-    private ResideMenuItem itemKeuangan;
+//    private ResideMenuItem itemKeuangan;
     private ResideMenuItem itemSetting;
     private ResideMenuItem itemLogout;
 
@@ -58,7 +58,7 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
         itemPesanan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Pesanan");
         itemStokBahan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Stok");
         itemInventori     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Inventori");
-        itemKeuangan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Dompet");
+//        itemKeuangan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Dompet");
         itemSetting     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Setting");
         itemLogout     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Logout");
 
@@ -66,7 +66,7 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
         itemPesanan.setOnClickListener(this);
         itemStokBahan.setOnClickListener(this);
         itemInventori.setOnClickListener(this);
-        itemKeuangan.setOnClickListener(this);
+//        itemKeuangan.setOnClickListener(this);
         itemSetting.setOnClickListener(this);
         itemLogout.setOnClickListener(this);
 
@@ -74,7 +74,7 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
         resideMenu.addMenuItem(itemPesanan, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemStokBahan, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemInventori, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemKeuangan, ResideMenu.DIRECTION_LEFT);
+//        resideMenu.addMenuItem(itemKeuangan, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemSetting, ResideMenu.DIRECTION_RIGHT);
         resideMenu.addMenuItem(itemLogout, ResideMenu.DIRECTION_RIGHT);
 
@@ -132,9 +132,11 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
             changeFragment(new StokFragment());
         }else if (view == itemInventori){
             changeFragment(new InventoriFragment());
-        }else if (view == itemKeuangan){
-            changeFragment(new DompetFragment());
-        }else if (view == itemSetting){
+        }else
+//            if (view == itemKeuangan){
+//            changeFragment(new DompetFragment());
+//        }else
+            if (view == itemSetting){
             changeFragment(new SettingFragment());
         }else if (view == itemLogout){
             Intent intent = new Intent(DashboardAdminActivity.this, LoginActivity.class);
