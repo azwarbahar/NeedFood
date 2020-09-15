@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">NeedFood</string>
     <string name="login">Login</string>
+
+    <string-array name="image_kategori_stok">
+        <item>@drawable/image_daging</item>
+        <item>@drawable/image_sayur</item>
+        <item>@drawable/image_bumbu</item>
+    </string-array>
+
+    <string-array name="title_kategori_stok">
+        <item>Daging</item>
+        <item>Sayur</item>
+        <item>Bumbu</item>
+    </string-array>
+
 </resources>
