@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.stok.item_stok.DetailItemStokActivity">
+    tools:context=".admin.stok.item_stok.ItemStokActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/item_stok_appbar"
@@ -59,18 +59,12 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/item_stok_tablayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_item_stok"
+            tools:listitem="@layout/item_sisa_stok"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabMode="fixed" />
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/item_stok_viewpaget"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

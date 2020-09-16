@@ -9,12 +9,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemStokPagerAdapter extends FragmentPagerAdapter {
+public class DetailItemStokPagerAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> listfragmentitemstok = new ArrayList<>();
     private final List<String>listtitleitemstok = new ArrayList<>();
 
-    public ItemStokPagerAdapter(@NonNull FragmentManager fm) {
+    public DetailItemStokPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 

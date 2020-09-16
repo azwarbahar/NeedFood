@@ -14,4 +14,32 @@
         <item>Bumbu</item>
     </string-array>
 
+
+    <string-array name="title_item_stok">
+        <item>Sirlon US</item>
+        <item>Salmon</item>
+        <item>Tenderlion US</item>
+        <item>Sirlon US</item>
+        <item>Salmon</item>
+        <item>Tenderlion US</item>
+    </string-array>
+
+    <string-array name="image_item_stok">
+        <item>@drawable/image_daging</item>
+        <item>@drawable/image_daging</item>
+        <item>@drawable/image_daging</item>
+        <item>@drawable/image_daging</item>
+        <item>@drawable/image_daging</item>
+        <item>@drawable/image_daging</item>
+    </string-array>
+
+    <string-array name="kuantitas_item_stok">
+        <item>190</item>
+        <item>290</item>
+        <item>390</item>
+        <item>190</item>
+        <item>290</item>
+        <item>390</item>
+    </string-array>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.technest.needfood.admin.stok.item_stok.sisa;
+package com.technest.needfood.admin.stok.item_stok.detail.sisa;
 
 import androidx.fragment.app.Fragment;
 
