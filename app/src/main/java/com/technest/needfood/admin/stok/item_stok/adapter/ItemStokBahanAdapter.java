@@ -1,6 +1,7 @@
 package com.technest.needfood.admin.stok.item_stok.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.technest.needfood.R;
+import com.technest.needfood.admin.stok.item_stok.ItemStokActivity;
+import com.technest.needfood.admin.stok.item_stok.detail.DetailItemStokActivity;
 import com.technest.needfood.admin.stok.item_stok.model.ItemStokBahanModel;
 
 import java.util.ArrayList;
@@ -38,13 +41,24 @@ public class ItemStokBahanAdapter extends RecyclerView.Adapter<ItemStokBahanAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemStokBahanAdapter.MyHolderView holder, int position) {
+    public void onBindViewHolder(@NonNull ItemStokBahanAdapter.MyHolderView holder, final int position) {
 
         holder.tv_title_item_stok.setText(itemStokBahanModels.get(position).getTitle_item_stok());
         holder.tv_kuantitas_item_stok.setText(itemStokBahanModels.get(position).getKuantitas_item_stok());
         Glide.with(mContext)
                 .load(itemStokBahanModels.get(position).getImage_item_stok())
                 .into(holder.img_item_stok);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(mContext, DetailItemStokActivity.class);
+                intent.putExtra(ItemStokActivity.EXTRA_DATA, itemStokBahanModels.get(position));
+                mContext.startActivity(intent);
+
+            }
+        });
 
 
     }

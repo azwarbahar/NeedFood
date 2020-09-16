@@ -4,11 +4,14 @@
     <color name="colorPrimaryDark">#F05600</color>
     <color name="colorAccent">#E93035</color>
 
+    <color name="arrowUpColor">#077307</color>
+    <color name="arrowDownColor">#F10808</color>
 
     <color name="putih">#FFFFFF</color>
     <color name="hitam">#000000</color>
     <color name="transparan">#00000000</color>
     <color name="grey">#726E6E</color>
+    <color name="grey2">#A3A2A2</color>
 
     <color name="backgroundColor">#F8F8F8</color>
 
