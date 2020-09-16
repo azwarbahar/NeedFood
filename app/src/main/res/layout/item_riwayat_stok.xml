@@ -2,23 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/img_list_riwayat"
         android:layout_width="50dp"
+        tools:src="@drawable/arrow_up"
         android:layout_height="50dp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="16dp"
-        android:src="@drawable/arrow_up" />
+        android:layout_marginLeft="16dp" />
 
     <TextView
+        android:id="@+id/tv_tanggal_riwayat_stok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@id/img_list_riwayat"
-        android:text="09/09/2020" />
+        android:text="09/09/2020"
+        android:textColor="@color/hitam"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tv_kuantitas_list_riwayat"
@@ -33,10 +38,11 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/tv_satuan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_kuantitas_list_riwayat"
-        android:layout_alignLeft="@id/tv_kuantitas_list_riwayat"
+        android:layout_alignRight="@id/tv_kuantitas_list_riwayat"
         android:text="Kg"
         android:textColor="@color/arrowUpColor" />
 

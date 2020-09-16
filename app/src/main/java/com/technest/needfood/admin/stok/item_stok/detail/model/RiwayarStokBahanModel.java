@@ -12,6 +12,10 @@ public class RiwayarStokBahanModel {
         this.status = status;
     }
 
+    public RiwayarStokBahanModel() {
+
+    }
+
     public String getTanggal_riwayat() {
         return tanggal_riwayat;
     }

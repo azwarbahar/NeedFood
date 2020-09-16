@@ -42,4 +42,44 @@
         <item>390</item>
     </string-array>
 
+
+    <string-array name="status_riwayat_bahan">
+        <item>out</item>
+        <item>in</item>
+        <item>in</item>
+        <item>in</item>
+        <item>out</item>
+        <item>out</item>
+        <item>in</item>
+        <item>in</item>
+        <item>out</item>
+        <item>in</item>
+    </string-array>
+
+    <string-array name="tanggal_riwayat_bahan">
+        <item>09/09/2020</item>
+        <item>09/09/2020</item>
+        <item>14/09/2020</item>
+        <item>20/09/2020</item>
+        <item>22/09/2020</item>
+        <item>22/09/2020</item>
+        <item>30/09/2020</item>
+        <item>03/10/2020</item>
+        <item>15/10/2020</item>
+        <item>22/11/2020</item>
+    </string-array>
+
+    <string-array name="kuantitas_riwayat_bahan">
+        <item>22</item>
+        <item>10</item>
+        <item>90</item>
+        <item>100</item>
+        <item>300</item>
+        <item>700</item>
+        <item>200</item>
+        <item>250</item>
+        <item>50</item>
+        <item>90</item>
+    </string-array>
+
 </resources>
