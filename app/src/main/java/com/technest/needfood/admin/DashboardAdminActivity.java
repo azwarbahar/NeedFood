@@ -1,20 +1,18 @@
 package com.technest.needfood.admin;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 import com.technest.needfood.R;
-import com.technest.needfood.admin.dompet.DompetFragment;
 import com.technest.needfood.admin.home.HomeFragment;
 import com.technest.needfood.admin.inventori.InventoriFragment;
 import com.technest.needfood.admin.pesanan.PesananFragment;
