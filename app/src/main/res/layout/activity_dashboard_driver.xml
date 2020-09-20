@@ -60,7 +60,7 @@
 
 
         <FrameLayout
-            android:id="@+id/main_fragment"
+            android:id="@+id/main_driver_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/fltoolbar"

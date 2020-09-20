@@ -12,6 +12,8 @@ import android.view.View;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 import com.technest.needfood.R;
+import com.technest.needfood.driver.akun.AkunDriverFragment;
+import com.technest.needfood.driver.home.HomeDriverFragment;
 
 public class DashboardDriverActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,7 +29,8 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
 
         mContext = this;
 
-
+        setUpMenu();
+        changeFragment(new HomeDriverFragment());
 
     }
 
@@ -38,30 +41,17 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
         resideMenu.attachToActivity(this);
         resideMenu.setMenuListener(menuListener);
         resideMenu.setScaleValue(0.6f);
+        resideMenu.setSwipeDirectionDisable(0);
+        resideMenu.setSwipeDirectionDisable(1);
 
         itemHome     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Home");
-        itemakun     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Pesanan");
-        itemStokBahan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Stok");
-        itemInventori     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Inventori");
-//        itemKeuangan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Dompet");
-        itemSetting     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Setting");
-        itemLogout     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Logout");
+        itemakun     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Akun");
 
         itemHome.setOnClickListener(this);
-        itemPesanan.setOnClickListener(this);
-        itemStokBahan.setOnClickListener(this);
-        itemInventori.setOnClickListener(this);
-//        itemKeuangan.setOnClickListener(this);
-        itemSetting.setOnClickListener(this);
-        itemLogout.setOnClickListener(this);
+        itemakun.setOnClickListener(this);
 
         resideMenu.addMenuItem(itemHome, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemPesanan, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemStokBahan, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemInventori, ResideMenu.DIRECTION_LEFT);
-//        resideMenu.addMenuItem(itemKeuangan, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemSetting, ResideMenu.DIRECTION_RIGHT);
-        resideMenu.addMenuItem(itemLogout, ResideMenu.DIRECTION_RIGHT);
+        resideMenu.addMenuItem(itemakun, ResideMenu.DIRECTION_LEFT);
 
         findViewById(R.id.title_bar_left_menu).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +99,13 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View v) {
+
+        if (v == itemHome){
+            changeFragment(new HomeDriverFragment());
+        }else if (v == itemakun){
+            changeFragment(new AkunDriverFragment());
+        }
+
 
     }
 }
