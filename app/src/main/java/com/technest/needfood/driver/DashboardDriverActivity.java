@@ -64,7 +64,7 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
         findViewById(R.id.title_bar_right_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
+//                resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
             }
         });
 
@@ -91,7 +91,7 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
         resideMenu.clearIgnoredViewList();
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_fragment, targetFragment, "fragment")
+                .replace(R.id.main_driver_fragment, targetFragment, "fragment")
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
     }

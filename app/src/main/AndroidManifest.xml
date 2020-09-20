@@ -11,18 +11,24 @@
         android:theme="@style/AppTheme">
         <activity android:name=".admin.stok.item_stok.ItemStokActivity"></activity>
         <activity android:name=".admin.stok.item_stok.detail.DetailItemStokActivity" />
-        <activity android:name=".driver.DashboardDriverActivity" />
-        <activity android:name=".dapur.DashboardDapurActivity" />
-        <activity android:name=".admin.DashboardAdminActivity" />
-        <activity android:name=".intro.SplashScreanActivity">
+        <activity android:name=".driver.DashboardDriverActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".dapur.DashboardDapurActivity" />
+        <activity android:name=".admin.DashboardAdminActivity" />
+        <activity android:name=".intro.SplashScreanActivity">
+
+        </activity>
         <activity android:name=".intro.LoginActivity" />
         <activity android:name=".MainActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDCIphcsSEy3PeyI3hCPTfPI4b5EgF_Uuo" />
     </application>
 
 </manifest>
