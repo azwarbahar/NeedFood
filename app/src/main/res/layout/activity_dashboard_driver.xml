@@ -1,9 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/putih"
     android:layout_height="match_parent"
     tools:context=".driver.DashboardDriverActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/layout_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="3dp"-->
+        <!--android:background="#2ea3fe"/>-->
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fltoolbar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            app:cardElevation="8dp">
+
+            <FrameLayout
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/title_bar_left_menu"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:background="@drawable/ic_menu_left" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="12dp"
+                    android:text="Need Food"
+                    android:textColor="@color/putih"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/title_bar_right_menu"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/ic_menu_right" />
+
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <FrameLayout
+            android:id="@+id/main_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/fltoolbar"
+            android:orientation="vertical"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

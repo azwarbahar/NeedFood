@@ -13,14 +13,14 @@ import com.technest.needfood.R;
 
 public class DompetFragment extends Fragment {
 
-    View v;
+    View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_dompet, container, false);
+        view = inflater.inflate(R.layout.fragment_dompet, container, false);
 
-        return  v;
+        return  view;
     }
 
 }
