@@ -41,7 +41,6 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
 
         setUpMenu();
         changeFragment(new HomeFragment());
-
     }
 
     private void setUpMenu() {
