@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
     sothree:umanoDragView="@+id/rv_sliding_up"
     sothree:umanoOverlay="true"
-    sothree:umanoPanelHeight="60dp"
-    sothree:umanoParallaxOffset="100dp">
+    sothree:umanoPanelHeight="70dp"
+    sothree:umanoScrollableView="@+id/rv_pesanan_home_driver"
+    sothree:umanoShadowHeight="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,6 +33,7 @@
             app:cardElevation="8dp">
 
             <RelativeLayout
+                android:id="@+id/rv_btn_hariini"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -89,34 +91,34 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_sliding_up_panel">
 
-
-        <View
-            android:id="@+id/view1"
-            android:layout_width="30dp"
-            android:layout_height="3dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"
-            android:background="@color/putih" />
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="30dp"
-            android:layout_height="3dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@color/putih" />
-
-        <EditText
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/view1"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="100dp"
-            android:background="@drawable/bg_btn_masuk"
-            android:drawableRight="@drawable/ic_android_black_24dp"
-            android:hint="Search.."
-            android:padding="10dp" />
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="15dp"
+            android:text="Pesanan"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@id/tv2"
+            android:textColor="@color/orangeDarkColor"
+            android:layout_marginBottom="5dp"
+            android:text="Hari ini"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_pesanan_home_driver"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv3"
+            android:layout_marginTop="5dp"
+            tools:listitem="@layout/item_pesanan_home_driver" />
 
     </RelativeLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

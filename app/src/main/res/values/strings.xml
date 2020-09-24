@@ -82,4 +82,41 @@
         <item>90</item>
     </string-array>
 
+
+    <string-array name="nama_pesanan">
+        <item>Hj Sitti Maryam</item>
+        <item>Prof Azwar Bahar</item>
+        <item>Alex Purnama</item>
+        <item>Hj Sitti Maryam</item>
+        <item>Prof Azwar Bahar</item>
+        <item>Alex Purnama</item>
+        <item>Hj Sitti Maryam</item>
+        <item>Prof Azwar Bahar</item>
+        <item>Alex Purnama</item>
+    </string-array>
+
+    <string-array name="alamat_pesanan">
+        <item>Jalan Mamoa Baru No 1 Kel. Mangasa</item>
+        <item>Jalan A.P Pettarani No 221 Kecamatan Rappocini</item>
+        <item>Jalan Hertasning 2 Blok A No 1 Kel Sembarang</item>
+        <item>Jalan Mamoa Baru No 1 Kel. Mangasa</item>
+        <item>Jalan A.P Pettarani No 221 Kecamatan Rappocini</item>
+        <item>Jalan Hertasning 2 Blok A No 1 Kel Sembarang</item>
+        <item>Jalan Mamoa Baru No 1 Kel. Mangasa</item>
+        <item>Jalan A.P Pettarani No 221 Kecamatan Rappocini</item>
+        <item>Jalan Hertasning 2 Blok A No 1 Kel Sembarang</item>
+    </string-array>
+
+    <string-array name="jam_pesanan">
+        <item>20:11</item>
+        <item>09:11</item>
+        <item>09:34</item>
+        <item>12:55</item>
+        <item>09:11</item>
+        <item>09:34</item>
+        <item>12:55</item>
+        <item>09:11</item>
+        <item>09:34</item>
+    </string-array>
+
 </resources>
