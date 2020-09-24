@@ -46,4 +46,7 @@ dependencies {
     // Google MAPS
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    //sliding up panel
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
 }
