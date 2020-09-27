@@ -15,6 +15,8 @@ import com.special.ResideMenu.ResideMenuItem;
 import com.technest.needfood.R;
 import com.technest.needfood.driver.akun.AkunDriverFragment;
 import com.technest.needfood.driver.home.HomeDriverFragment;
+import com.technest.needfood.driver.pesanan.PesananDriverFragment;
+import com.technest.needfood.driver.riwayat.RiwayatDriverFragment;
 import com.technest.needfood.intro.LoginActivity;
 
 public class DashboardDriverActivity extends AppCompatActivity implements View.OnClickListener {
@@ -116,6 +118,12 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
 
         if (v == itemHome){
             changeFragment(new HomeDriverFragment());
+            resideMenu.closeMenu();
+        }else if (v == itemPesanan){
+            changeFragment(new PesananDriverFragment());
+            resideMenu.closeMenu();
+        }else if (v == itemRiwayat){
+            changeFragment(new RiwayatDriverFragment());
             resideMenu.closeMenu();
         }else if (v == itemAkun){
             changeFragment(new AkunDriverFragment());
