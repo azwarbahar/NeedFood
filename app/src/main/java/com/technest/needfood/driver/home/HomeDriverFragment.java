@@ -14,7 +14,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +27,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
 import com.technest.needfood.R;
+import com.technest.needfood.admin.pesanan.PesananFragment;
+import com.technest.needfood.driver.pesanan.PesananDriverFragment;
 
 import java.util.ArrayList;
 
@@ -42,6 +47,7 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
     private SlidingUpPanelLayout sliding_layout;
 
     private RelativeLayout rv_btn_hariini;
+    private CardView cv_pesanan_home_driver;
 
     private RecyclerView rv_pesanan_home_driver;
     private ArrayList<PesananDriverModel> pesananDriverModels;
@@ -54,27 +60,26 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
         rv_pesanan_home_driver = v.findViewById(R.id.rv_pesanan_home_driver);
         sliding_layout = v.findViewById(R.id.sliding_layout);
         rv_btn_hariini = v.findViewById(R.id.rv_btn_hariini);
+        cv_pesanan_home_driver = v.findViewById(R.id.cv_pesanan_home_driver);
         btn_location = v.findViewById(R.id.btn_my_location);
 
         btn_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+            }
+        });
 
-                String phoneNumberWithCountryCode = "+6285397998660";
-                String message = "Test Program Bot";
+        cv_pesanan_home_driver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-
-                intent.setPackage("com.whatsapp");
-                if (intent != null) {
-                    intent.putExtra(Intent.EXTRA_TEXT, message);
-                    startActivity(Intent.createChooser(intent, message));
-                } else {
-
-                    Toast.makeText(getActivity(), "Not Apss", Toast.LENGTH_SHORT).show();
-                }
+                Fragment pesananFragment = new PesananDriverFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.main_driver_fragment, pesananFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
 
             }
         });
