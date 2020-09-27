@@ -17,6 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.technest.needfood.MainActivity;
 import com.technest.needfood.R;
 import com.technest.needfood.admin.DashboardAdminActivity;
+import com.technest.needfood.driver.DashboardDriverActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private SliderAdapter sliderAdapter;
 
     private TextView btn_masuk;
+    private TextView btn_masuk2;
 
     private int[] bg_footer = null;
     private int[] bg_intro = null;
@@ -49,6 +51,27 @@ public class LoginActivity extends AppCompatActivity {
         tab_indikator = findViewById(R.id.tab_indikator);
 
         btn_masuk = findViewById(R.id.btn_masuk);
+        btn_masuk2 = findViewById(R.id.btn_masuk2);
+
+        btn_masuk2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pd.setMessage("Proses ... ");
+                pd.setCancelable(true);
+                pd.show();
+
+                int waktu_loading=2000;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        masukDriver();
+
+                    }
+                },waktu_loading);
+            }
+        });
+
         btn_masuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +190,14 @@ public class LoginActivity extends AppCompatActivity {
     private void masukAdmin() {
         pd.hide();
         Intent intent = new Intent(LoginActivity.this, DashboardAdminActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
+    private void masukDriver() {
+        pd.hide();
+        Intent intent = new Intent(LoginActivity.this, DashboardDriverActivity.class);
         startActivity(intent);
         finish();
 

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,13 +15,17 @@ import com.special.ResideMenu.ResideMenuItem;
 import com.technest.needfood.R;
 import com.technest.needfood.driver.akun.AkunDriverFragment;
 import com.technest.needfood.driver.home.HomeDriverFragment;
+import com.technest.needfood.intro.LoginActivity;
 
 public class DashboardDriverActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ResideMenu resideMenu;
     private Context mContext;
     private ResideMenuItem itemHome;
-    private ResideMenuItem itemakun;
+    private ResideMenuItem itemPesanan;
+    private ResideMenuItem itemRiwayat;
+    private ResideMenuItem itemAkun;
+    private ResideMenuItem itemLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +50,22 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
         resideMenu.setSwipeDirectionDisable(1);
 
         itemHome     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Home");
-        itemakun     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Akun");
+        itemPesanan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Pesanan");
+        itemRiwayat     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Riwayat");
+        itemAkun     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Akun");
+        itemLogout     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Logout");
 
         itemHome.setOnClickListener(this);
-        itemakun.setOnClickListener(this);
+        itemPesanan.setOnClickListener(this);
+        itemRiwayat.setOnClickListener(this);
+        itemAkun.setOnClickListener(this);
+        itemLogout.setOnClickListener(this);
 
         resideMenu.addMenuItem(itemHome, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemakun, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemPesanan, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemRiwayat, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemAkun, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemLogout, ResideMenu.DIRECTION_RIGHT);
 
         findViewById(R.id.title_bar_left_menu).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +78,7 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
         findViewById(R.id.title_bar_right_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
+                resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
             }
         });
 
@@ -102,8 +116,14 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
 
         if (v == itemHome){
             changeFragment(new HomeDriverFragment());
-        }else if (v == itemakun){
+            resideMenu.closeMenu();
+        }else if (v == itemAkun){
             changeFragment(new AkunDriverFragment());
+            resideMenu.closeMenu();
+        }else if (v == itemLogout){
+            Intent intent = new Intent(DashboardDriverActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
 
 

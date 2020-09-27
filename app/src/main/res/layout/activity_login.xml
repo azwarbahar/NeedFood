@@ -84,19 +84,42 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-        <TextView
-            android:id="@+id/btn_masuk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/til_password"
-            android:layout_centerHorizontal="true"
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
             android:layout_marginTop="30dp"
-            android:background="@drawable/bg_btn_masuk"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"
-            android:text="Masuk"
-            android:textColor="@color/hitam"
-            android:textSize="16dp" />
+            android:layout_width="match_parent"
+            android:layout_below="@id/til_password"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/btn_masuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bg_btn_masuk"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="Admin"
+                android:textColor="@color/hitam"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/btn_masuk2"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bg_btn_masuk"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="Driver"
+                android:textColor="@color/hitam"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+
 
     </RelativeLayout>
 

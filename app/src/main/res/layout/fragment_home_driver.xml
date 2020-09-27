@@ -51,6 +51,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/hitam"
                     android:layout_toRightOf="@id/img1"
                     android:text="Hari ini" />
 
@@ -72,11 +74,52 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_pesanan_home_driver"
+            android:layout_below="@+id/cv_hari_ini"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/rl_pesanan_home_driver"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:background="@drawable/ic_list_white" />
+
+                <TextView
+                    android:id="@+id/tv4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="16dp"
+                    android:textColor="@color/putih"
+                    android:layout_toRightOf="@id/img2"
+                    android:text="Pesanan" />
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <ImageView
             android:id="@+id/btn_my_location"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_below="@id/cv_hari_ini"
+            android:layout_below="@id/cv_pesanan_home_driver"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/btn_location"
@@ -91,32 +134,40 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_sliding_up_panel">
 
-        <TextView
-            android:id="@+id/tv2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="15dp"
-            android:text="Pesanan"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+        <RelativeLayout
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/rv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="15dp"
+                android:text="Pengantaran"
+                android:textColor="@color/putih"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_below="@id/tv2"
-            android:textColor="@color/orangeDarkColor"
-            android:layout_marginBottom="5dp"
-            android:text="Hari ini"/>
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_below="@id/tv2"
+                android:textColor="@color/backgroundColor"
+                android:layout_marginBottom="10dp"
+                android:text="Hari ini"/>
+        </RelativeLayout>
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_pesanan_home_driver"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/tv3"
+            android:layout_below="@id/rv1"
             android:layout_marginTop="5dp"
             tools:listitem="@layout/item_pesanan_home_driver" />
 

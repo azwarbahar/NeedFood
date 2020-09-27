@@ -1,10 +1,16 @@
 package com.technest.needfood.driver.home;
 
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +33,8 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap googleMap;
 
+    private ImageView btn_location;
+
     private String[] nama;
     private String[] alamat;
     private String[] jam;
@@ -46,6 +54,30 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
         rv_pesanan_home_driver = v.findViewById(R.id.rv_pesanan_home_driver);
         sliding_layout = v.findViewById(R.id.sliding_layout);
         rv_btn_hariini = v.findViewById(R.id.rv_btn_hariini);
+        btn_location = v.findViewById(R.id.btn_my_location);
+
+        btn_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String phoneNumberWithCountryCode = "+6285397998660";
+                String message = "Test Program Bot";
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+
+                intent.setPackage("com.whatsapp");
+                if (intent != null) {
+                    intent.putExtra(Intent.EXTRA_TEXT, message);
+                    startActivity(Intent.createChooser(intent, message));
+                } else {
+
+                    Toast.makeText(getActivity(), "Not Apss", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
         rv_btn_hariini.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -129,11 +129,7 @@ public class DashboardAdminActivity extends AppCompatActivity implements View.On
             changeFragment(new StokFragment());
         }else if (view == itemInventori){
             changeFragment(new InventoriFragment());
-        }else
-//            if (view == itemKeuangan){
-//            changeFragment(new DompetFragment());
-//        }else
-            if (view == itemSetting){
+        }else if (view == itemSetting){
             changeFragment(new SettingFragment());
         }else if (view == itemLogout){
             Intent intent = new Intent(DashboardAdminActivity.this, LoginActivity.class);
