@@ -68,7 +68,7 @@ public class RiwayarStokBahanAdapter extends RecyclerView.Adapter<RiwayarStokBah
         return riwayarStokBahanModels.size();
     }
 
-    public class MyHolderView extends RecyclerView.ViewHolder {
+    public static class MyHolderView extends RecyclerView.ViewHolder {
 
         private ImageView img_list_riwayat;
         private TextView tv_tanggal_riwayat_stok;

@@ -119,4 +119,40 @@
         <item>09:34</item>
     </string-array>
 
+    <string-array name="kode_pesanan">
+        <item>NFC-114022020</item>
+        <item>NFC-609102020</item>
+        <item>NFC-040112020</item>
+        <item>NFC-114022020</item>
+        <item>NFC-609102020</item>
+        <item>NFC-040112020</item>
+        <item>NFC-114022020</item>
+        <item>NFC-609102020</item>
+        <item>NFC-040112020</item>
+    </string-array>
+
+    <string-array name="tanggal_pesanan">
+        <item>Jumat 20 Juni 2020</item>
+        <item>Senin 21 Juni 2020</item>
+        <item>Rabu 22 Juni 2020</item>
+        <item>Minggu 23 Juni 2020</item>
+        <item>Kamis 24 Juni 2020</item>
+        <item>Sabtu 25 Juni 2020</item>
+        <item>Selasa 26 Juni 2020</item>
+        <item>Jumat 27 Juni 2020</item>
+        <item>Minggu 28 Juni 2020</item>
+    </string-array>
+
+    <string-array name="status_antar">
+        <item>Antar</item>
+        <item>Jemput</item>
+        <item>Jemput</item>
+        <item>Antar</item>
+        <item>Antar</item>
+        <item>Antar</item>
+        <item>Jemput</item>
+        <item>Jemput</item>
+        <item>Antar</item>
+    </string-array>
+
 </resources>

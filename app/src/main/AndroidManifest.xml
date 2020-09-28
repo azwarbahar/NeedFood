@@ -9,19 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.stok.item_stok.ItemStokActivity"></activity>
-        <activity android:name=".admin.stok.item_stok.detail.DetailItemStokActivity" />
-        <activity android:name=".driver.DashboardDriverActivity" >
-
-        </activity>
-        <activity android:name=".dapur.DashboardDapurActivity" />
-        <activity android:name=".admin.DashboardAdminActivity" />
-        <activity android:name=".intro.SplashScreanActivity">
+        <activity android:name=".driver.delivery.DeliveryDriverActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".driver.riwayat.DetailRwayatDriverActivity" />
+        <activity android:name=".driver.riwayat.SearchRiwayatDriverActivity" />
+        <activity android:name=".admin.stok.item_stok.ItemStokActivity" />
+        <activity android:name=".admin.stok.item_stok.detail.DetailItemStokActivity" />
+        <activity android:name=".driver.DashboardDriverActivity" />
+        <activity android:name=".dapur.DashboardDapurActivity" />
+        <activity android:name=".admin.DashboardAdminActivity" />
+        <activity android:name=".intro.SplashScreanActivity">
+
         </activity>
         <activity android:name=".intro.LoginActivity" />
         <activity android:name=".MainActivity" />
