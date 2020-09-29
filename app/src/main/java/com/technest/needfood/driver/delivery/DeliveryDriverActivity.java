@@ -40,7 +40,7 @@ public class DeliveryDriverActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:085397998660"));
+                intent.setData(Uri.parse("tel:085123456789"));
                 startActivity(intent);
 
             }
