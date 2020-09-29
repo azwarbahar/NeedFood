@@ -1,6 +1,7 @@
 package com.technest.needfood.driver.pesanan.pengantaran.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.technest.needfood.R;
+import com.technest.needfood.driver.delivery.DeliveryDriverActivity;
 import com.technest.needfood.driver.pesanan.pengantaran.model.PengantaranDriverModel;
 
 import java.util.ArrayList;
@@ -43,6 +45,13 @@ public class PengantraanDriverAdapter extends RecyclerView.Adapter<PengantraanDr
         holder.tv_alamat.setText(": "+pengantaranDriverModels.get(position).getAlamat());
         holder.tv_tanggal.setText(pengantaranDriverModels.get(position).getTanggal());
         holder.tv_jam.setText(pengantaranDriverModels.get(position).getJam());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, DeliveryDriverActivity.class));
+            }
+        });
 
     }
 
