@@ -12,9 +12,11 @@
     <color name="transparan">#00000000</color>
     <color name="grey">#726E6E</color>
     <color name="grey2">#A3A2A2</color>
+    <color name="grey3">#E7E7E7</color>
 
     <color name="backgroundColor">#F8F8F8</color>
     <color name="biruMuda">#00E0FF</color>
+    <color name="biruTua">#0500FF</color>
 
     <color name="starBtnNotifHomeColor">#F89158</color>
     <color name="endBtnNotifHomeColor">#F55800</color>
