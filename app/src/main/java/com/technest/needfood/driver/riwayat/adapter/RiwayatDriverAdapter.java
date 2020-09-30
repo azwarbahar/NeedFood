@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.technest.needfood.R;
-import com.technest.needfood.admin.stok.item_stok.detail.adapter.RiwayarStokBahanAdapter;
 import com.technest.needfood.driver.riwayat.model.RiwayatDriverModel;
 
 import java.util.ArrayList;

@@ -1,8 +1,5 @@
 package com.technest.needfood.intro;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +10,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
-import com.technest.needfood.MainActivity;
 import com.technest.needfood.R;
 import com.technest.needfood.admin.DashboardAdminActivity;
+import com.technest.needfood.dapur.DashboardDapurActivity;
 import com.technest.needfood.driver.DashboardDriverActivity;
 
 import java.util.ArrayList;
@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextView btn_masuk;
     private TextView btn_masuk2;
+    private TextView btn_masuk3;
 
     private int[] bg_footer = null;
     private int[] bg_intro = null;
@@ -52,6 +53,26 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_masuk = findViewById(R.id.btn_masuk);
         btn_masuk2 = findViewById(R.id.btn_masuk2);
+        btn_masuk3 = findViewById(R.id.btn_masuk3);
+
+        btn_masuk3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pd.setMessage("Proses ... ");
+                pd.setCancelable(true);
+                pd.show();
+
+                int waktu_loading = 2000;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        masukDapur();
+
+                    }
+                }, waktu_loading);
+            }
+        });
 
         btn_masuk2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 pd.setCancelable(true);
                 pd.show();
 
-                int waktu_loading=2000;
+                int waktu_loading = 2000;
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -68,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                         masukDriver();
 
                     }
-                },waktu_loading);
+                }, waktu_loading);
             }
         });
 
@@ -80,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                 pd.setCancelable(true);
                 pd.show();
 
-                int waktu_loading=2000;
+                int waktu_loading = 2000;
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -88,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                         masukAdmin();
 
                     }
-                },waktu_loading);
+                }, waktu_loading);
             }
         });
 
@@ -124,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                         " dan yang di pesan oleh pemesan",
                 R.drawable.ic_android_black_24dp));
 
-        mList.add(new SliderItem("Driver","Mengefisienkan waktu untuk mengantarkan " +
+        mList.add(new SliderItem("Driver", "Mengefisienkan waktu untuk mengantarkan " +
                 "pesanan para pelanggan",
                 R.drawable.ic_android_black_24dp));
 
@@ -163,15 +184,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
 
-                if(position< (sliderAdapter.getCount()-1)&& position < (bg_footer.length-1)&& position < (bg_intro.length-1)) {
+                if (position < (sliderAdapter.getCount() - 1) && position < (bg_footer.length - 1) && position < (bg_intro.length - 1)) {
 
                     content_login.setBackgroundResource(background_intro[position]);
                     rl_footer.setBackgroundResource(background_footer[position]);
 
 
-                }else{
-                    content_login.setBackgroundResource(background_intro[background_intro.length-1]);
-                    rl_footer.setBackgroundResource(background_footer[background_footer.length-1]);
+                } else {
+                    content_login.setBackgroundResource(background_intro[background_intro.length - 1]);
+                    rl_footer.setBackgroundResource(background_footer[background_footer.length - 1]);
 
                 }
 
@@ -198,6 +219,14 @@ public class LoginActivity extends AppCompatActivity {
     private void masukDriver() {
         pd.hide();
         Intent intent = new Intent(LoginActivity.this, DashboardDriverActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
+    private void masukDapur() {
+        pd.hide();
+        Intent intent = new Intent(LoginActivity.this, DashboardDapurActivity.class);
         startActivity(intent);
         finish();
 

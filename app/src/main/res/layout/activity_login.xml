@@ -100,9 +100,9 @@
                 android:background="@drawable/bg_btn_masuk"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
-                android:text="Admin"
+                android:text="Tes Admin"
                 android:textColor="@color/hitam"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/btn_masuk2"
@@ -113,9 +113,22 @@
                 android:background="@drawable/bg_btn_masuk"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
-                android:text="Driver"
+                android:text="Tes Driver"
                 android:textColor="@color/hitam"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/btn_masuk3"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/bg_btn_masuk"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="Tes Dapur"
+                android:textColor="@color/hitam"
+                android:textSize="14dp" />
 
         </LinearLayout>
 

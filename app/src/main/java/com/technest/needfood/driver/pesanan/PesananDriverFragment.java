@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.widget.TableLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,11 +13,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-
 import com.technest.needfood.R;
 import com.technest.needfood.driver.pesanan.adapter.PesananDriverPagerAdapter;
 import com.technest.needfood.driver.pesanan.pengantaran.PengantaranFragment;
 import com.technest.needfood.driver.pesanan.penjemputan.PenjemputanFragment;
+
+//import android.widget.TableLayout;
 
 public class PesananDriverFragment extends Fragment {
 
