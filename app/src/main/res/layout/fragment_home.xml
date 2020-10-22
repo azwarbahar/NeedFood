@@ -81,6 +81,7 @@
                 android:textSize="10sp" />
 
             <RelativeLayout
+                android:id="@+id/cv_pesan_terbaru"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"

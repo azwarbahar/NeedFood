@@ -52,7 +52,7 @@ public class DashboardDapurActivity extends AppCompatActivity implements View.On
         itemHome     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Home");
         itemPesanan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Pesanan");
         itemStokBahan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Stok");
-        itemInventori     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Inventori");
+        itemInventori     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Alat");
         itemLogout     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Logout");
 
         itemHome.setOnClickListener(this);

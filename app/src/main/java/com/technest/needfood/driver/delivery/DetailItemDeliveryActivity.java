@@ -17,9 +17,7 @@ public class DetailItemDeliveryActivity extends AppCompatActivity {
 
     private RelativeLayout container_list_alat;
     private RelativeLayout rl_btn_sampai;
-
     private CardView cv_close_detail_pesanan;
-
     private ImageView img_call;
     private ImageView img_list_alat;
     private ImageView img_close_list_alat;

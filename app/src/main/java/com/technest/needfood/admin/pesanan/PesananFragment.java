@@ -1,5 +1,6 @@
 package com.technest.needfood.admin.pesanan;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.technest.needfood.R;
+import com.technest.needfood.admin.pesanan.item.ItemPesananActivity;
+import com.technest.needfood.admin.stok.item_stok.ItemStokActivity;
 
 public class PesananFragment extends Fragment {
 
@@ -33,8 +36,10 @@ public class PesananFragment extends Fragment {
         cv_pesanan_pending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Klik Buttom Pesanan Pending!",
-                        Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getActivity(), ItemPesananActivity.class);
+                intent.putExtra("extra_data", "Pesanan Pending");
+                getActivity().startActivity(intent);
             }
         });
 
@@ -44,8 +49,9 @@ public class PesananFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getActivity(), "Klik Buttom Pesanan Lunas!",
-                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), ItemPesananActivity.class);
+                intent.putExtra("extra_data", "Pesanan Lunas");
+                getActivity().startActivity(intent);
             }
         });
 
@@ -55,9 +61,9 @@ public class PesananFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getActivity(), "Klik Buttom Proses Dapur!",
-                        Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(getActivity(), ItemPesananActivity.class);
+                intent.putExtra("extra_data", "Proses Dapur");
+                getActivity().startActivity(intent);
             }
         });
 
@@ -67,9 +73,9 @@ public class PesananFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getActivity(), "Klik Buttom Pesanan Delivery!",
-                        Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(getActivity(), ItemPesananActivity.class);
+                intent.putExtra("extra_data", "Pesanan Delivery");
+                getActivity().startActivity(intent);
             }
         });
 
@@ -79,8 +85,9 @@ public class PesananFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getActivity(), "Klik Buttom Pesanan Sampai!",
-                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), ItemPesananActivity.class);
+                intent.putExtra("extra_data", "Pesanan Sampai");
+                getActivity().startActivity(intent);
 
             }
         });
