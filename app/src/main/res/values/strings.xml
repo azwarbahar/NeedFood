@@ -43,6 +43,34 @@
     </string-array>
 
 
+    <string-array name="title_item_stok_dapur">
+        <item>Kompor Portable</item>
+        <item>Mangkuk</item>
+        <item>Piring</item>
+        <item>Kompor Portable</item>
+        <item>Piring</item>
+        <item>Mangkuk</item>
+    </string-array>
+
+    <string-array name="image_item_stok_dapur">
+        <item>@drawable/kompor</item>
+        <item>@drawable/piring</item>
+        <item>@drawable/mangkok</item>
+        <item>@drawable/kompor</item>
+        <item>@drawable/piring</item>
+        <item>@drawable/mangkok</item>
+    </string-array>
+
+    <string-array name="kuantitas_item_stok_dapur">
+        <item>190</item>
+        <item>290</item>
+        <item>390</item>
+        <item>190</item>
+        <item>290</item>
+        <item>390</item>
+    </string-array>
+
+
     <string-array name="status_riwayat_bahan">
         <item>out</item>
         <item>in</item>

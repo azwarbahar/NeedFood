@@ -43,7 +43,14 @@ public class ItemStokBahanAdapter extends RecyclerView.Adapter<ItemStokBahanAdap
     @Override
     public void onBindViewHolder(@NonNull ItemStokBahanAdapter.MyHolderView holder, final int position) {
 
-        holder.tv_title_item_stok.setText(itemStokBahanModels.get(position).getTitle_item_stok());
+        String title = itemStokBahanModels.get(position).getTitle_item_stok();
+
+        holder.tv_title_item_stok.setText(title);
+        if (title.equals("Kompor Portable") || title.equals("Mangkuk") || title.equals("Piring")){
+            holder.tv_satuan.setVisibility(View.GONE);
+        } else {
+            holder.tv_satuan.setVisibility(View.VISIBLE);
+        }
         holder.tv_kuantitas_item_stok.setText(itemStokBahanModels.get(position).getKuantitas_item_stok());
         Glide.with(mContext)
                 .load(itemStokBahanModels.get(position).getImage_item_stok())
@@ -70,6 +77,7 @@ public class ItemStokBahanAdapter extends RecyclerView.Adapter<ItemStokBahanAdap
 
     public class MyHolderView extends RecyclerView.ViewHolder {
 
+        private TextView tv_satuan;
         private TextView tv_title_item_stok;
         private TextView tv_kuantitas_item_stok;
         private ImageView img_item_stok;
@@ -77,6 +85,7 @@ public class ItemStokBahanAdapter extends RecyclerView.Adapter<ItemStokBahanAdap
         public MyHolderView(@NonNull View itemView) {
             super(itemView);
 
+            tv_satuan = itemView.findViewById(R.id.tv_satuan);
             tv_kuantitas_item_stok = itemView.findViewById(R.id.tv_kuantitas_item_stok);
             tv_title_item_stok = itemView.findViewById(R.id.tv_title_item_stok);
             img_item_stok = itemView.findViewById(R.id.img_item_stok);
