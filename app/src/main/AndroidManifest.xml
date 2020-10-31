@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.pesanan.item.ItemPesananActivity"></activity>
+        <activity android:name=".driver.taking.DetailItemTakingActivity"></activity>
+        <activity android:name=".driver.taking.TakingDriverActivity" />
+        <activity android:name=".admin.pesanan.item.ItemPesananActivity" />
         <activity android:name=".driver.delivery.DetailItemDeliveryActivity" />
         <activity android:name=".driver.delivery.DeliveryDriverActivity" />
         <activity android:name=".driver.riwayat.DetailRwayatDriverActivity" />

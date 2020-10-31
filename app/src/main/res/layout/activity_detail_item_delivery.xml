@@ -49,8 +49,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/gradient_tarns_black"
-                        android:layout_alignParentBottom="true"/>
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/gradient_tarns_black" />
 
                 </RelativeLayout>
 
@@ -415,278 +415,361 @@
 
     <RelativeLayout
         android:id="@+id/container_list_alat"
-        android:layout_above="@id/cv_down_detail"
         android:layout_width="match_parent"
-        android:background="@color/hitamTrans"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/cv_down_detail"
+        android:background="@color/hitamTrans">
 
         <ImageView
             android:id="@+id/img_close_list_alat"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="20dp"
-            android:tint="@color/putih"
             android:src="@drawable/ic_close_black_24dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
+            app:tint="@color/putih" />
 
         <TextView
-            android:textSize="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
-            android:textStyle="bold"
-            android:textColor="@color/putih"
+            android:layout_marginTop="30dp"
             android:layout_toRightOf="@id/img_close_list_alat"
             android:text="List Alat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textColor="@color/putih"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginTop="40dp"
-            android:layout_below="@id/img_close_list_alat"
+            android:id="@+id/ll_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_close_list_alat"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_marginLeft="20dp"
-                        android:tint="@color/putih"
-                        android:src="@drawable/indicator_selector"
                         android:layout_width="8dp"
-                        android:layout_height="8dp"/>
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/indicator_selector"
+                        app:tint="@color/putih" />
 
                     <TextView
-                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
-                        android:textColor="@color/putih"
                         android:text="Kompor Portable"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="@color/putih"
+                        android:textSize="16sp" />
 
                     <TextView
-                        android:textSize="16sp"
-                        android:gravity="end"
-                        android:layout_marginRight="16dp"
-                        android:textColor="@color/putih"
-                        android:text="2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:gravity="end"
+                        android:text="2"
+                        android:textColor="@color/putih"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <View
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/grey"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/grey" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_marginLeft="20dp"
-                        android:tint="@color/putih"
-                        android:src="@drawable/indicator_selector"
                         android:layout_width="8dp"
-                        android:layout_height="8dp"/>
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/indicator_selector"
+                        app:tint="@color/putih" />
 
                     <TextView
-                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
-                        android:textColor="@color/putih"
                         android:text="Sumpit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="@color/putih"
+                        android:textSize="16sp" />
 
                     <TextView
-                        android:textSize="16sp"
-                        android:gravity="end"
-                        android:layout_marginRight="16dp"
-                        android:textColor="@color/putih"
-                        android:text="2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:gravity="end"
+                        android:text="2"
+                        android:textColor="@color/putih"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/grey"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/grey" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_marginLeft="20dp"
-                        android:tint="@color/putih"
-                        android:src="@drawable/indicator_selector"
                         android:layout_width="8dp"
-                        android:layout_height="8dp"/>
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/indicator_selector"
+                        app:tint="@color/putih" />
 
                     <TextView
-                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
-                        android:textColor="@color/putih"
                         android:text="Panci"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="@color/putih"
+                        android:textSize="16sp" />
 
                     <TextView
-                        android:textSize="16sp"
-                        android:gravity="end"
-                        android:layout_marginRight="16dp"
-                        android:textColor="@color/putih"
-                        android:text="2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:gravity="end"
+                        android:text="2"
+                        android:textColor="@color/putih"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/grey"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/grey" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_marginLeft="20dp"
-                        android:tint="@color/putih"
-                        android:src="@drawable/indicator_selector"
                         android:layout_width="8dp"
-                        android:layout_height="8dp"/>
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/indicator_selector"
+                        app:tint="@color/putih" />
 
                     <TextView
-                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
-                        android:textColor="@color/putih"
                         android:text="Mangkok"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textColor="@color/putih"
+                        android:textSize="16sp" />
 
                     <TextView
-                        android:textSize="16sp"
-                        android:gravity="end"
-                        android:layout_marginRight="16dp"
-                        android:textColor="@color/putih"
-                        android:text="2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:gravity="end"
+                        android:text="2"
+                        android:textColor="@color/putih"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/grey"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/grey" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_marginLeft="20dp"
-                        android:tint="@color/putih"
-                        android:src="@drawable/indicator_selector"
                         android:layout_width="8dp"
-                        android:layout_height="8dp"/>
+                        android:layout_height="8dp"
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/indicator_selector"
+                        app:tint="@color/putih" />
 
                     <TextView
-                        android:textSize="16sp"
-                        android:layout_marginLeft="12dp"
-                        android:textColor="@color/putih"
-                        android:text="Pisau"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:text="Pisau"
+                        android:textColor="@color/putih"
+                        android:textSize="16sp" />
 
                     <TextView
-                        android:textSize="16sp"
-                        android:gravity="end"
-                        android:layout_marginRight="16dp"
-                        android:textColor="@color/putih"
-                        android:text="2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:gravity="end"
+                        android:text="2"
+                        android:textColor="@color/putih"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <View
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/grey"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/grey" />
 
             </LinearLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:layout_below="@id/ll_list"
+            android:background="@drawable/bg_gradient_radius_orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Cek Alat Kembali"
+                android:padding="10dp"
+                android:textColor="@color/putih"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/container_kamera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/cv_down_detail"
+        android:background="@color/backgroundColor2">
+
+        <TextView
+            android:id="@+id/tv5"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_marginTop="12dp"
+            android:layout_centerHorizontal="true"
+            android:text="Ambil Gambar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/img_foto"
+            android:scaleType="fitCenter"
+            android:background="@drawable/stroke_orange"
+            android:src="@drawable/ic_icon_kamera"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tv5"
+            android:layout_marginHorizontal="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:tint="@color/grey2" />
+
+        <LinearLayout
+            android:layout_below="@id/img_foto"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:weightSum="2"
+            android:layout_marginHorizontal="26dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_batal"
+                android:text="Batal"
+                android:paddingVertical="8dp"
+                android:layout_weight="1"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/grey"
+                android:background="@color/putih"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_ambil"
+                android:text="Ambil"
+                android:layout_marginLeft="10dp"
+                android:paddingVertical="8dp"
+                android:layout_weight="1"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:textColor="@color/putih"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_down_detail"
@@ -716,12 +799,12 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:layout_centerInParent="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:layout_margin="5dp"
-                        android:tint="@color/color1"
-                        android:src="@drawable/ic_close_black_24dp" />
+                        android:src="@drawable/ic_close_black_24dp"
+                        app:tint="@color/color1" />
 
                 </RelativeLayout>
 
@@ -729,7 +812,7 @@
 
             <RelativeLayout
                 android:id="@+id/rl_btn_sampai"
-                android:layout_width="170dp"
+                android:layout_width="140dp"
                 android:layout_height="40dp"
                 android:layout_marginVertical="8dp"
                 android:layout_marginStart="10dp"
@@ -756,14 +839,22 @@
                 android:id="@+id/img_list_alat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_icon_alat"
                 app:layout_constraintBottom_toBottomOf="@+id/rl_btn_sampai"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toStartOf="@+id/img_photo"
                 app:layout_constraintStart_toEndOf="@+id/rl_btn_sampai"
                 app:layout_constraintTop_toTopOf="@+id/rl_btn_sampai" />
+
+            <ImageView
+                android:id="@+id/img_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_icon_kamera"
+                app:layout_constraintBottom_toBottomOf="@+id/img_list_alat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rl_btn_sampai"
+                app:layout_constraintTop_toTopOf="@+id/img_list_alat" />
+
 
             <ImageView
                 android:id="@+id/img_call"
@@ -772,12 +863,14 @@
                 android:src="@drawable/ic_icon_telpon_grey"
                 app:layout_constraintBottom_toBottomOf="@+id/img_list_alat"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_list_alat"
+                app:layout_constraintStart_toEndOf="@+id/img_photo"
                 app:layout_constraintTop_toTopOf="@+id/img_list_alat" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.cardview.widget.CardView>
+
+
 
 </RelativeLayout>

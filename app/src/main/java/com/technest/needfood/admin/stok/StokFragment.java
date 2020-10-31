@@ -39,25 +39,25 @@ public class StokFragment extends Fragment {
         rv_kategori_stok.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         rv_kategori_stok.setAdapter(kotaAdapter);
 
-        return  v;
+        return v;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        kategoriStokModels =tambahItemKategoriStok();
+        kategoriStokModels = tambahItemKategoriStok();
 
     }
 
-    private ArrayList<KategoriStokModel> tambahItemKategoriStok(){
+    private ArrayList<KategoriStokModel> tambahItemKategoriStok() {
 
         kategoriStokDataTitle = getResources().getStringArray(R.array.title_kategori_stok);
         kategoriStokDataImage = getResources().obtainTypedArray(R.array.image_kategori_stok);
 
         ArrayList<KategoriStokModel> listnyakota = new ArrayList<>();
 
-        for(int a = 0; a < kategoriStokDataTitle.length; a++){
+        for (int a = 0; a < kategoriStokDataTitle.length; a++) {
             KategoriStokModel stokModel = new KategoriStokModel();
             stokModel.setTitle_kategori_stok(kategoriStokDataTitle[a]);
             stokModel.setImage_kategori_stok(kategoriStokDataImage.getResourceId(a, -1));
