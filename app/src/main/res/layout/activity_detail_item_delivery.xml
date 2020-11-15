@@ -685,19 +685,19 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_list"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:layout_below="@id/ll_list"
-            android:background="@drawable/bg_gradient_radius_orange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:background="@drawable/bg_gradient_radius_orange">
 
             <TextView
-                android:text="Cek Alat Kembali"
-                android:padding="10dp"
-                android:textColor="@color/putih"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Cek Alat Kembali"
+                android:textColor="@color/putih" />
 
         </LinearLayout>
 
@@ -714,58 +714,65 @@
         <TextView
             android:id="@+id/tv5"
             style="@style/TextAppearance.AppCompat.Title"
-            android:layout_marginTop="12dp"
-            android:layout_centerHorizontal="true"
-            android:text="Ambil Gambar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:id="@+id/img_foto"
-            android:scaleType="fitCenter"
-            android:background="@drawable/stroke_orange"
-            android:src="@drawable/ic_icon_kamera"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/tv5"
-            android:layout_marginHorizontal="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:tint="@color/grey2" />
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:text="Ambil Gambar" />
 
         <LinearLayout
-            android:layout_below="@id/img_foto"
+            android:id="@+id/continer_img_foto"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:weightSum="2"
+            android:layout_height="300dp"
+            android:layout_below="@id/tv5"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/img_foto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/stroke_orange"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_icon_kamera"
+                app:tint="@color/grey2" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/continer_img_foto"
             android:layout_marginHorizontal="26dp"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <TextView
                 android:id="@+id/tv_batal"
-                android:text="Batal"
-                android:paddingVertical="8dp"
-                android:layout_weight="1"
-                android:textSize="16dp"
-                android:gravity="center"
-                android:layout_marginRight="10dp"
-                android:textColor="@color/grey"
-                android:background="@color/putih"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@color/putih"
+                android:gravity="center"
+                android:paddingVertical="8dp"
+                android:text="Batal"
+                android:textColor="@color/grey"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/tv_ambil"
-                android:text="Ambil"
-                android:layout_marginLeft="10dp"
-                android:paddingVertical="8dp"
-                android:layout_weight="1"
-                android:textSize="16dp"
-                android:gravity="center"
-                android:textColor="@color/putih"
-                android:background="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:paddingVertical="8dp"
+                android:text="Ambil"
+                android:textColor="@color/putih"
+                android:textSize="16dp" />
         </LinearLayout>
 
     </RelativeLayout>
@@ -870,7 +877,6 @@
 
 
     </androidx.cardview.widget.CardView>
-
 
 
 </RelativeLayout>

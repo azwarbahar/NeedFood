@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dapur.pesanan.DetailPesananDapurActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorPrimaryDark">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="Detail Pesanan"
+            android:textColor="@color/putih" />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_kode_pesanan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bg_gradient_radius_orange"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="6dp"
+        android:text="NFC-114022020"
+        android:textColor="@color/putih"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_tanggal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_kode_pesanan"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="14dp"
+        android:text="Jumat 14 Januari 2020"
+        android:textColor="@color/biruTua" />
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_tanggal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Pelanggan"
+        android:textSize="18sp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_pelanggan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv1"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="10dp"
+        app:cardElevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img_peson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_person_grey" />
+
+            <TextView
+                android:id="@+id/tv_nama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/img_peson"
+                android:layout_alignBottom="@id/img_peson"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@id/img_peson"
+                android:gravity="center_vertical"
+                android:text="Andi Abdillah"
+                android:textColor="@color/hitam" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/img_peson"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/grey2" />
+
+            <ImageView
+                android:id="@+id/img_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_place_grey" />
+
+            <TextView
+                android:id="@+id/tv_alamat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/img_place"
+                android:layout_alignBottom="@id/img_place"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="3dp"
+                android:layout_toLeftOf="@id/img_chevron"
+                android:layout_toRightOf="@id/img_place"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="Jalan A.P Pettarani No 221 Kelurahan Mangasa Kecamatan"
+                android:textColor="@color/hitam" />
+
+            <ImageView
+                android:id="@+id/img_chevron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tv_alamat"
+                android:layout_alignBottom="@id/tv_alamat"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:src="@drawable/ic_chevron_right_grey" />
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/img_place"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/grey2" />
+
+            <ImageView
+                android:id="@+id/img_telpon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line2"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_phone_grey" />
+
+            <TextView
+                android:id="@+id/tv_telpon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/img_telpon"
+                android:layout_alignBottom="@id/img_telpon"
+                android:layout_marginLeft="16dp"
+                android:layout_toRightOf="@id/img_telpon"
+                android:gravity="center_vertical"
+                android:text="+628975875683"
+                android:textColor="@color/hitam" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/rl_peralatan_pesanan"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/cv_pelanggan"
+        android:layout_marginTop="10dp"
+        android:background="@color/grey3">
+
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_icon_list" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/img1"
+            android:text="Peralatan Pesanan"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_chevron_right_grey"
+            app:tint="@color/colorPrimary" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_peralatan_pesanan"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"
+        android:text="Catatan"
+        android:textSize="18sp" />
+
+    <EditText
+        android:layout_marginTop="8dp"
+        android:id="@+id/et_catatan"
+        android:paddingVertical="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_below="@id/tv4"
+        android:hint="bismillah\ndsdcs\ndsds\ndhsjds fsdf \nhjh jcksdh hkj\ndheuid"
+        android:scrollbars="vertical"
+        android:paddingHorizontal="10dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/stroke_orange" />
+
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_catatan"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="18dp"
+        android:text="Paket"
+        android:textSize="18sp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_paket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv2"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="10dp"
+        app:cardElevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_paket1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_grey_corner"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="Yakiniku"
+                android:textColor="@color/putih" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tv_paket1"
+                android:layout_alignBottom="@id/tv_paket1"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:text="1 pack"
+                android:textColor="@color/hitam" />
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_paket1"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/grey2" />
+
+            <TextView
+                android:id="@+id/tv_paket2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line3"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_grey_corner"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="Shabu"
+                android:textColor="@color/putih" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tv_paket2"
+                android:layout_alignBottom="@id/tv_paket2"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:text="1 pack"
+                android:textColor="@color/hitam" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cv_paket"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"
+        android:text="Additional"
+        android:textSize="18sp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv3"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="10dp"
+        app:cardElevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_additional1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_grey_corner"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="Salmon 250g"
+                android:textColor="@color/putih" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tv_additional1"
+                android:layout_alignBottom="@id/tv_additional1"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:text="1 pack"
+                android:textColor="@color/hitam" />
+
+            <View
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_additional1"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/grey2" />
+
+            <TextView
+                android:id="@+id/tv_additional2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line4"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_grey_corner"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="Wagyu Slice Jepang 250g"
+                android:textColor="@color/putih" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/tv_additional2"
+                android:layout_alignBottom="@id/tv_additional2"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:gravity="center"
+                android:text="1 pack"
+                android:textColor="@color/hitam" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>

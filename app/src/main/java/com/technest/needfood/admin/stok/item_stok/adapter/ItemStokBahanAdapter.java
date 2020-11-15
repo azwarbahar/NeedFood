@@ -16,15 +16,17 @@ import com.technest.needfood.R;
 import com.technest.needfood.admin.stok.item_stok.ItemStokActivity;
 import com.technest.needfood.admin.stok.item_stok.detail.DetailItemStokActivity;
 import com.technest.needfood.admin.stok.item_stok.model.ItemStokBahanModel;
+import com.technest.needfood.models.bahan.Bahan;
+import com.technest.needfood.utils.Constanta;
 
 import java.util.ArrayList;
 
 public class ItemStokBahanAdapter extends RecyclerView.Adapter<ItemStokBahanAdapter.MyHolderView> {
 
     private Context mContext;
-    private ArrayList<ItemStokBahanModel> itemStokBahanModels;
+    private ArrayList<Bahan> itemStokBahanModels;
 
-    public ItemStokBahanAdapter(Context mContext, ArrayList<ItemStokBahanModel> itemStokBahanModels) {
+    public ItemStokBahanAdapter(Context mContext, ArrayList<Bahan> itemStokBahanModels) {
         this.mContext = mContext;
         this.itemStokBahanModels = itemStokBahanModels;
     }
@@ -43,17 +45,13 @@ public class ItemStokBahanAdapter extends RecyclerView.Adapter<ItemStokBahanAdap
     @Override
     public void onBindViewHolder(@NonNull ItemStokBahanAdapter.MyHolderView holder, final int position) {
 
-        String title = itemStokBahanModels.get(position).getTitle_item_stok();
-
-        holder.tv_title_item_stok.setText(title);
-        if (title.equals("Kompor Portable") || title.equals("Mangkuk") || title.equals("Piring")){
-            holder.tv_satuan.setVisibility(View.GONE);
-        } else {
-            holder.tv_satuan.setVisibility(View.VISIBLE);
-        }
-        holder.tv_kuantitas_item_stok.setText(itemStokBahanModels.get(position).getKuantitas_item_stok());
+        holder.tv_title_item_stok.setText(itemStokBahanModels.get(position).getNama());
+        holder.tv_kuantitas_item_stok.setText(String.valueOf(itemStokBahanModels.get(position).getJumlahBahan()));
+        holder.tv_satuan.setText(itemStokBahanModels.get(position).getSatuan());
         Glide.with(mContext)
-                .load(itemStokBahanModels.get(position).getImage_item_stok())
+                .load(Constanta.url_foto_bahan+itemStokBahanModels.get(position).getFoto())
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.ic_broken_image)
                 .into(holder.img_item_stok);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

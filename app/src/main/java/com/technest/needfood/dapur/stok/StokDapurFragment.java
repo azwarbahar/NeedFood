@@ -34,11 +34,11 @@ public class StokDapurFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_stok_dapur, container, false);
 
 
-        rv_kategori_stok = v.findViewById(R.id.rv_kategori_stok);
-
-        KategoriStokAdapter kotaAdapter = new KategoriStokAdapter(getContext(), kategoriStokModels);
-        rv_kategori_stok.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        rv_kategori_stok.setAdapter(kotaAdapter);
+//        rv_kategori_stok = v.findViewById(R.id.rv_kategori_stok);
+//
+//        KategoriStokAdapter kotaAdapter = new KategoriStokAdapter(getContext(), kategoriStokModels);
+//        rv_kategori_stok.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+//        rv_kategori_stok.setAdapter(kotaAdapter);
 
         return  v;
     }

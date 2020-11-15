@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".admin.stok.item_stok.detail.DetailItemStokActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/item_stok_appbar"
@@ -65,6 +70,18 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <TextView
+            android:id="@+id/lihat_gambar"
+            android:textColor="@color/biruTua"
+            android:drawablePadding="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentRight="true"
+            android:textStyle="italic"
+            android:textSize="12sp"
+            android:text="Zoom Gambar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_stok"
@@ -103,6 +120,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/tv_satuan"
                     android:textColor="@color/hitam"
                     android:layout_alignLeft="@id/tv_kuantitas_stok"
                     android:layout_below="@id/tv_kuantitas_stok"
@@ -145,4 +163,33 @@
     </RelativeLayout>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <RelativeLayout
+        android:id="@+id/containerImageZoom"
+        android:layout_centerInParent="true"
+        android:background="@color/hitam"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_close_black_24dp"
+            app:tint="@color/putih" />
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:layout_below="@id/img_close"
+            android:id="@+id/img_zoom"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:scaleType="fitCenter"
+            android:layout_height="match_parent"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
