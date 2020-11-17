@@ -1,6 +1,7 @@
 package com.technest.needfood.intro;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -18,6 +20,7 @@ import com.technest.needfood.R;
 import com.technest.needfood.admin.DashboardAdminActivity;
 import com.technest.needfood.dapur.DashboardDapurActivity;
 import com.technest.needfood.driver.DashboardDriverActivity;
+import com.technest.needfood.network.ConnectionDetector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     private SliderAdapter sliderAdapter;
 
     private TextView btn_masuk;
-    private TextView btn_masuk2;
-    private TextView btn_masuk3;
 
     private int[] bg_footer = null;
     private int[] bg_intro = null;
@@ -47,51 +48,15 @@ public class LoginActivity extends AppCompatActivity {
 
         pd = new ProgressDialog(this);
 
+        Context context = LoginActivity.this;
+        ConnectionDetector ConnectionDetector = new ConnectionDetector(
+                context.getApplicationContext());
+
         content_login = findViewById(R.id.content_login);
         rl_footer = findViewById(R.id.rl_footer);
         tab_indikator = findViewById(R.id.tab_indikator);
 
         btn_masuk = findViewById(R.id.btn_masuk);
-        btn_masuk2 = findViewById(R.id.btn_masuk2);
-        btn_masuk3 = findViewById(R.id.btn_masuk3);
-
-        btn_masuk3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pd.setMessage("Proses ... ");
-                pd.setCancelable(true);
-                pd.show();
-
-                int waktu_loading = 2000;
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        masukDapur();
-
-                    }
-                }, waktu_loading);
-            }
-        });
-
-        btn_masuk2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pd.setMessage("Proses ... ");
-                pd.setCancelable(true);
-                pd.show();
-
-                int waktu_loading = 2000;
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        masukDriver();
-
-                    }
-                }, waktu_loading);
-            }
-        });
 
         btn_masuk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,15 +66,15 @@ public class LoginActivity extends AppCompatActivity {
                 pd.setCancelable(true);
                 pd.show();
 
-                int waktu_loading = 2000;
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                // check Koneksi
+                if (ConnectionDetector.isInternetAvailble()){
+                    masukAdmin();
+                } else {
+                    pd.hide();
+                    Toast.makeText(context, "Tidak Ada Internet!", Toast.LENGTH_SHORT).show();
+                }
 
-                        masukAdmin();
 
-                    }
-                }, waktu_loading);
             }
         });
 
