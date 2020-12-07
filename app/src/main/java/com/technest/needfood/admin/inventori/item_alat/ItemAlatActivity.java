@@ -1,19 +1,16 @@
-package com.technest.needfood.admin.stok.item_stok;
+package com.technest.needfood.admin.inventori.item_alat;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,12 +18,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
-import com.technest.needfood.admin.stok.adapter.KategoriStokAdapter;
-import com.technest.needfood.models.bahan.Bahan;
-import com.technest.needfood.models.bahan.ResponseAllBahan;
-import com.technest.needfood.models.kategori.Kategori;
+import com.technest.needfood.admin.stok.item_stok.ItemStokActivity;
 import com.technest.needfood.admin.stok.item_stok.adapter.ItemStokBahanAdapter;
-import com.technest.needfood.admin.stok.item_stok.model.ItemStokBahanModel;
+import com.technest.needfood.models.alat.Alat;
+import com.technest.needfood.models.alat.ResponseAllAlat;
+import com.technest.needfood.models.kategori.Kategori;
 import com.technest.needfood.network.ApiClient;
 import com.technest.needfood.network.ApiInterface;
 import com.technest.needfood.network.ConnectionDetector;
@@ -38,26 +34,26 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ItemStokActivity extends AppCompatActivity {
-
+public class ItemAlatActivity extends AppCompatActivity {
 
 
     public static final String EXTRA_DATA = "extra_data";
 
-    private ImageView item_stok_toolbar_image;
-    private Toolbar item_stok_toolbar;
+    private ImageView item_alat_toolbar_image;
+    private Toolbar item_alat_toolbar;
     private LinearLayout ll_kosong;
 
-    private RecyclerView rv_item_stok;
-    private ArrayList<Bahan> bahans;
+    private RecyclerView rv_item_alat;
+    private ArrayList<Alat> alats;
     private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_stok2);
+        setContentView(R.layout.activity_item_alat);
 
-        Context context = ItemStokActivity.this;
+
+        Context context = ItemAlatActivity.this;
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
 
@@ -66,13 +62,23 @@ public class ItemStokActivity extends AppCompatActivity {
         ll_kosong.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
-        rv_item_stok = findViewById(R.id.rv_item_stok);
+        rv_item_alat = findViewById(R.id.rv_item_alat);
 
-        item_stok_toolbar_image = findViewById(R.id.item_stok_toolbar_image);
-        item_stok_toolbar = findViewById(R.id.item_stok_toolbar);
 
         Kategori kategori = getIntent().getParcelableExtra(EXTRA_DATA);
+
+        item_alat_toolbar_image = findViewById(R.id.item_alat_toolbar_image);
+        item_alat_toolbar = findViewById(R.id.item_alat_toolbar);
+
+        Glide.with(this)
+                .load(Constanta.url_foto_kategori + kategori.getFoto())
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.ic_broken_image)
+                .into(item_alat_toolbar_image);
+        item_alat_toolbar.setTitle(kategori.getKategori());
+
         // check Koneksi
+//         Toast.makeText(context, "ID : "+kategori.getId(), Toast.LENGTH_SHORT).show();
         if (ConnectionDetector.isInternetAvailble()) {
             getData(String.valueOf(kategori.getId()));
         } else {
@@ -81,19 +87,11 @@ public class ItemStokActivity extends AppCompatActivity {
             ll_kosong.setVisibility(View.VISIBLE);
         }
 
-        Glide.with(this)
-                .load(Constanta.url_foto_kategori+kategori.getFoto())
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image)
-                .into(item_stok_toolbar_image);
-        item_stok_toolbar.setTitle(kategori.getKategori());
-
     }
 
-
-    private void actionNotConnection(){
+    private void actionNotConnection() {
         Snackbar.make(findViewById(android.R.id.content), "Koneksi Tidak Ada!", Snackbar.LENGTH_INDEFINITE)
-                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
+                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
                 .setAction("Close", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -105,27 +103,27 @@ public class ItemStokActivity extends AppCompatActivity {
 
     private void getData(String id) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseAllBahan> responseAllBahanCall = apiInterface.getAllBahan("Bearer "+ BuildConfig.TOKEN, id);
-        responseAllBahanCall.enqueue(new Callback<ResponseAllBahan>() {
+        Call<ResponseAllAlat> responseAllAlatCall = apiInterface.getAllAlat("Bearer "+ BuildConfig.TOKEN, id);
+        responseAllAlatCall.enqueue(new Callback<ResponseAllAlat>() {
             @Override
-            public void onResponse(Call<ResponseAllBahan> call, Response<ResponseAllBahan> response) {
+            public void onResponse(Call<ResponseAllAlat> call, Response<ResponseAllAlat> response) {
                 if (response.isSuccessful()){
                     ll_kosong.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
-                    assert response.body() != null;
-                    if (response.body().getSuccess()){
+                    if (response.body().getmSuccess()){
                         ll_kosong.setVisibility(View.GONE);
-                        bahans = (ArrayList<Bahan>) response.body().getResult();
-
-                        ItemStokBahanAdapter itemStokBahanAdapter = new ItemStokBahanAdapter(ItemStokActivity.this, bahans);
-                        rv_item_stok.setLayoutManager(new LinearLayoutManager(ItemStokActivity.this));
-                        rv_item_stok.setAdapter(itemStokBahanAdapter);
-
+                        alats = (ArrayList<Alat>) response.body().getmResult();
+                        for (int a = 0 ; a < alats.size(); a++){
+                            Log.d("Cek ALAT", "Respon : "+alats.get(a).getNama());
+                        }
+                        ItemAlatAdapter itemAlatAdapter = new ItemAlatAdapter(ItemAlatActivity.this, alats);
+                        rv_item_alat.setLayoutManager(new LinearLayoutManager(ItemAlatActivity.this));
+                        rv_item_alat.setAdapter(itemAlatAdapter);
                     } else {
                         progressBar.setVisibility(View.GONE);
                         ll_kosong.setVisibility(View.VISIBLE);
                     }
-                    Log.d("Respon", "Message = "+response.body().getMessage() );
+                    Log.d("Respon", "Message1 = "+response.body().getmMessage() );
                 } else {
                     progressBar.setVisibility(View.GONE);
                     ll_kosong.setVisibility(View.VISIBLE);
@@ -133,13 +131,11 @@ public class ItemStokActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseAllBahan> call, Throwable t) {
+            public void onFailure(Call<ResponseAllAlat> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
                 Log.d("ERROR" ,"Respon : "+t.getMessage() );
             }
         });
-
     }
-
 }

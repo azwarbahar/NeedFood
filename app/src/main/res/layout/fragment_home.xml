@@ -29,7 +29,7 @@
         android:layout_below="@id/tv_bismillah"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="3dp"
-        android:text="Azwar Bahar"
+        android:text="Nama"
         android:textColor="@color/putih"
         android:textSize="22dp"
         android:textStyle="bold" />
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
-                android:background="@drawable/img_progres"
+                android:background="@drawable/ic_icon_new_pesanan"
                 android:paddingVertical="10dp" />
 
             <TextView
@@ -64,7 +64,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/img_notif_home"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/img_notif_home"
                 android:text="Pesanan Terbaru"
                 android:textColor="@color/hitam"
@@ -75,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_title_notif_home"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="3dp"
                 android:layout_toRightOf="@id/img_notif_home"
                 android:text="Pintasan lihat pesanan terbaru!"
                 android:textSize="10sp" />

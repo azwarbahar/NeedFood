@@ -100,7 +100,7 @@
                 android:background="@drawable/bg_btn_masuk"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
-                android:text="Tes Admin"
+                android:text="Masuk"
                 android:textColor="@color/hitam"
                 android:textSize="14dp" />
 

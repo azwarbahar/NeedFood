@@ -16,12 +16,47 @@
         android:text="Alat"
         android:layout_height="wrap_content"/>
 
+
+    <LinearLayout
+        android:id="@+id/ll_kosong"
+        android:layout_below="@id/tv1"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:src="@drawable/kosong"
+            android:layout_width="150dp"
+            android:layout_height="150dp"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/grey2"
+            android:textSize="20dp"
+            android:text="Kosong.."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_alat_dapur"
-        tools:listitem="@layout/item_sisa_stok"
+        tools:listitem="@layout/item_kategori_stok"
         android:layout_marginTop="16dp"
         android:layout_below="@id/tv1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/colorPrimary" />
+
 
 </RelativeLayout>

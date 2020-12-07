@@ -16,6 +16,33 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
+
+    <LinearLayout
+        android:id="@+id/ll_kosong"
+        android:layout_below="@id/tv1"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:src="@drawable/kosong"
+            android:layout_width="150dp"
+            android:layout_height="150dp"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/grey2"
+            android:textSize="20dp"
+            android:text="Kosong.."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_kategori_stok"
         android:layout_width="match_parent"

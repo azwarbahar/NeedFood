@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,13 +31,22 @@ public class HomeFragment extends Fragment {
     private CardView cv_inventory;
     private CardView cv_keuangan;
 
+    private TextView tv_nama;
+
     private RelativeLayout cv_pesan_terbaru;
+
+    private String id;
+    private String role;
+    private String nama;
+    private String username;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_home, container, false);
+        tv_nama = v.findViewById(R.id.tv_nama);
 
+        loadBundle();
         // aksi tombol pesan langsung
         cv_pesan_terbaru = v.findViewById(R.id.cv_pesan_terbaru);
         cv_pesan_terbaru.setOnClickListener(new View.OnClickListener() {
@@ -115,5 +125,17 @@ public class HomeFragment extends Fragment {
         });
 
         return v;
+    }
+
+    private void loadBundle() {
+        Bundle bundle = this.getArguments();
+        assert bundle != null;
+        if (!bundle.isEmpty()) {
+            id = bundle.getString("GET_ID");
+            nama = bundle.getString("GET_NAME");
+            username = bundle.getString("GET_USERNAME");
+
+            tv_nama.setText(nama);
+        }
     }
 }

@@ -4,6 +4,7 @@ package com.technest.needfood.models.bahan;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
@@ -31,6 +32,10 @@ public class Bahan implements Parcelable {
     private String mSatuan;
     @SerializedName("updated_at")
     private String mUpdatedAt;
+
+    public Bahan(){
+
+    }
 
     protected Bahan(Parcel in) {
         mCreatedAt = in.readString();

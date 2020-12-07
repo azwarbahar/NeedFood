@@ -83,6 +83,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:indeterminateTint="@color/colorPrimary" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_stok"
             app:cardElevation="8dp"
@@ -152,13 +161,40 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"/>
 
+        <LinearLayout
+            android:id="@+id/ll_kosong"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/view1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:src="@drawable/kosong"
+                android:layout_width="120dp"
+                android:layout_height="120dp"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/grey2"
+                android:textSize="20dp"
+                android:text="Kosong.."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_riwayat_item_stok"
             android:layout_width="match_parent"
             tools:listitem="@layout/item_riwayat_stok"
             android:layout_below="@id/view1"
             android:layout_height="match_parent"/>
-
 
     </RelativeLayout>
 
