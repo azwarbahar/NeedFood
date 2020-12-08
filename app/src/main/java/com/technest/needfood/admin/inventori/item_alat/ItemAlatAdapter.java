@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.technest.needfood.R;
+import com.technest.needfood.admin.inventori.item_alat.detail.DetailItemAlatActivity;
 import com.technest.needfood.admin.stok.item_stok.ItemStokActivity;
 import com.technest.needfood.admin.stok.item_stok.adapter.ItemStokBahanAdapter;
 import com.technest.needfood.admin.stok.item_stok.detail.DetailItemStokActivity;
@@ -46,7 +47,7 @@ public class ItemAlatAdapter extends RecyclerView.Adapter<ItemAlatAdapter.MyHold
     public void onBindViewHolder(@NonNull ItemAlatAdapter.MyHolderView holder, int position) {
 
         holder.tv_title_item_stok.setText(alatArrayList.get(position).getNama());
-        holder.tv_kuantitas_item_stok.setText(String.valueOf(alatArrayList.get(position).getSisaAlat()));
+        holder.tv_kuantitas_item_stok.setText(String.valueOf(alatArrayList.get(position).getSisa_alat()));
         holder.tv_satuan.setText("Pcs");
         Glide.with(context)
                 .load(Constanta.url_foto_alat+alatArrayList.get(position).getFoto())
@@ -54,16 +55,16 @@ public class ItemAlatAdapter extends RecyclerView.Adapter<ItemAlatAdapter.MyHold
                 .error(R.drawable.ic_broken_image)
                 .into(holder.img_item_stok);
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent intent = new Intent(context, DetailItemStokActivity.class);
-//                intent.putExtra(ItemStokActivity.EXTRA_DATA, itemStokBahanModels.get(position));
-//                mContext.startActivity(intent);
-//
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(context, DetailItemAlatActivity.class);
+                intent.putExtra(ItemStokActivity.EXTRA_DATA, alatArrayList.get(position));
+                context.startActivity(intent);
+
+            }
+        });
 
     }
 

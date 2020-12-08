@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.inventori.item_alat.ItemAlatActivity"></activity>
+        <activity android:name=".admin.inventori.item_alat.detail.DetailItemAlatActivity"></activity>
+        <activity android:name=".admin.inventori.item_alat.ItemAlatActivity" />
         <activity android:name=".dapur.pesanan.DetailPesananDapurActivity" />
         <activity android:name=".driver.taking.DetailItemTakingActivity" />
         <activity android:name=".driver.taking.TakingDriverActivity" />

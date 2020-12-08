@@ -1,5 +1,6 @@
 package com.technest.needfood.network;
 
+import com.technest.needfood.models.alat.ResponseAlat;
 import com.technest.needfood.models.alat.ResponseAllAlat;
 import com.technest.needfood.models.bahan.ResponseAllBahan;
 import com.technest.needfood.models.bahan.ResponseBahan;
@@ -40,6 +41,10 @@ public interface ApiInterface {
     @GET("inventori/getalat/kategori/{id}")
     Call<ResponseAllAlat> getAllAlat(@Header("Authorization") String authToken ,
                                      @Path("id") String id);
+
+    @GET("inventori/getalat/{id}")
+    Call<ResponseAlat> getAlat(@Header("Authorization") String authToken ,
+                               @Path("id") String id);
     
 
     // LOGIN

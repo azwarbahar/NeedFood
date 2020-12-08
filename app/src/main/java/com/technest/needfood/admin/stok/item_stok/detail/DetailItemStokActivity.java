@@ -149,8 +149,8 @@ public class DetailItemStokActivity extends AppCompatActivity {
         responseBahanCall.enqueue(new Callback<ResponseBahan>() {
             @Override
             public void onResponse(Call<ResponseBahan> call, Response<ResponseBahan> response) {
+                progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
-                    progressBar.setVisibility(View.GONE);
                     if (response.body().getSuccess()) {
                         ll_kosong.setVisibility(View.GONE);
                         bahans = response.body().getResult();
