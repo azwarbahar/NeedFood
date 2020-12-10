@@ -40,13 +40,11 @@ public class InventoriFragment extends Fragment {
 
     View v;
 
-
     private RecyclerView rv_alat_dapur;
-
-    private LinearLayout ll_kosong;
     public static final String jenis_kategori_bahan = "alat";
     private ArrayList<Kategori> kategoris;
     private ProgressBar progressBar;
+    private LinearLayout ll_kosong;
 
     @Nullable
     @Override

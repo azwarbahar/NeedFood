@@ -55,6 +55,8 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
     //    private ResideMenuItem itemSetting;
     private ResideMenuItem itemLogout;
 
+    private SharedPreferences mPreferences;
+
     private String id;
     private String role;
     private String nama;
@@ -68,9 +70,9 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
         mContext = this;
-        SharedPreferences userDetails = getApplicationContext().getSharedPreferences(my_shared_preferences, MODE_PRIVATE);
-        id = userDetails.getString("ID", "");
-        role = userDetails.getString("ROLE", "");
+        mPreferences = getApplicationContext().getSharedPreferences(my_shared_preferences, MODE_PRIVATE);
+        id = mPreferences.getString("ID", "");
+        role = mPreferences.getString("ROLE", "");
         ConnectionDetector connectionDetector = new ConnectionDetector(
                 mContext.getApplicationContext());
 
@@ -152,24 +154,18 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
         itemPesanan = new ResideMenuItem(this, R.drawable.ic_icon_pesanan_putih, "Pesanan");
         itemStokBahan = new ResideMenuItem(this, R.drawable.ic_icon_stok_putih, "Stok");
         itemInventori = new ResideMenuItem(this, R.drawable.ic_icon_inventori_putih, "Inventori");
-//        itemKeuangan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Dompet");
-//        itemSetting = new ResideMenuItem(this, R.drawable.ic_android_putih, "Setting");
         itemLogout = new ResideMenuItem(this, R.drawable.ic_icon_logout_putih, "Logout");
 
         itemHome.setOnClickListener(this);
         itemPesanan.setOnClickListener(this);
         itemStokBahan.setOnClickListener(this);
         itemInventori.setOnClickListener(this);
-//        itemKeuangan.setOnClickListener(this);
-//        itemSetting.setOnClickListener(this);
         itemLogout.setOnClickListener(this);
 
         resideMenu.addMenuItem(itemHome, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemPesanan, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemStokBahan, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemInventori, ResideMenu.DIRECTION_LEFT);
-//        resideMenu.addMenuItem(itemKeuangan, ResideMenu.DIRECTION_LEFT);
-//        resideMenu.addMenuItem(itemSetting, ResideMenu.DIRECTION_RIGHT);
         resideMenu.addMenuItem(itemLogout, ResideMenu.DIRECTION_RIGHT);
 
         findViewById(R.id.title_bar_left_menu).setOnClickListener(new View.OnClickListener() {
@@ -238,6 +234,10 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
         } else if (view == itemLogout) {
             Intent intent = new Intent(DashboardAdminActivity.this, LoginActivity.class);
             startActivity(intent);
+            SharedPreferences mPreferences1 = getSharedPreferences(my_shared_preferences, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = mPreferences1.edit();
+            editor.apply();
+            editor.clear();
             finish();
         }
 

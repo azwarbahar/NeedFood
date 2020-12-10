@@ -818,7 +818,7 @@
             </androidx.cardview.widget.CardView>
 
             <RelativeLayout
-                android:id="@+id/rl_btn_sampai"
+                android:id="@+id/rl_btn_bukti"
                 android:layout_width="140dp"
                 android:layout_height="40dp"
                 android:layout_marginVertical="8dp"
@@ -843,35 +843,35 @@
             </RelativeLayout>
 
             <ImageView
-                android:id="@+id/img_list_alat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_alat"
-                app:layout_constraintBottom_toBottomOf="@+id/rl_btn_sampai"
-                app:layout_constraintEnd_toStartOf="@+id/img_photo"
-                app:layout_constraintStart_toEndOf="@+id/rl_btn_sampai"
-                app:layout_constraintTop_toTopOf="@+id/rl_btn_sampai" />
-
-            <ImageView
-                android:id="@+id/img_photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_kamera"
-                app:layout_constraintBottom_toBottomOf="@+id/img_list_alat"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rl_btn_sampai"
-                app:layout_constraintTop_toTopOf="@+id/img_list_alat" />
-
-
-            <ImageView
                 android:id="@+id/img_call"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_telpon_grey"
-                app:layout_constraintBottom_toBottomOf="@+id/img_list_alat"
+                android:src="@drawable/ic_icon_alat"
+                app:layout_constraintBottom_toBottomOf="@+id/rl_btn_bukti"
+                app:layout_constraintEnd_toStartOf="@+id/img_refuse"
+                app:layout_constraintStart_toEndOf="@+id/rl_btn_bukti"
+                app:layout_constraintTop_toTopOf="@+id/rl_btn_bukti" />
+
+            <ImageView
+                android:id="@+id/img_refuse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_icon_kamera"
+                app:layout_constraintBottom_toBottomOf="@+id/img_call"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_photo"
-                app:layout_constraintTop_toTopOf="@+id/img_list_alat" />
+                app:layout_constraintStart_toEndOf="@+id/rl_btn_bukti"
+                app:layout_constraintTop_toTopOf="@+id/img_call" />
+
+
+            <ImageView
+                android:id="@+id/img_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_icon_telpon_grey"
+                app:layout_constraintBottom_toBottomOf="@+id/img_call"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_refuse"
+                app:layout_constraintTop_toTopOf="@+id/img_call" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

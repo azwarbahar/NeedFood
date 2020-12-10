@@ -1,8 +1,11 @@
 package com.technest.needfood.models.pesanan;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Additional {
+public class Additional implements Parcelable {
 
     @SerializedName("pemesanan_id")
     private String pemesanan_id;
@@ -24,6 +27,28 @@ public class Additional {
 
     @SerializedName("total_harga")
     private String total_harga;
+
+    protected Additional(Parcel in) {
+        pemesanan_id = in.readString();
+        additional_id = in.readString();
+        nama_daging = in.readString();
+        harga = in.readString();
+        berat = in.readString();
+        jumlah = in.readString();
+        total_harga = in.readString();
+    }
+
+    public static final Creator<Additional> CREATOR = new Creator<Additional>() {
+        @Override
+        public Additional createFromParcel(Parcel in) {
+            return new Additional(in);
+        }
+
+        @Override
+        public Additional[] newArray(int size) {
+            return new Additional[size];
+        }
+    };
 
     public String getPemesanan_id() {
         return pemesanan_id;
@@ -79,5 +104,21 @@ public class Additional {
 
     public void setTotal_harga(String total_harga) {
         this.total_harga = total_harga;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(pemesanan_id);
+        dest.writeString(additional_id);
+        dest.writeString(nama_daging);
+        dest.writeString(harga);
+        dest.writeString(berat);
+        dest.writeString(jumlah);
+        dest.writeString(total_harga);
     }
 }

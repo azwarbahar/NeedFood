@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +18,6 @@ import com.technest.needfood.R;
 import com.technest.needfood.admin.dompet.DompetFragment;
 import com.technest.needfood.admin.inventori.InventoriFragment;
 import com.technest.needfood.admin.pesanan.PesananFragment;
-import com.technest.needfood.admin.pesanan.item.ItemPesananActivity;
 import com.technest.needfood.admin.stok.StokFragment;
 
 public class HomeFragment extends Fragment {
@@ -33,7 +31,7 @@ public class HomeFragment extends Fragment {
 
     private TextView tv_nama;
 
-    private RelativeLayout cv_pesan_terbaru;
+    private CardView cv_notif_home;
 
     private String id;
     private String role;
@@ -48,12 +46,12 @@ public class HomeFragment extends Fragment {
 
         loadBundle();
         // aksi tombol pesan langsung
-        cv_pesan_terbaru = v.findViewById(R.id.cv_pesan_terbaru);
-        cv_pesan_terbaru.setOnClickListener(new View.OnClickListener() {
+        cv_notif_home = v.findViewById(R.id.cv_notif_home);
+        cv_notif_home.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ItemPesananActivity.class);
+                Intent intent = new Intent(getActivity(), PesananTerbaruActivity.class);
                 intent.putExtra("extra_data", "Pesanan Terbaru");
                 startActivity(intent);
             }

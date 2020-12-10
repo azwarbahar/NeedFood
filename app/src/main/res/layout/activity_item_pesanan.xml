@@ -40,6 +40,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/rv1"
-        tools:listitem="@layout/item_pengantaran_driver" />
+        tools:listitem="@layout/item_pesanan_baru" />
 
 </RelativeLayout>

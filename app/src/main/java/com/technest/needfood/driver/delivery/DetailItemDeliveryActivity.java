@@ -39,7 +39,7 @@ public class DetailItemDeliveryActivity extends AppCompatActivity {
         container_kamera.setVisibility(View.GONE);
         container_list_alat.setVisibility(View.GONE);
 
-        rl_btn_sampai = findViewById(R.id.rl_btn_sampai);
+        rl_btn_sampai = findViewById(R.id.rl_btn_bukti);
         rl_btn_sampai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +63,7 @@ public class DetailItemDeliveryActivity extends AppCompatActivity {
             }
         });
 
-        img_call = findViewById(R.id.img_call);
+        img_call = findViewById(R.id.img_accept);
         img_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +75,7 @@ public class DetailItemDeliveryActivity extends AppCompatActivity {
             }
         });
 
-        img_list_alat = findViewById(R.id.img_list_alat);
+        img_list_alat = findViewById(R.id.img_call);
         img_list_alat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +88,7 @@ public class DetailItemDeliveryActivity extends AppCompatActivity {
             }
         });
 
-        img_photo = findViewById(R.id.img_photo);
+        img_photo = findViewById(R.id.img_refuse);
         img_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

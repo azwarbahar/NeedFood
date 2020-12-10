@@ -97,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
         btn_masuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String user = tie_username.getText().toString();
                 String pass = tie_password.getText().toString();
 
@@ -112,7 +111,6 @@ public class LoginActivity extends AppCompatActivity {
                     pd.hide();
                     actionNotConnection();
                 }
-
 
             }
         });
@@ -212,9 +210,9 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void actionNotConnection(){
+    private void actionNotConnection() {
         Snackbar.make(findViewById(android.R.id.content), "Koneksi Tidak Ada!", Snackbar.LENGTH_INDEFINITE)
-                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
+                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
                 .setAction("Close", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -242,8 +240,16 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("ROLE", role);
                         editor.apply();
 
-                        if (role.equals("admin")) {
-                            masukAdmin();
+                        switch (role) {
+                            case "admin":
+                                masukAdmin();
+                                break;
+                            case "kitchen":
+                                masukDapur();
+                                break;
+                            case "driver":
+                                masukDriver();
+                                break;
                         }
 
                     } else {
@@ -262,6 +268,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void masukAdmin() {
+        pd.hide();
         Intent intent = new Intent(LoginActivity.this, DashboardAdminActivity.class);
         startActivity(intent);
         finish();

@@ -33,7 +33,7 @@ public class TakingDriverActivity extends AppCompatActivity {
         });
 
 
-        img_call = findViewById(R.id.img_call);
+        img_call = findViewById(R.id.img_accept);
         img_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

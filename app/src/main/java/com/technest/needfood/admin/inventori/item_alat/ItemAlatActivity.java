@@ -60,7 +60,6 @@ public class ItemAlatActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         ll_kosong = findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
-        progressBar.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         rv_item_alat = findViewById(R.id.rv_item_alat);
 
