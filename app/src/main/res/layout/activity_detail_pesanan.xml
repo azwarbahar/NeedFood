@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,12 +12,11 @@
     sothree:umanoOverlay="true"
     sothree:umanoPanelHeight="0dp"
     sothree:umanoShadowHeight="0dp"
-    tools:context=".admin.pesanan.detail.DetailPesananBaruActivity">
+    tools:context=".admin.pesanan.detail.DetailPesananActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <ScrollView
             android:layout_width="match_parent"
@@ -239,7 +237,7 @@
                                     android:id="@+id/map"
                                     android:name="com.google.android.gms.maps.SupportMapFragment"
                                     android:layout_width="match_parent"
-                                    android:layout_height="164dp"/>
+                                    android:layout_height="164dp" />
 
                             </RelativeLayout>
 
@@ -399,13 +397,13 @@
 
                             <TextView
                                 android:id="@+id/tv_kosong_paket"
-                                android:layout_marginVertical="8dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:textStyle="italic"
+                                android:layout_marginVertical="8dp"
                                 android:text="- Kosong -"
                                 android:textColor="@color/grey2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:textStyle="italic" />
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rv_paket"
@@ -447,13 +445,13 @@
 
                             <TextView
                                 android:id="@+id/tv_kosong_additional"
-                                android:layout_marginVertical="8dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:textStyle="italic"
+                                android:layout_marginVertical="8dp"
                                 android:text="- Kosong -"
                                 android:textColor="@color/grey2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:textStyle="italic" />
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rv_additional"
@@ -494,6 +492,7 @@
                     android:id="@+id/cv_close_detail_pesanan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     app:cardCornerRadius="8dp"
@@ -519,60 +518,128 @@
                 </androidx.cardview.widget.CardView>
 
                 <RelativeLayout
-                    android:id="@+id/rl_btn_bukti"
-                    android:layout_width="140dp"
-                    android:layout_height="40dp"
-                    android:layout_marginVertical="8dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/bg_gradient_radius_orange"
+                    android:id="@+id/rl_alat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginVertical="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/cv_close_detail_pesanan"
                     app:layout_constraintTop_toTopOf="parent">
 
+                    <ImageView
+                        android:id="@+id/icon_alat"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_icon_alat_merah" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="Transaksi"
-                        android:textColor="@color/putih"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:layout_below="@id/icon_alat"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:text="Alat"
+                        android:textColor="@color/color1"
+                        android:textSize="10sp" />
 
                 </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/img_call"
+                <RelativeLayout
+                    android:id="@+id/rl_bahan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_icon_telpon_grey"
-                    app:layout_constraintBottom_toBottomOf="@+id/rl_btn_bukti"
-                    app:layout_constraintEnd_toStartOf="@+id/img_refuse"
-                    app:layout_constraintStart_toEndOf="@+id/rl_btn_bukti"
-                    app:layout_constraintTop_toTopOf="@+id/rl_btn_bukti" />
+                    android:layout_marginVertical="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/rl_driver"
+                    app:layout_constraintHorizontal_bias="0.27"
+                    app:layout_constraintStart_toEndOf="@+id/rl_alat"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/img_refuse"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:src="@drawable/ic_icon_refuse"
-                    app:layout_constraintBottom_toBottomOf="@+id/img_call"
+                    <ImageView
+                        android:id="@+id/icon_bahan"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_icon_bahan_merah" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/icon_bahan"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:text="Bahan"
+                        android:textColor="@color/color1"
+                        android:textSize="10sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_transaksi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/rl_driver"
+                    app:layout_constraintHorizontal_bias="0.73"
+                    app:layout_constraintStart_toEndOf="@+id/rl_alat"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/icon_transaksi"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_icon_rp_merah" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/icon_transaksi"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:text="Transaksi"
+                        android:textColor="@color/color1"
+                        android:textSize="9sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_driver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginVertical="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/rl_btn_bukti"
-                    app:layout_constraintTop_toTopOf="@+id/img_call" />
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/rl_alat"
+                    app:layout_constraintTop_toTopOf="parent">
 
+                    <ImageView
+                        android:id="@+id/icon_driver"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_icon_truk_merah" />
 
-                <ImageView
-                    android:id="@+id/img_accept"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:src="@drawable/ic_icon_accept"
-                    app:layout_constraintBottom_toBottomOf="@+id/img_call"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/img_refuse"
-                    app:layout_constraintTop_toTopOf="@+id/img_call" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/icon_driver"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp"
+                        android:text="Driver"
+                        android:textColor="@color/color1"
+                        android:textSize="10sp" />
+
+                </RelativeLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -846,32 +913,31 @@
                     android:id="@+id/img_bukti_pembayaran"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@id/img_chevron2"
-                    android:layout_centerVertical="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/contoh_gambar" />
 
                 <ImageView
                     android:id="@+id/img_chevron2"
-                    android:src="@drawable/ic_chevron_right_grey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:src="@drawable/ic_chevron_right_grey" />
 
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
 
-
         <RelativeLayout
             android:id="@+id/containerImageZoom"
-            android:layout_centerInParent="true"
-            android:background="@color/hitam"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@color/hitam">
 
             <ImageView
                 android:id="@+id/img_close"
@@ -883,16 +949,15 @@
                 app:tint="@color/putih" />
 
             <com.github.chrisbanes.photoview.PhotoView
-                android:layout_below="@id/img_close"
                 android:id="@+id/img_zoom"
-                android:src="@drawable/contoh_gambar"
-                android:layout_centerInParent="true"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/img_close"
+                android:layout_centerInParent="true"
                 android:scaleType="fitCenter"
-                android:layout_height="match_parent"/>
+                android:src="@drawable/contoh_gambar" />
 
         </RelativeLayout>
-
 
 
     </RelativeLayout>

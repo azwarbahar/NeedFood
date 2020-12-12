@@ -1,319 +1,339 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_fragment"
-    android:orientation="vertical">
+    android:gravity="bottom"
+    sothree:umanoDragView="@+id/rv_sliding_up"
+    sothree:umanoOverlay="true"
+    sothree:umanoPanelHeight="0dp"
+    sothree:umanoShadowHeight="8dp">
 
-    <TextView
-        android:id="@+id/tv1"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_continer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_fragment"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="20dp"
+                            android:text="Pesanan"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_below="@id/tv1"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toLeftOf="@id/cv_filter"
+                            app:cardElevation="8dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginHorizontal="16dp"
+                                    android:layout_marginVertical="5dp"
+                                    android:text="Search.."
+                                    android:textColor="@color/grey2"
+                                    android:textSize="16dp" />
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="10dp"
+                                    android:background="@color/color3">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_centerInParent="true"
+                                        android:layout_margin="5dp"
+                                        android:src="@drawable/ic_baseline_search_white" />
+
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/cv_filter"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_below="@id/tv1"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginTop="15dp"
+                            app:cardElevation="5dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ic_filter_orange" />
+
+                            </RelativeLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/cv_search"
+                            android:layout_marginTop="12dp">
+
+                            <TextView
+                                android:id="@+id/tv_titel_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="5dp"
+                                android:text="All"
+                                android:textSize="18sp" />
+
+
+                            <LinearLayout
+                                android:id="@+id/ll_kosong"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tv_titel_status"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="20dp"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+
+                                <ImageView
+                                    android:layout_width="150dp"
+                                    android:layout_height="150dp"
+                                    android:src="@drawable/kosong" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="Kosong.."
+                                    android:textColor="@color/grey2"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_pesanan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tv_titel_status"
+                                tools:listitem="@layout/item_pesanan" />
+
+                        </RelativeLayout>
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/cv_search"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="30dp"
+                            android:indeterminateTint="@color/colorPrimary" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rv_sliding_up"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
-        android:text="Pesanan"
-        android:textSize="22sp"
-        android:textStyle="bold" />
+        android:background="@color/putih">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_pesanan_pending"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_below="@id/tv1"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp">
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_filter_orange" />
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tv_title_sliding"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/img1"
+            android:layout_alignBottom="@id/img1"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/img1"
+            android:text="Filter Satus Pesanan"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dp" />
+
+        <ImageView
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_close_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/tv_all"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_btn_pesanan_pending">
-
-            <ImageView
-                android:id="@+id/img_sementara"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:background="@drawable/img_progres"
-                android:paddingVertical="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="12dp"
-                android:layout_toRightOf="@id/img_sementara"
-                android:text="Pesanan Pending"
-                android:textColor="@color/putih"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/img_chevron"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/ic_chevron_right" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@id/img_chevron"
-                android:text="16"
-                android:textColor="@color/putih"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title_sliding"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:paddingVertical="8dp"
+            android:text="All"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
 
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_pesanan_lunsa"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_below="@id/cv_pesanan_pending"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp">
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tv_new"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_btn_pesanan_lunas">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_all"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingVertical="8dp"
+            android:text="New"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/img_sementara2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:background="@drawable/img_progres"
-                android:paddingVertical="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="12dp"
-                android:layout_toRightOf="@id/img_sementara2"
-                android:text="Pesanan Lunas"
-                android:textColor="@color/putih"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/img_chevron2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/ic_chevron_right" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@id/img_chevron2"
-                android:text="12"
-                android:textColor="@color/putih"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_pesanan_dapur"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_below="@id/cv_pesanan_lunsa"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp">
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tv_accept"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_btn_pesanan_dapur">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_new"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingVertical="8dp"
+            android:text="Accept"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/img_sementara3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:background="@drawable/img_progres"
-                android:paddingVertical="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="12dp"
-                android:layout_toRightOf="@id/img_sementara3"
-                android:text="Proses Dapur"
-                android:textColor="@color/putih"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/img_chevron3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/ic_chevron_right" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@id/img_chevron3"
-                android:text="19"
-                android:textColor="@color/putih"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_pesanan_delivery"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_below="@id/cv_pesanan_dapur"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp">
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tv_proccess"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_btn_pesanan_delivery">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_accept"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingVertical="8dp"
+            android:text="Proccess"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/img_sementara4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:background="@drawable/img_progres"
-                android:paddingVertical="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="12dp"
-                android:layout_toRightOf="@id/img_sementara4"
-                android:text="Pesanan Delivery"
-                android:textColor="@color/putih"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/img_chevron4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/ic_chevron_right" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@id/img_chevron4"
-                android:text="5"
-                android:textColor="@color/putih"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_pesanan_sampai"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_below="@id/cv_pesanan_delivery"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp">
-
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tv_delivery"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_btn_pesanan_sampai">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_proccess"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingVertical="8dp"
+            android:text="Delivery"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/img_sementara5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="16dp"
-                android:background="@drawable/img_progres"
-                android:paddingVertical="10dp" />
+        <TextView
+            android:id="@+id/tv_arrived"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_delivery"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingVertical="8dp"
+            android:text="Arrived"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="12dp"
-                android:layout_toRightOf="@id/img_sementara5"
-                android:text="Pesanan Sampai"
-                android:textColor="@color/putih"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_taking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_arrived"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingVertical="8dp"
+            android:text="Taking"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/img_chevron5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="16dp"
-                android:src="@drawable/ic_chevron_right" />
+        <TextView
+            android:id="@+id/tv_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_taking"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingVertical="8dp"
+            android:text="Done"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@id/img_chevron5"
-                android:text="8"
-                android:textColor="@color/putih"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_refuse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_done"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingVertical="8dp"
+            android:text="Refuse"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
 
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</RelativeLayout>
+    </RelativeLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

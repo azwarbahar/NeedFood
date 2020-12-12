@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">NeedFood</string>
     <string name="login">Login</string>
+    <string name="hintSearchMess">Cari..</string>
 
     <string-array name="image_kategori_stok">
         <item>@drawable/image_daging</item>

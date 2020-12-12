@@ -85,7 +85,7 @@ public class PesananTerbaruAdapter extends RecyclerView.Adapter<PesananTerbaruAd
                                 ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
                                 Call<ResponsePesanan> responsePesananCall = apiInterface.updateSatusPesanan(
                                         "Bearer " + BuildConfig.TOKEN,
-                                        String.valueOf(pesananArrayList.get(position).getId()), "Acc");
+                                        String.valueOf(pesananArrayList.get(position).getId()), "Accept");
                                 responsePesananCall.enqueue(new Callback<ResponsePesanan>() {
                                     @Override
                                     public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {

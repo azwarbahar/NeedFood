@@ -19,9 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <com.vatsal.imagezoomer.ImageZoomButton
                 android:id="@+id/img_item_stok"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/image_daging"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

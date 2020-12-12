@@ -23,6 +23,9 @@ public interface ApiInterface {
 
     // PESANAN
     @GET("datapesanan")
+    Call<ResponsePesanan> getPesanan(@Header("Authorization") String authToken);
+
+    @GET("datapesanan")
     Call<ResponsePesanan> getPesananSatus(@Header("Authorization") String authToken,
                                           @Query("status") String status);
 

@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.pesanan.detail.DetailPesananBaruActivity"></activity>
+        <activity android:name=".admin.pesanan.detail.DetailPesananActivity"></activity>
+        <activity android:name=".admin.pesanan.SearchPesananActivity" />
+        <activity android:name=".admin.pesanan.detail.DetailPesananBaruActivity" />
         <activity android:name=".admin.home.PesananTerbaruActivity" />
         <activity android:name=".admin.inventori.item_alat.detail.DetailItemAlatActivity" />
         <activity android:name=".admin.inventori.item_alat.ItemAlatActivity" />

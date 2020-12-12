@@ -41,11 +41,6 @@ public class DetailItemAlatActivity extends AppCompatActivity {
     private TextView tv_satuan1;
     private TextView tv_kuantitas_alat;
     private TextView tv_kuantitas_alat_keluar;
-    // image zoom
-    private TextView lihat_gambar;
-    private RelativeLayout containerImageZoom;
-    private ImageView img_zoom;
-    private ImageView img_close;
     private String satuan;
     private LinearLayout ll_kosong;
     private ProgressBar progressBar;
@@ -65,23 +60,6 @@ public class DetailItemAlatActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         ll_kosong = findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
-        img_zoom = findViewById(R.id.img_zoom);
-        img_close = findViewById(R.id.img_close);
-        containerImageZoom = findViewById(R.id.containerImageZoom);
-        containerImageZoom.setVisibility(View.GONE);
-        lihat_gambar = findViewById(R.id.lihat_gambar);
-        lihat_gambar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                containerImageZoom.setVisibility(View.VISIBLE);
-            }
-        });
-        img_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                containerImageZoom.setVisibility(View.GONE);
-            }
-        });
 
         rv_riwayat_item_alat = findViewById(R.id.rv_riwayat_item_alat);
         tv_kuantitas_alat = findViewById(R.id.tv_kuantitas_alat);
@@ -100,12 +78,6 @@ public class DetailItemAlatActivity extends AppCompatActivity {
                 .placeholder(R.drawable.loading_animation)
                 .error(R.drawable.ic_broken_image)
                 .into(item_alat_toolbar_image);
-
-        Glide.with(this)
-                .load(Constanta.url_foto_alat + alat.getFoto())
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image)
-                .into(img_zoom);
         item_alat_toolbar.setTitle(alat.getNama());
         tv_kuantitas_alat.setText(String.valueOf(alat.getSisa_alat()));
         tv_kuantitas_alat_keluar.setText(String.valueOf(alat.getAlatKeluar()));

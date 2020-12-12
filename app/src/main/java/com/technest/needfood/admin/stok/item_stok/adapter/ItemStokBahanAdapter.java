@@ -1,10 +1,12 @@
 package com.technest.needfood.admin.stok.item_stok.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.technest.needfood.admin.stok.item_stok.detail.DetailItemStokActivity;
 import com.technest.needfood.admin.stok.item_stok.model.ItemStokBahanModel;
 import com.technest.needfood.models.bahan.Bahan;
 import com.technest.needfood.utils.Constanta;
+import com.vatsal.imagezoomer.ZoomAnimation;
 
 import java.util.ArrayList;
 
@@ -54,6 +57,15 @@ public class ItemStokBahanAdapter extends RecyclerView.Adapter<ItemStokBahanAdap
                 .error(R.drawable.ic_broken_image)
                 .into(holder.img_item_stok);
 
+
+//        holder.img_item_stok.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ZoomAnimation zoomAnimation = new ZoomAnimation((Activity) mContext);
+//                zoomAnimation.zoom(v, 1000);
+//            }
+//        });
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +90,7 @@ public class ItemStokBahanAdapter extends RecyclerView.Adapter<ItemStokBahanAdap
         private TextView tv_satuan;
         private TextView tv_title_item_stok;
         private TextView tv_kuantitas_item_stok;
-        private ImageView img_item_stok;
+        private ImageButton img_item_stok;
 
         public MyHolderView(@NonNull View itemView) {
             super(itemView);

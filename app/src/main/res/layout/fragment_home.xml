@@ -56,13 +56,13 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:background="@drawable/ic_icon_new_pesanan"
-                android:paddingVertical="10dp" />
+                />
 
             <TextView
                 android:id="@+id/tv_title_notif_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@id/img_notif_home"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="12dp"
                 android:layout_toRightOf="@id/img_notif_home"
                 android:text="Pesanan Terbaru"
@@ -76,7 +76,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="3dp"
                 android:layout_toRightOf="@id/img_notif_home"
-                android:text="Pintasan lihat pesanan terbaru!"
+                android:text="Pintasan pesanan terbaru!"
                 android:textSize="10sp" />
 
             <RelativeLayout

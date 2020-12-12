@@ -1,25 +1,23 @@
 package com.technest.needfood.admin.pesanan.detail;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,17 +29,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
 import com.technest.needfood.admin.pesanan.detail.adapter.AdapterAdditional;
 import com.technest.needfood.admin.pesanan.detail.adapter.AdapterPaket;
 import com.technest.needfood.models.pesanan.Additional;
 import com.technest.needfood.models.pesanan.Paket;
 import com.technest.needfood.models.pesanan.Pesanan;
-import com.technest.needfood.models.pesanan.ResponsePesanan;
 import com.technest.needfood.models.pesanan.Transaksi;
-import com.technest.needfood.network.ApiClient;
-import com.technest.needfood.network.ApiInterface;
 import com.technest.needfood.network.ConnectionDetector;
 
 import java.text.ParseException;
@@ -50,22 +44,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class DetailPesananBaruActivity extends AppCompatActivity implements OnMapReadyCallback {
-
+public class DetailPesananActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap map;
     public static final String EXTRA_DATA = "extra_data";
     private RelativeLayout continer_map;
     private RelativeLayout rl_btn_bukti;
     private ImageView img_chevron;
-    private ImageView img_refuse;
-    private ImageView img_accept;
-    private ImageView img_call;
     private CardView cv_transaksi;
     private CardView cv_transaksi2;
     private CardView cv_close_panel;
@@ -92,6 +77,10 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
 
     private SlidingUpPanelLayout sliding_layout;
     private RelativeLayout containerImageZoom;
+    private RelativeLayout rl_transaksi;
+    private RelativeLayout rl_alat;
+    private RelativeLayout rl_bahan;
+    private RelativeLayout rl_driver;
 
     private RecyclerView rv_paket;
     private RecyclerView rv_additional;
@@ -99,12 +88,13 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
     private TextView tv_kosong_paket;
     private TextView tv_kosong_additional;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_pesanan_baru);
+        setContentView(R.layout.activity_detail_pesanan);
 
-        Context context = DetailPesananBaruActivity.this;
+        Context context = DetailPesananActivity.this;
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
 
@@ -119,7 +109,6 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
             }
         });
 
-
         containerImageZoom = findViewById(R.id.containerImageZoom);
         containerImageZoom.setVisibility(View.GONE);
 
@@ -128,10 +117,6 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         tv_kosong_additional.setVisibility(View.GONE);
         tv_kosong_paket.setVisibility(View.GONE);
 
-
-        img_call = findViewById(R.id.img_call);
-        img_accept = findViewById(R.id.img_accept);
-        img_refuse = findViewById(R.id.img_refuse);
         rv_additional = findViewById(R.id.rv_additional);
         rv_paket = findViewById(R.id.rv_paket);
         cv_close_panel = findViewById(R.id.cv_close_panel);
@@ -146,11 +131,34 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         tv_tanggal_antar = findViewById(R.id.tv_tanggal_antar);
         tv_waktu = findViewById(R.id.tv_waktu);
         tv_catatatn = findViewById(R.id.tv_catatatn);
+        rl_alat = findViewById(R.id.rl_alat);
+        rl_alat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Klik Alat", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        rl_btn_bukti.setOnClickListener(new View.OnClickListener() {
+        rl_bahan = findViewById(R.id.rl_bahan);
+        rl_bahan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Klik Bahan", Toast.LENGTH_SHORT).show();
+            }
+        });
+        rl_transaksi = findViewById(R.id.rl_transaksi);
+        rl_transaksi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPanel();
+            }
+        });
+
+        rl_driver = findViewById(R.id.rl_driver);
+        rl_driver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Klik Driver", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -211,190 +219,8 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
 //        setMapLokasi(Long.valueOf(pesanan.getLatitude()), Long.valueOf(pesanan.getLogitude()), pesanan.getDeskripsi_lokasi());
 //        setMapLokasi(pesanan.getDeskripsi_lokasi());
 
-        img_call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Telpon")
-                        .setContentText("Ingin Menelpon Pelanggan ?")
-                        .setConfirmText("Ya")
-                        .setCancelText("Batal")
-                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                sweetAlertDialog.dismissWithAnimation();
-                            }
-                        })
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                sweetAlertDialog.dismissWithAnimation();
-                                Intent intent = new Intent(Intent.ACTION_DIAL);
-                                intent.setData(Uri.parse("tel:" + pesanan.getNo_telepon()));
-                                startActivity(intent);
-                            }
-                        })
-                        .show();
-            }
-        });
-
-        img_accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogAccept(String.valueOf(pesanan.getId()), "Accept");
-            }
-        });
-
-        img_refuse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogRefuse(String.valueOf(pesanan.getId()), "Refuse");
-            }
-        });
     }
 
-    private void dialogRefuse(String id, String status) {
-
-        SweetAlertDialog pDialog = new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText("Loading");
-        pDialog.setCancelable(true);
-        pDialog.show();
-
-
-        new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Menolak ?")
-                .setContentText("Ingin Menolak Pesanan")
-                .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                        pDialog.dismiss();
-                    }
-                })
-                .setConfirmButton("OK", new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                        pDialog.show();
-                        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                        Call<ResponsePesanan> responsePesananCall = apiInterface.updateSatusPesanan(
-                                "Bearer " + BuildConfig.TOKEN, id, status);
-                        responsePesananCall.enqueue(new Callback<ResponsePesanan>() {
-                            @Override
-                            public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
-                                pDialog.dismiss();
-                                if (response.isSuccessful()) {
-                                    if (response.body().getmSuccess()) {
-                                        new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                .setTitleText("Success..")
-                                                .setContentText("Penolakan Berhasil")
-                                                .setConfirmButton("Ok", new SweetAlertDialog.OnSweetClickListener() {
-                                                    @Override
-                                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                        sweetAlertDialog.dismiss();
-                                                    }
-                                                })
-                                                .show();
-                                    } else {
-                                        new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                                .setTitleText("Mohon Maaf...")
-                                                .setContentText("Terjadi Kesalahan!")
-                                                .show();
-                                    }
-                                } else {
-                                    new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                            .setTitleText("Oops...")
-                                            .setContentText("Permintaan Gagal, Periksa Koneksi Internet!")
-                                            .show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponsePesanan> call, Throwable t) {
-                                pDialog.dismiss();
-                                new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                        .setTitleText("Oops...")
-                                        .setContentText("Permintaan Gagal, Periksa Koneksi Internet!")
-                                        .show();
-                            }
-                        });
-                    }
-                })
-                .show();
-    }
-
-    private void dialogAccept(String id, String status) {
-
-        SweetAlertDialog pDialog = new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText("Loading");
-        pDialog.setCancelable(true);
-        pDialog.show();
-
-        new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Menyetujui ?")
-                .setContentText("Ingin Menyetujui Pesanan")
-                .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                        pDialog.dismiss();
-                    }
-                })
-                .setConfirmButton("OK", new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismiss();
-                        pDialog.show();
-                        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                        Call<ResponsePesanan> responsePesananCall = apiInterface.updateSatusPesanan(
-                                "Bearer " + BuildConfig.TOKEN, id, status);
-                        responsePesananCall.enqueue(new Callback<ResponsePesanan>() {
-                            @Override
-                            public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
-                                pDialog.dismiss();
-                                if (response.isSuccessful()) {
-                                    if (response.body().getmSuccess()) {
-                                        new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                .setTitleText("Success..")
-                                                .setContentText("Penyetujuan Berhasil")
-                                                .setConfirmButton("Ok", new SweetAlertDialog.OnSweetClickListener() {
-                                                    @Override
-                                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                        sweetAlertDialog.dismiss();
-                                                    }
-                                                })
-                                                .show();
-                                    } else {
-                                        new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                                .setTitleText("Mohon Maaf...")
-                                                .setContentText("Terjadi Kesalahan!")
-                                                .show();
-                                    }
-                                } else {
-                                    new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                            .setTitleText("Oops...")
-                                            .setContentText("Permintaan Gagal, Periksa Koneksi Internet!")
-                                            .show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponsePesanan> call, Throwable t) {
-                                pDialog.dismiss();
-                                new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                        .setTitleText("Oops...")
-                                        .setContentText("Permintaan Gagal, Periksa Koneksi Internet!")
-                                        .show();
-                            }
-                        });
-                    }
-                })
-                .show();
-
-    }
 
     private void setMapLokasi(String alamat) {
         LatLng latLngzoom = new LatLng(-5.16961, 119.438505);
@@ -420,8 +246,8 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         if (additional.isEmpty()) {
             tv_kosong_additional.setVisibility(View.VISIBLE);
         } else {
-            AdapterAdditional adapterAdditional = new AdapterAdditional(DetailPesananBaruActivity.this, additional);
-            rv_additional.setLayoutManager(new LinearLayoutManager(DetailPesananBaruActivity.this));
+            AdapterAdditional adapterAdditional = new AdapterAdditional(DetailPesananActivity.this, additional);
+            rv_additional.setLayoutManager(new LinearLayoutManager(DetailPesananActivity.this));
             rv_additional.setAdapter(adapterAdditional);
         }
     }
@@ -430,8 +256,8 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         if (paket.isEmpty()) {
             tv_kosong_paket.setVisibility(View.VISIBLE);
         } else {
-            AdapterPaket adapterPaket = new AdapterPaket(DetailPesananBaruActivity.this, paket);
-            rv_paket.setLayoutManager(new LinearLayoutManager(DetailPesananBaruActivity.this));
+            AdapterPaket adapterPaket = new AdapterPaket(DetailPesananActivity.this, paket);
+            rv_paket.setLayoutManager(new LinearLayoutManager(DetailPesananActivity.this));
             rv_paket.setAdapter(adapterPaket);
         }
 

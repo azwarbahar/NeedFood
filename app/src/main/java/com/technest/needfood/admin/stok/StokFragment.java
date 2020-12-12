@@ -18,10 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
-import com.technest.needfood.intro.LoginActivity;
+import com.technest.needfood.admin.stok.adapter.KategoriStokAdapter;
 import com.technest.needfood.models.kategori.Kategori;
 import com.technest.needfood.models.kategori.ResponKategori;
-import com.technest.needfood.admin.stok.adapter.KategoriStokAdapter;
 import com.technest.needfood.network.ApiClient;
 import com.technest.needfood.network.ApiInterface;
 import com.technest.needfood.network.ConnectionDetector;
@@ -34,8 +33,6 @@ import retrofit2.Response;
 
 public class StokFragment extends Fragment {
 
-    private View v;
-
     public static final String jenis_kategori_bahan = "bahan";
 
     private LinearLayout ll_kosong;
@@ -46,8 +43,7 @@ public class StokFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_stok, container, false);
-
+        View v = inflater.inflate(R.layout.fragment_stok, container, false);
 
         Context context = getActivity();
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
@@ -71,9 +67,9 @@ public class StokFragment extends Fragment {
         return v;
     }
 
-    private void actionNotConnection(){
+    private void actionNotConnection() {
         Snackbar.make(getActivity().findViewById(android.R.id.content), "Koneksi Tidak Ada!", Snackbar.LENGTH_INDEFINITE)
-                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
+                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
                 .setAction("Close", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -85,17 +81,17 @@ public class StokFragment extends Fragment {
 
     private void loadDataKategori() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponKategori> kategoriCall = apiInterface.getKategori("Bearer "+BuildConfig.TOKEN, jenis_kategori_bahan);
+        Call<ResponKategori> kategoriCall = apiInterface.getKategori("Bearer " + BuildConfig.TOKEN, jenis_kategori_bahan);
         kategoriCall.enqueue(new Callback<ResponKategori>() {
             @Override
             public void onResponse(Call<ResponKategori> call, Response<ResponKategori> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     progressBar.setVisibility(View.GONE);
                     assert response.body() != null;
-                    if (response.body().getSuccess()){
+                    if (response.body().getSuccess()) {
                         kategoris = (ArrayList<Kategori>) response.body().getResult();
-                        for (int a = 0 ; a < kategoris.size(); a++){
-                            Log.d("Cek", "Respon : "+kategoris.get(a).getKategori());
+                        for (int a = 0; a < kategoris.size(); a++) {
+                            Log.d("Cek", "Respon : " + kategoris.get(a).getKategori());
                         }
                         KategoriStokAdapter kotaAdapter = new KategoriStokAdapter(getContext(), kategoris);
                         rv_kategori_stok.setLayoutManager(new GridLayoutManager(getActivity(), 2));
@@ -103,7 +99,7 @@ public class StokFragment extends Fragment {
                     } else {
                         ll_kosong.setVisibility(View.VISIBLE);
                     }
-                    Log.d("Respon", "Message = "+response.body().getMessage() );
+                    Log.d("Respon", "Message = " + response.body().getMessage());
                 } else {
                     progressBar.setVisibility(View.GONE);
                     ll_kosong.setVisibility(View.VISIBLE);
@@ -114,7 +110,7 @@ public class StokFragment extends Fragment {
             public void onFailure(Call<ResponKategori> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
-                Log.d("ERROR" ,"Respon : "+t.getMessage() );
+                Log.d("ERROR", "Respon : " + t.getMessage());
             }
         });
     }

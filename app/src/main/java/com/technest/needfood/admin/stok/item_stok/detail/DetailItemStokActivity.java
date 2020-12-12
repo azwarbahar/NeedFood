@@ -44,13 +44,7 @@ public class DetailItemStokActivity extends AppCompatActivity {
     private TextView tv_satuan;
     private TextView tv_kuantitas_stok;
 
-    // image zoom
-    private TextView lihat_gambar;
-    private RelativeLayout containerImageZoom;
-    private ImageView img_zoom;
-    private ImageView img_close;
     private String satuan;
-
     private LinearLayout ll_kosong;
     private ProgressBar progressBar;
 
@@ -70,23 +64,6 @@ public class DetailItemStokActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         ll_kosong = findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
-        img_zoom = findViewById(R.id.img_zoom);
-        img_close = findViewById(R.id.img_close);
-        containerImageZoom = findViewById(R.id.containerImageZoom);
-        containerImageZoom.setVisibility(View.GONE);
-        lihat_gambar = findViewById(R.id.lihat_gambar);
-        lihat_gambar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                containerImageZoom.setVisibility(View.VISIBLE);
-            }
-        });
-        img_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                containerImageZoom.setVisibility(View.GONE);
-            }
-        });
 
         rv_riwayat_item_stok = findViewById(R.id.rv_riwayat_item_stok);
         tv_kuantitas_stok = findViewById(R.id.tv_kuantitas_stok);
@@ -107,12 +84,6 @@ public class DetailItemStokActivity extends AppCompatActivity {
                 .placeholder(R.drawable.loading_animation)
                 .error(R.drawable.ic_broken_image)
                 .into(item_stok_toolbar_image);
-
-        Glide.with(this)
-                .load(Constanta.url_foto_bahan + bahan.getFoto())
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image)
-                .into(img_zoom);
         item_stok_toolbar.setTitle(bahan.getNama());
         tv_kuantitas_stok.setText(String.valueOf(bahan.getJumlahBahan()));
         tv_satuan.setText(String.valueOf(bahan.getSatuan()));
@@ -190,10 +161,6 @@ public class DetailItemStokActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (containerImageZoom.getVisibility() == View.VISIBLE) {
-            containerImageZoom.setVisibility(View.GONE);
-        } else {
             finish();
-        }
     }
 }
