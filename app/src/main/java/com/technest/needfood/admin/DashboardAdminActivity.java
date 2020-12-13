@@ -238,6 +238,7 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
             SharedPreferences.Editor editor = mPreferences1.edit();
             editor.apply();
             editor.clear();
+            editor.commit();
             finish();
         }
 

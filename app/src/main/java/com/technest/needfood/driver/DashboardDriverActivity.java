@@ -2,9 +2,11 @@ package com.technest.needfood.driver;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -13,11 +15,14 @@ import androidx.fragment.app.FragmentTransaction;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 import com.technest.needfood.R;
+import com.technest.needfood.admin.DashboardAdminActivity;
 import com.technest.needfood.driver.akun.AkunDriverFragment;
 import com.technest.needfood.driver.home.HomeDriverFragment;
 import com.technest.needfood.driver.pesanan.PesananDriverFragment;
 import com.technest.needfood.driver.riwayat.RiwayatDriverFragment;
 import com.technest.needfood.intro.LoginActivity;
+
+import static com.technest.needfood.intro.LoginActivity.my_shared_preferences;
 
 public class DashboardDriverActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,6 +33,13 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
     private ResideMenuItem itemRiwayat;
     private ResideMenuItem itemAkun;
     private ResideMenuItem itemLogout;
+
+    private SharedPreferences mPreferences;
+    private String id;
+    private String role;
+    private String nama;
+    private String username;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,8 +141,14 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
             changeFragment(new AkunDriverFragment());
             resideMenu.closeMenu();
         }else if (v == itemLogout){
+
             Intent intent = new Intent(DashboardDriverActivity.this, LoginActivity.class);
             startActivity(intent);
+            SharedPreferences mPreferences1 = getSharedPreferences(my_shared_preferences, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = mPreferences1.edit();
+            editor.apply();
+            editor.clear();
+            editor.commit();
             finish();
         }
 

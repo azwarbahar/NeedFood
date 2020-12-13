@@ -8,6 +8,7 @@ import com.technest.needfood.models.intro.LoginModel;
 import com.technest.needfood.models.kategori.ResponKategori;
 import com.technest.needfood.models.pesanan.ResponsePesanan;
 import com.technest.needfood.models.user.ResponAdmin;
+import com.technest.needfood.models.user.ResponDriver;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -74,6 +75,12 @@ public interface ApiInterface {
     @GET("mobileauth/admin/{id}")
     Call<ResponAdmin> getAdmin(@Header("Authorization") String authToken,
                                @Path("id") String id);
+
+
+    // DATA DRIVER
+    @GET("mobileauth/driver/{id}")
+    Call<ResponDriver> getDriver(@Header("Authorization") String authToken,
+                                 @Path("id") String id);
 
 
 }

@@ -1,5 +1,7 @@
 package com.technest.needfood.models.user;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ResponAdmin {
 	private Administrasi result;
 	private boolean success;

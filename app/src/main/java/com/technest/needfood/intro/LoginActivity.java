@@ -76,6 +76,8 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (role.equals("driver")) {
                     startActivity(new Intent(this, DashboardDriverActivity.class));
                     finish();
+                } else {
+
                 }
             }
         }
