@@ -46,6 +46,10 @@ public class Pesanan implements Parcelable {
     @SerializedName("waktu_antar")
     private String waktu_antar;
 
+    public Pesanan(){
+
+    }
+
     protected Pesanan(Parcel in) {
         additional = in.createTypedArrayList(Additional.CREATOR);
         catatan = in.readString();

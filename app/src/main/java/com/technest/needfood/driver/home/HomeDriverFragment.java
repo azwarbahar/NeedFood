@@ -1,6 +1,7 @@
 package com.technest.needfood.driver.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +46,8 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
+import com.technest.needfood.admin.pesanan.detail.DetailPesananBaruActivity;
+import com.technest.needfood.driver.delivery.DeliveryDriverActivity;
 import com.technest.needfood.driver.pesanan.PesananDriverFragment;
 import com.technest.needfood.models.pesanan.Pesanan;
 import com.technest.needfood.models.pesanan.ResponsePesanan;
@@ -52,12 +56,13 @@ import com.technest.needfood.network.ApiInterface;
 import com.technest.needfood.network.ConnectionDetector;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
+public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback {
 
     private View v;
 
@@ -77,6 +82,8 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
     private ArrayList<Pesanan> pesanans;
 
     private TextView total_hari_ini;
+
+    HashMap<String, Pesanan> markerMap = new HashMap<String, Pesanan>();
 
     @Nullable
     @Override
@@ -201,12 +208,14 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
 
             double latit = Double.parseDouble(pesanans.get(a).getLatitude());
             double longit = Double.parseDouble(pesanans.get(a).getLogitude());
-            map.addMarker(new MarkerOptions().title("Kode : "+pesanans.get(a).getKd_pemesanan())
+            Marker marker = map.addMarker(new MarkerOptions().title("Kode : "+pesanans.get(a).getKd_pemesanan())
                     .icon(bitmapDescriptor(getActivity()))
                     .snippet("Nama : " + pesanans.get(a).getNama()+
                             "\nWaktu : "+pesanans.get(a).getWaktu_antar())
                     .position(new LatLng(latit, longit)));
 
+            String idmark= marker.getId();
+            markerMap.put(idmark, pesanans.get(a));
         }
     }
 
@@ -270,7 +279,7 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
 
         LatLng latLngzoom = new LatLng(-5.157265, 119.436625);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 12));
-
+        map.setOnInfoWindowClickListener(this);
         map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
             @Override
@@ -280,18 +289,11 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
 
             @Override
             public View getInfoContents(Marker marker) {
-
-//                View view = null;
                 Context context = getActivity(); //or getActivity(), YourActivity.this, etc.
-//                v = getLayoutInflater().inflate(R.layout.costuem_window_info_marker, null);
-//                v.setBackground(ContextCompat.getDrawable(getActivity(), R.color.colorPrimary));
                 LinearLayout info = new LinearLayout(context);
                 info.setOrientation(LinearLayout.VERTICAL);
-//                info.setBackground(ContextCompat.getDrawable(getActivity(), R.color.colorPrimary));
-//
+
                 TextView title = new TextView(context);
-//                title.setText(marker.getTitle());
-//                kode.setText(marker.getSnippet());
                 title.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
                 title.setPadding(20, 30, 20, 3);
                 title.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
@@ -320,5 +322,12 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
                 return info;
             }
         });
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Intent intent = new Intent(getActivity(), DeliveryDriverActivity.class);
+        intent.putExtra(DeliveryDriverActivity.EXTRA_DATA, markerMap.get(marker.getId()));
+        getActivity().startActivity(intent);
     }
 }
