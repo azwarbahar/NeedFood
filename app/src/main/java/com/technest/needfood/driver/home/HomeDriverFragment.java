@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -34,6 +37,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -145,6 +149,7 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
             ll_kosong.setVisibility(View.VISIBLE);
         }
 
+
         return v;
     }
 
@@ -192,13 +197,15 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void setMarkerPesanan(ArrayList<Pesanan> pesanans) {
-        for (int a = 0; a <pesanans.size(); a++){
+        for (int a = 0; a < pesanans.size(); a++) {
 
             double latit = Double.parseDouble(pesanans.get(a).getLatitude());
             double longit = Double.parseDouble(pesanans.get(a).getLogitude());
-            map.addMarker(new MarkerOptions().title(pesanans.get(a).getKd_pemesanan())
+            map.addMarker(new MarkerOptions().title("Kode : "+pesanans.get(a).getKd_pemesanan())
                     .icon(bitmapDescriptor(getActivity()))
-                    .position(new LatLng(latit,longit)));
+                    .snippet("Nama : " + pesanans.get(a).getNama()+
+                            "\nWaktu : "+pesanans.get(a).getWaktu_antar())
+                    .position(new LatLng(latit, longit)));
 
         }
     }
@@ -246,6 +253,7 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
 
         map = googleMap;
+        map.setPadding(0, 0, 0, 210);
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -262,5 +270,55 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
 
         LatLng latLngzoom = new LatLng(-5.157265, 119.436625);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 12));
+
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+//                View view = null;
+                Context context = getActivity(); //or getActivity(), YourActivity.this, etc.
+//                v = getLayoutInflater().inflate(R.layout.costuem_window_info_marker, null);
+//                v.setBackground(ContextCompat.getDrawable(getActivity(), R.color.colorPrimary));
+                LinearLayout info = new LinearLayout(context);
+                info.setOrientation(LinearLayout.VERTICAL);
+//                info.setBackground(ContextCompat.getDrawable(getActivity(), R.color.colorPrimary));
+//
+                TextView title = new TextView(context);
+//                title.setText(marker.getTitle());
+//                kode.setText(marker.getSnippet());
+                title.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+                title.setPadding(20, 30, 20, 3);
+                title.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(context);
+                snippet.setPadding(20, 3, 20, 10);
+                snippet.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                snippet.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey));
+                snippet.setText(marker.getSnippet());
+
+                Button btn = new Button(context);
+                btn.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.bg_status_arrived));
+                btn.setText("Detail");
+                btn.setTextColor(ContextCompat.getColor(getActivity(), R.color.arrivedText));
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(20,50,20,20);
+                btn.setLayoutParams(layoutParams);
+
+                info.addView(title);
+                info.addView(snippet);
+                info.addView(btn);
+
+                return info;
+            }
+        });
     }
 }
