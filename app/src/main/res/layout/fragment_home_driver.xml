@@ -18,7 +18,7 @@
         android:layout_height="match_parent">
 
         <fragment
-            android:id="@+id/map_pekerja"
+            android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -64,7 +64,7 @@
                     android:layout_marginLeft="14dp"
                     android:layout_marginRight="16dp"
                     android:layout_toRightOf="@id/tv1"
-                    android:text="16"
+                    android:text="0"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -162,6 +162,32 @@
         </RelativeLayout>
 
 
+        <LinearLayout
+            android:id="@+id/ll_kosong"
+            android:layout_below="@id/rv1"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="100dp"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:src="@drawable/kosong"
+                android:layout_width="150dp"
+                android:layout_height="150dp"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/grey2"
+                android:textSize="20dp"
+                android:text="Kosong.."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_pesanan_home_driver"
@@ -170,6 +196,16 @@
             android:layout_below="@id/rv1"
             android:layout_marginTop="5dp"
             tools:listitem="@layout/item_pesanan_home_driver" />
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rv1"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:indeterminateTint="@color/colorPrimary" />
 
     </RelativeLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

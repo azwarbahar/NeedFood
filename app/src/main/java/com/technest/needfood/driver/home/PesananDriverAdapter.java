@@ -12,15 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.technest.needfood.R;
 import com.technest.needfood.driver.delivery.DeliveryDriverActivity;
+import com.technest.needfood.models.pesanan.Pesanan;
 
 import java.util.ArrayList;
 
 public class PesananDriverAdapter extends RecyclerView.Adapter<PesananDriverAdapter.MyHolderView> {
 
     private Context mContext;
-    private ArrayList<PesananDriverModel> arrayList;
+    private ArrayList<Pesanan> arrayList;
 
-    public PesananDriverAdapter(Context mContext, ArrayList<PesananDriverModel> arrayList) {
+    public PesananDriverAdapter(Context mContext, ArrayList<Pesanan> arrayList) {
         this.mContext = mContext;
         this.arrayList = arrayList;
     }
@@ -30,7 +31,7 @@ public class PesananDriverAdapter extends RecyclerView.Adapter<PesananDriverAdap
     public PesananDriverAdapter.MyHolderView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view;
-        view = LayoutInflater.from(mContext).inflate(R.layout.item_pesanan_home_driver, parent,false);
+        view = LayoutInflater.from(mContext).inflate(R.layout.item_pesanan_home_driver, parent, false);
         PesananDriverAdapter.MyHolderView holderView = new PesananDriverAdapter.MyHolderView(view);
 
 
@@ -38,21 +39,20 @@ public class PesananDriverAdapter extends RecyclerView.Adapter<PesananDriverAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PesananDriverAdapter.MyHolderView holder, int position) {
+    public void onBindViewHolder(@NonNull MyHolderView holder, int position) {
 
-        holder.tv_alamat.setText(arrayList.get(position).getAlamat());
+        holder.tv_alamat.setText(arrayList.get(position).getDeskripsi_lokasi());
         holder.tv_nama.setText(arrayList.get(position).getNama());
-        holder.tv_jam.setText("Jam "+arrayList.get(position).getJam());
+        holder.tv_jam.setText("Waktu : " + arrayList.get(position).getWaktu_antar());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                mContext.startActivity(new Intent(mContext, DeliveryDriverActivity.class));
-
+                Intent intent = new Intent(mContext, DeliveryDriverActivity.class);
+                intent.putExtra(DeliveryDriverActivity.EXTRA_DATA, arrayList.get(position));
+                mContext.startActivity(intent);
             }
         });
-
 
     }
 

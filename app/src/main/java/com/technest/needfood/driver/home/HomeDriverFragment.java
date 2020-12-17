@@ -1,42 +1,65 @@
 package com.technest.needfood.driver.home;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.snackbar.Snackbar;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
+import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
 import com.technest.needfood.driver.pesanan.PesananDriverFragment;
+import com.technest.needfood.models.pesanan.Pesanan;
+import com.technest.needfood.models.pesanan.ResponsePesanan;
+import com.technest.needfood.network.ApiClient;
+import com.technest.needfood.network.ApiInterface;
+import com.technest.needfood.network.ConnectionDetector;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
 
     private View v;
 
-    private GoogleMap googleMap;
+    private GoogleMap map;
 
     private ImageView btn_location;
-
-    private String[] nama;
-    private String[] alamat;
-    private String[] jam;
 
     private SlidingUpPanelLayout sliding_layout;
 
@@ -44,12 +67,33 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
     private CardView cv_pesanan_home_driver;
 
     private RecyclerView rv_pesanan_home_driver;
-    private ArrayList<PesananDriverModel> pesananDriverModels;
+
+    private ProgressBar progressBar;
+    private LinearLayout ll_kosong;
+    private ArrayList<Pesanan> pesanans;
+
+    private TextView total_hari_ini;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_home_driver, container, false);
+
+        Context context = getActivity();
+        assert context != null;
+        ConnectionDetector ConnectionDetector = new ConnectionDetector(
+                context.getApplicationContext());
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
+        mapFragment.getMapAsync(this);
+
+        total_hari_ini = v.findViewById(R.id.total_hari_ini);
+
+        ll_kosong = v.findViewById(R.id.ll_kosong);
+        ll_kosong.setVisibility(View.GONE);
+        progressBar = v.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
         rv_pesanan_home_driver = v.findViewById(R.id.rv_pesanan_home_driver);
         sliding_layout = v.findViewById(R.id.sliding_layout);
@@ -87,11 +131,92 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        PesananDriverAdapter pesananDriverAdapter = new PesananDriverAdapter(getActivity(), pesananDriverModels);
-        rv_pesanan_home_driver.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv_pesanan_home_driver.setAdapter(pesananDriverAdapter);
 
-        return  v;
+        // check Koneksi
+        if (ConnectionDetector.isInternetAvailble()) {
+            loadData();
+            SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+            assert supportMapFragment != null;
+            supportMapFragment.getMapAsync(HomeDriverFragment.this);
+        } else {
+            rv_pesanan_home_driver.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+            actionNotConnection();
+            ll_kosong.setVisibility(View.VISIBLE);
+        }
+
+        return v;
+    }
+
+    private void loadData() {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponsePesanan> responsePesananCall = apiInterface.getPesananHariIni("Bearer " + BuildConfig.TOKEN, "Delivery");
+        responsePesananCall.enqueue(new Callback<ResponsePesanan>() {
+            @Override
+            public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
+
+                if (response.isSuccessful()) {
+                    progressBar.setVisibility(View.GONE);
+                    assert response.body() != null;
+                    if (response.body().getmSuccess()) {
+                        pesanans = (ArrayList<Pesanan>) response.body().getmPesanan();
+                        setJumlah(pesanans);
+                        if (pesanans.isEmpty()) {
+                            ll_kosong.setVisibility(View.VISIBLE);
+                            rv_pesanan_home_driver.setVisibility(View.GONE);
+                        } else {
+                            setMarkerPesanan(pesanans);
+                            PesananDriverAdapter pesananDriverAdapter = new PesananDriverAdapter(getActivity(), pesanans);
+                            rv_pesanan_home_driver.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            rv_pesanan_home_driver.setAdapter(pesananDriverAdapter);
+                        }
+                    } else {
+                        rv_pesanan_home_driver.setVisibility(View.GONE);
+                        ll_kosong.setVisibility(View.VISIBLE);
+                    }
+                    Log.d("Respon", "Message = " + response.body().getmMessage());
+                } else {
+                    rv_pesanan_home_driver.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
+                    ll_kosong.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponsePesanan> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                ll_kosong.setVisibility(View.VISIBLE);
+                Log.d("ERROR", "Respon : " + t.getMessage());
+            }
+        });
+    }
+
+    private void setMarkerPesanan(ArrayList<Pesanan> pesanans) {
+        for (int a = 0; a <pesanans.size(); a++){
+
+            double latit = Double.parseDouble(pesanans.get(a).getLatitude());
+            double longit = Double.parseDouble(pesanans.get(a).getLogitude());
+            map.addMarker(new MarkerOptions().title(pesanans.get(a).getKd_pemesanan())
+                    .icon(bitmapDescriptor(getActivity()))
+                    .position(new LatLng(latit,longit)));
+
+        }
+    }
+
+    private BitmapDescriptor bitmapDescriptor(Context context) {
+        int height = 90;
+        int width = 60;
+        Drawable vectorDrawble = ContextCompat.getDrawable(context, R.drawable.ic_icon_lokasi_tujuan);
+        assert vectorDrawble != null;
+        vectorDrawble.setBounds(0, 0, width, height);
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawble.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    private void setJumlah(ArrayList<Pesanan> pesanans) {
+        total_hari_ini.setText(String.valueOf(pesanans.size()));
     }
 
     private void showPanel() {
@@ -105,45 +230,37 @@ public class HomeDriverFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_pekerja);
-        assert supportMapFragment != null;
-        supportMapFragment.getMapAsync(HomeDriverFragment.this);
-
-    }
-
-    private ArrayList<PesananDriverModel> tambahItemPesanan(){
-
-        nama = getResources().getStringArray(R.array.nama_pesanan);
-        alamat = getResources().getStringArray(R.array.alamat_pesanan);
-        jam = getResources().getStringArray(R.array.jam_pesanan);
-
-        ArrayList<PesananDriverModel> length = new ArrayList<>();
-
-        for(int a = 0; a < nama.length; a++){
-            PesananDriverModel model = new PesananDriverModel();
-            model.setNama(nama[a]);
-            model.setAlamat(alamat[a]);
-            model.setJam(jam[a]);
-            length.add(model);
-        }
-        return length;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        pesananDriverModels = tambahItemPesanan();
-
+    private void actionNotConnection() {
+        Snackbar.make(getActivity().findViewById(android.R.id.content), "Koneksi Tidak Ada!", Snackbar.LENGTH_INDEFINITE)
+                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
+                .setAction("Close", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        v.setVisibility(View.GONE);
+                    }
+                })
+                .show();
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        map = googleMap;
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            getActivity(), R.raw.maps_style_grey));
+
+            if (!success) {
+                Log.e("MapsActivity", "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e("MapsActivity", "Can't find style. Error: ", e);
+        }
+
+        LatLng latLngzoom = new LatLng(-5.157265, 119.436625);
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 12));
     }
 }

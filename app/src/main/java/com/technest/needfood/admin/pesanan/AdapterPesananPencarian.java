@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.technest.needfood.R;
@@ -49,6 +50,33 @@ public class AdapterPesananPencarian extends RecyclerView.Adapter<AdapterPesanan
         holder.tv_kode_pesanan.setText(pesanans.get(position).getKd_pemesanan());
         holder.tv_status_pesanan.setText(pesanans.get(position).getStatus());
         String status = pesanans.get(position).getStatus();
+
+        if (status.equals("New")){
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.newText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_new));
+        } else if (status.equals("Accept")){
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.acceptText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_accept));
+        } else if (status.equals("Proccess")){
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.proccessText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_proccess));
+        } else if (status.equals("Delivery")){
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.deliveryText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_delivery));
+        } else if (status.equals("Arrived")){
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.arrivedText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_arrived));
+        } else if (status.equals("Taking")){
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.deliveryText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_delivery));
+        } else if (status.equals("Done")){
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.doneText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_done));
+        } else if (status.equals("Refuse")){
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.refuseText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_refuse));
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

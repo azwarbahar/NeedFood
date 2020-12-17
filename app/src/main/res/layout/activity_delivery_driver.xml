@@ -7,7 +7,7 @@
     tools:context=".driver.delivery.DeliveryDriverActivity">
 
     <fragment
-        android:id="@+id/map_pekerja"
+        android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -54,15 +54,15 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/continer_location"
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bg_item_pesanan_driver">
 
                 <ImageView
                     android:id="@+id/img_panah_bawah"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
                     android:src="@drawable/ic_panah_bawah"
@@ -72,8 +72,10 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="2dp"
                     android:background="@drawable/ic_icon_lokasi_driver"
                     app:layout_constraintBottom_toTopOf="@+id/img_panah_bawah"
                     app:layout_constraintEnd_toEndOf="@+id/img_panah_bawah"
@@ -82,8 +84,10 @@
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="5dp"
                     android:src="@drawable/ic_icon_lokasi_tujuan"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/img_panah_bawah"
@@ -112,6 +116,7 @@
                     android:layout_marginRight="8dp"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:textSize="12dp"
                     android:text="Lokasi Sekarang"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -126,6 +131,8 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:ellipsize="end"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
                     android:maxLines="1"
                     android:text="Lokasi Tujuan"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView2"
@@ -155,7 +162,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"
-                android:text="Paket"
+                android:text="Kode"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -171,13 +178,13 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_paket"
+                android:id="@+id/tv_kode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/tv_nama"
                 android:layout_alignTop="@id/tv2"
                 android:layout_toRightOf="@id/tv2"
-                android:text=": Yakiniku"
+                android:text=": NFC-0905112020"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 

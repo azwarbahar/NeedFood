@@ -33,4 +33,25 @@
     <color name="color3">#FF9742</color>
     <color name="color4">#FFE5D1</color>
     <color name="color5">#FFFBF7</color>
+
+    <color name="newText">#005789</color>
+    <color name="newBack">#C5E9FF</color>
+
+    <color name="acceptText">#016B6B</color>
+    <color name="acceptBack">#C7FFFF</color>
+
+    <color name="proccessText">#8C8820</color>
+    <color name="proccessBack">#FFFCB4</color>
+
+    <color name="deliveryText">#7636A8</color>
+    <color name="deliveryBack">#EED9FF</color>
+
+    <color name="arrivedText">#F05600</color>
+    <color name="arrivedBack">#FFE5D1</color>
+
+    <color name="doneText">#089554</color>
+    <color name="doneBack">#C8FFE6</color>
+
+    <color name="refuseText">#DC0000</color>
+    <color name="refuseBack">#FACFCF</color>
 </resources>

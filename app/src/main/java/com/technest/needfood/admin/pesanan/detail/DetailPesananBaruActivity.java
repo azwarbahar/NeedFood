@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -59,6 +61,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
 
 
     GoogleMap map;
+    LatLng latLngzoom;
     public static final String EXTRA_DATA = "extra_data";
     private RelativeLayout continer_map;
     private RelativeLayout rl_btn_bukti;
@@ -104,12 +107,10 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_pesanan_baru);
 
+
         Context context = DetailPesananBaruActivity.this;
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         cv_close_detail_pesanan = findViewById(R.id.cv_close_detail_pesanan);
         cv_close_detail_pesanan.setOnClickListener(new View.OnClickListener() {
@@ -208,7 +209,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         setDataPanelUp(pesanan.getTransaksi(), pesanan.getNama(), pesanan.getKd_pemesanan());
         setDataPaker((ArrayList<Paket>) pesanan.getPaket());
         setDataAddiyional((ArrayList<Additional>) pesanan.getAdditional());
-//        setMapLokasi(Long.valueOf(pesanan.getLatitude()), Long.valueOf(pesanan.getLogitude()), pesanan.getDeskripsi_lokasi());
+        setMapLokasi(pesanan.getLatitude(), pesanan.getLogitude());
 //        setMapLokasi(pesanan.getDeskripsi_lokasi());
 
         img_call.setOnClickListener(new View.OnClickListener() {
@@ -396,12 +397,8 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
 
     }
 
-    private void setMapLokasi(String alamat) {
-        LatLng latLngzoom = new LatLng(-5.16961, 119.438505);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 13));
-        map.addMarker(new MarkerOptions().title(alamat)
-                .icon(bitmapDescriptor(getApplicationContext(), R.drawable.ic_icon_lokasi_tujuan))
-                .position(new LatLng(-5.16961, 119.438505)));
+    private void setMapLokasi(String latitude, String longitude) {
+        latLngzoom = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
     }
 
     private BitmapDescriptor bitmapDescriptor(Context context, int vactorResid) {
@@ -493,6 +490,9 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
     }
 
     private void animationMaps() {
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert supportMapFragment != null;
+        supportMapFragment.getMapAsync(this);
         if (continer_map.getVisibility() == View.VISIBLE) {
             continer_map.animate()
                     .translationY(0)
@@ -540,11 +540,14 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        map.addMarker(new MarkerOptions().title("Lokasi Pesanan")
-                .icon(bitmapDescriptor(getApplicationContext(),
-                        R.drawable.ic_icon_lokasi_tujuan))
-                .position(new LatLng(-5.169610, 119.438505)));
-        LatLng latLngzoom = new LatLng(-5.169610, 119.438505);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 13));
+
+        if (latLngzoom != null){
+            map.clear();
+            googleMap.addMarker(new MarkerOptions().title("Lokasi Pesanan")
+                    .icon(bitmapDescriptor(getApplicationContext(),
+                            R.drawable.ic_icon_lokasi_tujuan))
+                    .position(latLngzoom));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 13));
+        }
     }
 }

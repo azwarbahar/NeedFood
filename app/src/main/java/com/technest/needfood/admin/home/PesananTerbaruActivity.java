@@ -108,7 +108,7 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
 
     private void loadData() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponsePesanan> responsePesananCall = apiInterface.getPesananSatus("Bearer " + BuildConfig.TOKEN, "new");
+        Call<ResponsePesanan> responsePesananCall = apiInterface.getPesananSatus("Bearer " + BuildConfig.TOKEN, "New");
         responsePesananCall.enqueue(new Callback<ResponsePesanan>() {
             @Override
             public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {

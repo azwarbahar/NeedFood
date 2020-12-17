@@ -205,14 +205,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignTop="@id/img_place"
-                                android:layout_alignBottom="@id/img_place"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginRight="3dp"
                                 android:layout_toLeftOf="@id/img_chevron"
                                 android:layout_toRightOf="@id/img_place"
-                                android:ellipsize="end"
                                 android:gravity="center_vertical"
-                                android:maxLines="1"
+                                android:maxLines="2"
+                                android:layout_marginBottom="8dp"
                                 android:text="Jalan A.P Pettarani No 221 Kelurahan Mangasa Kecamatan"
                                 android:textColor="@color/hitam" />
 
@@ -224,7 +223,7 @@
                                 android:layout_alignBottom="@id/tv_alamat"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginRight="12dp"
-                                android:src="@drawable/ic_chevron_right_grey" />
+                                android:src="@drawable/ic_chevron_right_grey"/>
 
                             <RelativeLayout
                                 android:id="@+id/continer_map"
@@ -239,7 +238,7 @@
                                     android:id="@+id/map"
                                     android:name="com.google.android.gms.maps.SupportMapFragment"
                                     android:layout_width="match_parent"
-                                    android:layout_height="164dp"/>
+                                    android:layout_height="164dp" />
 
                             </RelativeLayout>
 

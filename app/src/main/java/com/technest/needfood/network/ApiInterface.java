@@ -30,6 +30,10 @@ public interface ApiInterface {
     Call<ResponsePesanan> getPesananSatus(@Header("Authorization") String authToken,
                                           @Query("status") String status);
 
+    @GET("datapesanan/today/{status}")
+    Call<ResponsePesanan> getPesananHariIni(@Header("Authorization") String authToken,
+                                          @Path("status") String status);
+
     @FormUrlEncoded
     @PUT("datapesanan/updatestatus/{id}")
     Call<ResponsePesanan> updateSatusPesanan(@Header("Authorization") String authToken,

@@ -1,13 +1,8 @@
 package com.technest.needfood.admin.pesanan.detail;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -19,6 +14,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -27,7 +28,6 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.snackbar.Snackbar;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.technest.needfood.R;
 import com.technest.needfood.admin.pesanan.detail.adapter.AdapterAdditional;
@@ -47,6 +47,7 @@ import java.util.Locale;
 public class DetailPesananActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     GoogleMap map;
+    LatLng latLngzoom;
     public static final String EXTRA_DATA = "extra_data";
     private RelativeLayout continer_map;
     private RelativeLayout rl_btn_bukti;
@@ -55,6 +56,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
     private CardView cv_transaksi2;
     private CardView cv_close_panel;
 
+    private TextView tv_status_pesanan;
     private TextView tv_alamat;
     private TextView tv_kode_pesanan;
     private TextView tv_nama;
@@ -99,6 +101,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
                 context.getApplicationContext());
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
         cv_close_detail_pesanan = findViewById(R.id.cv_close_detail_pesanan);
@@ -124,6 +127,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         cv_transaksi = findViewById(R.id.cv_transaksi);
         sliding_layout = findViewById(R.id.sliding_layout);
         rl_btn_bukti = findViewById(R.id.rl_btn_bukti);
+        tv_status_pesanan = findViewById(R.id.tv_status_pesanan);
         tv_alamat = findViewById(R.id.tv_alamat);
         tv_kode_pesanan = findViewById(R.id.tv_kode_pesanan);
         tv_nama = findViewById(R.id.tv_nama);
@@ -205,6 +209,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
 
         Pesanan pesanan = getIntent().getParcelableExtra(EXTRA_DATA);
         assert pesanan != null;
+        setStatus(pesanan.getStatus());
         tv_kode_pesanan.setText(pesanan.getKd_pemesanan());
         tv_nama.setText(pesanan.getNama());
         tv_telpon.setText(pesanan.getNo_telepon());
@@ -216,25 +221,60 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         setDataPanelUp(pesanan.getTransaksi(), pesanan.getNama(), pesanan.getKd_pemesanan());
         setDataPaker((ArrayList<Paket>) pesanan.getPaket());
         setDataAddiyional((ArrayList<Additional>) pesanan.getAdditional());
-//        setMapLokasi(Long.valueOf(pesanan.getLatitude()), Long.valueOf(pesanan.getLogitude()), pesanan.getDeskripsi_lokasi());
-//        setMapLokasi(pesanan.getDeskripsi_lokasi());
+        setMapLokasi(pesanan.getLatitude(), pesanan.getLogitude());
 
     }
 
-
-    private void setMapLokasi(String alamat) {
-        LatLng latLngzoom = new LatLng(-5.16961, 119.438505);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 13));
-        map.addMarker(new MarkerOptions().title(alamat)
-                .icon(bitmapDescriptor(getApplicationContext(), R.drawable.ic_icon_lokasi_tujuan))
-                .position(new LatLng(-5.16961, 119.438505)));
+    private void setStatus(String status) {
+        switch (status) {
+            case "New":
+                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.newText));
+                tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_new));
+                break;
+            case "Accept":
+                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.acceptText));
+                tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_accept));
+                break;
+            case "Proccess":
+                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.proccessText));
+                tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_proccess));
+                break;
+            case "Delivery":
+            case "Taking":
+                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.deliveryText));
+                tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_delivery));
+                break;
+            case "Arrived":
+                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.arrivedText));
+                tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_arrived));
+                break;
+            case "Done":
+                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.doneText));
+                tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_done));
+                break;
+            case "Refuse":
+                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.refuseText));
+                tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_refuse));
+                break;
+        }
     }
 
-    private BitmapDescriptor bitmapDescriptor(Context context, int vactorResid) {
+    private void setMapLokasi(String latitude, String longitude) {
+        latLngzoom = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+    }
 
+    private BitmapDescriptor bitmapDescriptor(Context context) {
         int height = 70;
         int width = 50;
-        Drawable vectorDrawble = ContextCompat.getDrawable(context, vactorResid);
+        Drawable vectorDrawble = ContextCompat.getDrawable(context, R.drawable.ic_icon_lokasi_tujuan);
+        assert vectorDrawble != null;
         vectorDrawble.setBounds(0, 0, width, height);
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -288,6 +328,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
                 (sliding_layout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED || sliding_layout.getPanelState() == SlidingUpPanelLayout.PanelState.ANCHORED)) {
             sliding_layout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         } else {
+            assert sliding_layout != null;
             sliding_layout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
         }
 
@@ -302,23 +343,28 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+        assert date != null;
         return dateFormatter.format(date);
     }
 
-    private void actionNotConnection() {
-        Snackbar.make(findViewById(android.R.id.content), "Koneksi Tidak Ada!", Snackbar.LENGTH_INDEFINITE)
-                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
-                .setAction("Close", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        v.setVisibility(View.GONE);
-                    }
-                })
-                .show();
-    }
+//    private void actionNotConnection() {
+//        Snackbar.make(findViewById(android.R.id.content), "Koneksi Tidak Ada!", Snackbar.LENGTH_INDEFINITE)
+//                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
+//                .setAction("Close", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        v.setVisibility(View.GONE);
+//                    }
+//                })
+//                .show();
+//    }
 
     private void animationMaps() {
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert supportMapFragment != null;
+        supportMapFragment.getMapAsync(this);
         if (continer_map.getVisibility() == View.VISIBLE) {
             continer_map.animate()
                     .translationY(0)
@@ -366,11 +412,13 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        map.addMarker(new MarkerOptions().title("Lokasi Pesanan")
-                .icon(bitmapDescriptor(getApplicationContext(),
-                        R.drawable.ic_icon_lokasi_tujuan))
-                .position(new LatLng(-5.169610, 119.438505)));
-        LatLng latLngzoom = new LatLng(-5.169610, 119.438505);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 13));
+
+        if (latLngzoom != null) {
+            map.clear();
+            googleMap.addMarker(new MarkerOptions().title("Lokasi Pesanan")
+                    .icon(bitmapDescriptor(getApplicationContext()))
+                    .position(latLngzoom));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 13));
+        }
     }
 }
