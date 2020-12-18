@@ -1,11 +1,17 @@
 package com.technest.needfood.intro;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,11 +21,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
 import com.technest.needfood.admin.DashboardAdminActivity;
@@ -32,12 +46,17 @@ import com.technest.needfood.network.ConnectionDetector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private boolean isPermission;
+    private LocationManager locationManager;
+    private LocationRequest mLocationRequest;
 
     private TabLayout tab_indikator;
     private RelativeLayout content_login;
@@ -62,6 +81,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if (requestSinglePermission()){
+            checkLocation();
+        }
+
         sharedpreferences = getApplicationContext().getSharedPreferences(my_shared_preferences, MODE_PRIVATE);
         String id = sharedpreferences.getString("ID", "");
         String role = sharedpreferences.getString("ROLE", "");
@@ -210,6 +234,68 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean requestSinglePermission() {
+
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        isPermission = true;
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        if (response.isPermanentlyDenied()) {
+                            isPermission = false;
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+                    }
+                }).check();
+
+        return isPermission;
+    }
+
+    private boolean checkLocation() {
+
+        if (!isLocationEnable()) {
+            showAlert();
+        }
+        return isLocationEnable();
+    }
+
+    private void showAlert() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Enable Location")
+                .setMessage("Yout Locations Settings is set to 'off'.\nPlease Enable Location to " +
+                        "use this app")
+                .setPositiveButton("Location Setting", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        dialog.show();
+    }
+
+    private boolean isLocationEnable() {
+        locationManager = (LocationManager) Objects.requireNonNull(this).getSystemService(Context.LOCATION_SERVICE);
+        assert locationManager != null;
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
     private void actionNotConnection() {

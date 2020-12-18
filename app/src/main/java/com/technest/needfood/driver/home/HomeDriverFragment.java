@@ -19,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,7 +45,6 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
-import com.technest.needfood.admin.pesanan.detail.DetailPesananBaruActivity;
 import com.technest.needfood.driver.delivery.DeliveryDriverActivity;
 import com.technest.needfood.driver.pesanan.PesananDriverFragment;
 import com.technest.needfood.models.pesanan.Pesanan;
@@ -208,13 +206,13 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
 
             double latit = Double.parseDouble(pesanans.get(a).getLatitude());
             double longit = Double.parseDouble(pesanans.get(a).getLogitude());
-            Marker marker = map.addMarker(new MarkerOptions().title("Kode : "+pesanans.get(a).getKd_pemesanan())
+            Marker marker = map.addMarker(new MarkerOptions().title("Kode : " + pesanans.get(a).getKd_pemesanan())
                     .icon(bitmapDescriptor(getActivity()))
-                    .snippet("Nama : " + pesanans.get(a).getNama()+
-                            "\nWaktu : "+pesanans.get(a).getWaktu_antar())
+                    .snippet("Nama : " + pesanans.get(a).getNama() +
+                            "\nWaktu : " + pesanans.get(a).getWaktu_antar())
                     .position(new LatLng(latit, longit)));
 
-            String idmark= marker.getId();
+            String idmark = marker.getId();
             markerMap.put(idmark, pesanans.get(a));
         }
     }
@@ -262,7 +260,7 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
     public void onMapReady(GoogleMap googleMap) {
 
         map = googleMap;
-        map.setPadding(0, 0, 0, 210);
+        map.setPadding(0, 0, 0, 200);
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -277,7 +275,7 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
             Log.e("MapsActivity", "Can't find style. Error: ", e);
         }
 
-        LatLng latLngzoom = new LatLng(-5.157265, 119.436625);
+        LatLng latLngzoom = new LatLng(-5.160892, 119.456143);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 12));
         map.setOnInfoWindowClickListener(this);
         map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -296,13 +294,13 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
                 TextView title = new TextView(context);
                 title.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
                 title.setPadding(20, 30, 20, 3);
-                title.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                 title.setTypeface(null, Typeface.BOLD);
                 title.setText(marker.getTitle());
 
                 TextView snippet = new TextView(context);
                 snippet.setPadding(20, 3, 20, 10);
-                snippet.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+                snippet.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
                 snippet.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey));
                 snippet.setText(marker.getSnippet());
 
@@ -312,7 +310,7 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
                 btn.setTextColor(ContextCompat.getColor(getActivity(), R.color.arrivedText));
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(20,50,20,20);
+                layoutParams.setMargins(20, 35, 20, 20);
                 btn.setLayoutParams(layoutParams);
 
                 info.addView(title);
