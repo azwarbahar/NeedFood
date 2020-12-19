@@ -14,8 +14,8 @@
 
     <ImageView
         android:id="@+id/btn_close"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="14dp"
         android:background="@drawable/btn_location"
@@ -25,11 +25,12 @@
 
     <ImageView
         android:id="@+id/btn_my_location"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_above="@id/cv1"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="250dp"
+        android:layout_below="@id/btn_close"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/btn_location"
         android:elevation="8dp"

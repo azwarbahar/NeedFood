@@ -45,6 +45,10 @@ public class Pesanan implements Parcelable {
     private String updated_at;
     @SerializedName("waktu_antar")
     private String waktu_antar;
+    @SerializedName("bahan")
+    private List<BahanPesanan> bahan;
+    @SerializedName("alat")
+    private List<AlatPesanan> alat;
 
     public Pesanan(){
 
@@ -55,6 +59,7 @@ public class Pesanan implements Parcelable {
         catatan = in.readString();
         created_at = in.readString();
         deskripsi_lokasi = in.readString();
+        driver_id = in.readString();
         if (in.readByte() == 0) {
             id = null;
         } else {
@@ -72,6 +77,8 @@ public class Pesanan implements Parcelable {
         transaksi = in.readParcelable(Transaksi.class.getClassLoader());
         updated_at = in.readString();
         waktu_antar = in.readString();
+        bahan = in.createTypedArrayList(BahanPesanan.CREATOR);
+        alat = in.createTypedArrayList(AlatPesanan.CREATOR);
     }
 
     public static final Creator<Pesanan> CREATOR = new Creator<Pesanan>() {
@@ -118,7 +125,7 @@ public class Pesanan implements Parcelable {
         this.deskripsi_lokasi = deskripsi_lokasi;
     }
 
-    public Object getDriver_id() {
+    public String getDriver_id() {
         return driver_id;
     }
 
@@ -230,6 +237,22 @@ public class Pesanan implements Parcelable {
         this.waktu_antar = waktu_antar;
     }
 
+    public List<BahanPesanan> getBahan() {
+        return bahan;
+    }
+
+    public void setBahan(List<BahanPesanan> bahan) {
+        this.bahan = bahan;
+    }
+
+    public List<AlatPesanan> getAlat() {
+        return alat;
+    }
+
+    public void setAlat(List<AlatPesanan> alat) {
+        this.alat = alat;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -241,6 +264,7 @@ public class Pesanan implements Parcelable {
         dest.writeString(catatan);
         dest.writeString(created_at);
         dest.writeString(deskripsi_lokasi);
+        dest.writeString(driver_id);
         if (id == null) {
             dest.writeByte((byte) 0);
         } else {
@@ -259,5 +283,7 @@ public class Pesanan implements Parcelable {
         dest.writeParcelable(transaksi, flags);
         dest.writeString(updated_at);
         dest.writeString(waktu_antar);
+        dest.writeTypedList(bahan);
+        dest.writeTypedList(alat);
     }
 }

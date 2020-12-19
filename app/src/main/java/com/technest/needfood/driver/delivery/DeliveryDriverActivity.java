@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.snackbar.Snackbar;
 import com.technest.needfood.R;
 import com.technest.needfood.admin.pesanan.detail.DetailPesananActivity;
 import com.technest.needfood.models.pesanan.Pesanan;
@@ -35,7 +36,9 @@ import com.technest.needfood.network.ConnectionDetector;
 public class DeliveryDriverActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap map;
-    LatLng latLngzoom;
+    private LatLng latLngzoom;
+    private LatLng latlingPesanan;
+    private MarkerOptions markerOptionsPesanan;
     public static final String EXTRA_DATA = "extra_data";
 
     private ImageView btn_close;
@@ -50,11 +53,16 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
     protected void onCreate(Bundle savedInstanceState) { 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_driver);
-
-
         Context context = DeliveryDriverActivity.this;
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
+
+        // check Koneksi
+        if (ConnectionDetector.isInternetAvailble()) {
+            Log.d("Internet ","Connec");
+        } else {
+            actionNotConnection();
+        }
 
         tv_kode = findViewById(R.id.tv_kode);
         tv_nama = findViewById(R.id.tv_nama);
@@ -87,7 +95,13 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
         tv_nama.setText(": "+pesanan.getNama());
         tv_kode.setText(": "+pesanan.getKd_pemesanan());
         String tlpon = pesanan.getNo_telepon();
-        loadMaps(pesanan);
+        double latitud = Double.parseDouble(pesanan.getLatitude());
+        double longitud = Double.parseDouble(pesanan.getLogitude());
+        latlingPesanan = new LatLng(latitud, longitud);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
+        mapFragment.getMapAsync(this);
+
         img_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,21 +110,18 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
                 startActivity(intent);
             }
         });
-
-
     }
 
-    private void loadMaps(Pesanan pesanan) {
-        double latitud = Double.parseDouble(pesanan.getLatitude());
-        double longitud = Double.parseDouble(pesanan.getLogitude());
-        map.addMarker(new MarkerOptions().title("Rumah Pesanan")
-                .icon(bitmapDescriptor(this))
-                .position(new LatLng(latitud, longitud)));
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        assert mapFragment != null;
-        mapFragment.getMapAsync(this);
-
+    private void actionNotConnection() {
+        Snackbar.make(findViewById(android.R.id.content), "Koneksi Tidak Ada!", Snackbar.LENGTH_INDEFINITE)
+                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
+                .setAction("Close", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        v.setVisibility(View.GONE);
+                    }
+                })
+                .show();
     }
 
     private BitmapDescriptor bitmapDescriptor(Context context) {
@@ -127,9 +138,12 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
         map = googleMap;
-        map.setPadding(0, 0, 0, 200);
+        map.setPadding(0, 0, 0, 500);
+        markerOptionsPesanan = new MarkerOptions().title("Rumah Pesanan")
+                .icon(bitmapDescriptor(this))
+                .position(latlingPesanan);
+        map.addMarker(markerOptionsPesanan);
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
