@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -31,8 +32,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.technest.needfood.R;
 import com.technest.needfood.admin.pesanan.detail.adapter.AdapterAdditional;
+import com.technest.needfood.admin.pesanan.detail.adapter.AdapterBahanPaket;
+import com.technest.needfood.admin.pesanan.detail.adapter.AdapterKategoriAlat;
 import com.technest.needfood.admin.pesanan.detail.adapter.AdapterPaket;
 import com.technest.needfood.models.pesanan.Additional;
+import com.technest.needfood.models.pesanan.AlatPesanan;
+import com.technest.needfood.models.pesanan.BahanPesanan;
 import com.technest.needfood.models.pesanan.Paket;
 import com.technest.needfood.models.pesanan.Pesanan;
 import com.technest.needfood.models.pesanan.Transaksi;
@@ -42,6 +47,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class DetailPesananActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -74,6 +80,9 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
     private TextView tv_kode_pesanan2;
     private TextView tv_nama_pelanggan2;
 
+    private TextView tv_kode_pesanan_bahan;
+    private TextView tv_kode_pesanan_bahan3;
+
     private CardView cv_close_detail_pesanan;
     private ImageView img_close;
 
@@ -84,11 +93,22 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
     private RelativeLayout rl_bahan;
     private RelativeLayout rl_driver;
 
+    private RelativeLayout container_transaksi;
+    private RelativeLayout container_alat;
+    private RelativeLayout container_bahan;
+    private RelativeLayout container_driver;
+
     private RecyclerView rv_paket;
     private RecyclerView rv_additional;
+    private RecyclerView rv_sliding_paket;
+    private RecyclerView rv_sliding_continer_alat;
 
     private TextView tv_kosong_paket;
     private TextView tv_kosong_additional;
+    private TextView tv_kosong_sliding_paket;
+    private TextView tv_kosong_sliding_alat;
+
+    private Pesanan pesanan_parcelable;
 
 
     @Override
@@ -115,10 +135,30 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         containerImageZoom = findViewById(R.id.containerImageZoom);
         containerImageZoom.setVisibility(View.GONE);
 
-        tv_kosong_paket = findViewById(R.id.tv_kosong_paket);
+
         tv_kosong_additional = findViewById(R.id.tv_kosong_additional);
         tv_kosong_additional.setVisibility(View.GONE);
+        tv_kosong_paket = findViewById(R.id.tv_kosong_paket);
         tv_kosong_paket.setVisibility(View.GONE);
+        tv_kosong_sliding_paket = findViewById(R.id.tv_kosong_sliding_paket);
+        tv_kosong_sliding_paket.setVisibility(View.GONE);
+        tv_kosong_sliding_alat = findViewById(R.id.tv_kosong_sliding_alat);
+        tv_kosong_sliding_alat.setVisibility(View.GONE);
+
+        // container pannel sliding
+        container_driver = findViewById(R.id.container_driver);
+
+        container_bahan = findViewById(R.id.container_bahan);
+        tv_kode_pesanan_bahan = findViewById(R.id.tv_kode_pesanan_bahan);
+        rv_sliding_paket = findViewById(R.id.rv_sliding_paket);
+
+        container_alat = findViewById(R.id.container_alat);
+        tv_kode_pesanan_bahan3 = findViewById(R.id.tv_kode_pesanan_bahan3);
+        rv_sliding_continer_alat = findViewById(R.id.rv_sliding_continer_alat);
+
+        container_transaksi = findViewById(R.id.container_transaksi);
+
+        hiddenContainerSliding();
 
         rv_additional = findViewById(R.id.rv_additional);
         rv_paket = findViewById(R.id.rv_paket);
@@ -135,34 +175,43 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         tv_tanggal_antar = findViewById(R.id.tv_tanggal_antar);
         tv_waktu = findViewById(R.id.tv_waktu);
         tv_catatatn = findViewById(R.id.tv_catatatn);
+
         rl_alat = findViewById(R.id.rl_alat);
         rl_alat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Klik Alat", Toast.LENGTH_SHORT).show();
+                hiddenContainerSliding();
+                showPanel();
+                container_alat.setVisibility(View.VISIBLE);
+                setDataAlatPesanan((ArrayList<AlatPesanan>) pesanan_parcelable.getAlat());
             }
         });
-
         rl_bahan = findViewById(R.id.rl_bahan);
         rl_bahan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Klik Bahan", Toast.LENGTH_SHORT).show();
+                hiddenContainerSliding();
+                showPanel();
+                container_bahan.setVisibility(View.VISIBLE);
+                setDataBahanPaket((ArrayList<BahanPesanan>) pesanan_parcelable.getBahan());
             }
         });
         rl_transaksi = findViewById(R.id.rl_transaksi);
         rl_transaksi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hiddenContainerSliding();
                 showPanel();
+                container_transaksi.setVisibility(View.VISIBLE);
             }
         });
-
         rl_driver = findViewById(R.id.rl_driver);
         rl_driver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Klik Driver", Toast.LENGTH_SHORT).show();
+                hiddenContainerSliding();
+                showPanel();
+                container_driver.setVisibility(View.VISIBLE);
             }
         });
 
@@ -181,7 +230,6 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
                 animationMaps();
             }
         });
-
         img_close = findViewById(R.id.img_close);
         img_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,22 +255,51 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
             }
         });
 
-        Pesanan pesanan = getIntent().getParcelableExtra(EXTRA_DATA);
-        assert pesanan != null;
-        setStatus(pesanan.getStatus());
-        tv_kode_pesanan.setText(pesanan.getKd_pemesanan());
-        tv_nama.setText(pesanan.getNama());
-        tv_telpon.setText(pesanan.getNo_telepon());
-        tv_alamat.setText(pesanan.getDeskripsi_lokasi());
-        String tgl = getDate(pesanan.getTanggal_antar());
+        pesanan_parcelable = getIntent().getParcelableExtra(EXTRA_DATA);
+        assert pesanan_parcelable != null;
+        setStatus(pesanan_parcelable.getStatus());
+        tv_kode_pesanan.setText(pesanan_parcelable.getKd_pemesanan());
+        tv_kode_pesanan_bahan.setText(pesanan_parcelable.getKd_pemesanan());
+        tv_kode_pesanan_bahan3.setText(pesanan_parcelable.getKd_pemesanan());
+        tv_nama.setText(pesanan_parcelable.getNama());
+        tv_telpon.setText(pesanan_parcelable.getNo_telepon());
+        tv_alamat.setText(pesanan_parcelable.getDeskripsi_lokasi());
+        String tgl = getDate(pesanan_parcelable.getTanggal_antar());
         tv_tanggal_antar.setText(tgl);
-        tv_waktu.setText(pesanan.getWaktu_antar());
-        tv_catatatn.setText(pesanan.getCatatan());
-        setDataPanelUp(pesanan.getTransaksi(), pesanan.getNama(), pesanan.getKd_pemesanan());
-        setDataPaker((ArrayList<Paket>) pesanan.getPaket());
-        setDataAddiyional((ArrayList<Additional>) pesanan.getAdditional());
-        setMapLokasi(pesanan.getLatitude(), pesanan.getLogitude());
+        tv_waktu.setText(pesanan_parcelable.getWaktu_antar());
+        tv_catatatn.setText(pesanan_parcelable.getCatatan());
+        setDataPanelUp(pesanan_parcelable.getTransaksi(), pesanan_parcelable.getNama(), pesanan_parcelable.getKd_pemesanan());
+        setDataPaker((ArrayList<Paket>) pesanan_parcelable.getPaket());
+        setDataAddiyional((ArrayList<Additional>) pesanan_parcelable.getAdditional());
+        setMapLokasi(pesanan_parcelable.getLatitude(), pesanan_parcelable.getLogitude());
 
+    }
+
+    private void setDataAlatPesanan(ArrayList<AlatPesanan> alat) {
+        if (alat.isEmpty()) {
+            tv_kosong_sliding_alat.setVisibility(View.VISIBLE);
+        } else {
+            AdapterKategoriAlat adapterPaket = new AdapterKategoriAlat(DetailPesananActivity.this, alat);
+            rv_sliding_continer_alat.setLayoutManager(new LinearLayoutManager(DetailPesananActivity.this));
+            rv_sliding_continer_alat.setAdapter(adapterPaket);
+        }
+    }
+
+    private void setDataBahanPaket(ArrayList<BahanPesanan> bahan) {
+        if (bahan.isEmpty()) {
+            tv_kosong_sliding_paket.setVisibility(View.VISIBLE);
+        } else {
+            AdapterBahanPaket adapterPaket = new AdapterBahanPaket(DetailPesananActivity.this, bahan);
+            rv_sliding_paket.setLayoutManager(new LinearLayoutManager(DetailPesananActivity.this));
+            rv_sliding_paket.setAdapter(adapterPaket);
+        }
+    }
+
+    private void hiddenContainerSliding() {
+        container_alat.setVisibility(View.GONE);
+        container_bahan.setVisibility(View.GONE);
+        container_driver.setVisibility(View.GONE);
+        container_transaksi.setVisibility(View.GONE);
     }
 
     private void setStatus(String status) {

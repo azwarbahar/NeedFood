@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 public class BahanPesanan implements Parcelable {
 
     @SerializedName("bahan_id")
-    private String bahan_id;
+    private int bahan_id;
 
     @SerializedName("nama_bahan")
     private String nama_bahan;
@@ -16,11 +16,29 @@ public class BahanPesanan implements Parcelable {
     @SerializedName("jumlah_bahan")
     private String jumlah_bahan;
 
-    public String getBahan_id() {
+    protected BahanPesanan(Parcel in) {
+        bahan_id = in.readInt();
+        nama_bahan = in.readString();
+        jumlah_bahan = in.readString();
+    }
+
+    public static final Creator<BahanPesanan> CREATOR = new Creator<BahanPesanan>() {
+        @Override
+        public BahanPesanan createFromParcel(Parcel in) {
+            return new BahanPesanan(in);
+        }
+
+        @Override
+        public BahanPesanan[] newArray(int size) {
+            return new BahanPesanan[size];
+        }
+    };
+
+    public int getBahan_id() {
         return bahan_id;
     }
 
-    public void setBahan_id(String bahan_id) {
+    public void setBahan_id(int bahan_id) {
         this.bahan_id = bahan_id;
     }
 
@@ -40,24 +58,6 @@ public class BahanPesanan implements Parcelable {
         this.jumlah_bahan = jumlah_bahan;
     }
 
-    protected BahanPesanan(Parcel in) {
-        bahan_id = in.readString();
-        nama_bahan = in.readString();
-        jumlah_bahan = in.readString();
-    }
-
-    public static final Creator<BahanPesanan> CREATOR = new Creator<BahanPesanan>() {
-        @Override
-        public BahanPesanan createFromParcel(Parcel in) {
-            return new BahanPesanan(in);
-        }
-
-        @Override
-        public BahanPesanan[] newArray(int size) {
-            return new BahanPesanan[size];
-        }
-    };
-
     @Override
     public int describeContents() {
         return 0;
@@ -65,7 +65,7 @@ public class BahanPesanan implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(bahan_id);
+        dest.writeInt(bahan_id);
         dest.writeString(nama_bahan);
         dest.writeString(jumlah_bahan);
     }
