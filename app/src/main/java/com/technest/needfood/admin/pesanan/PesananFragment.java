@@ -30,6 +30,8 @@ import com.technest.needfood.network.ApiInterface;
 import com.technest.needfood.network.ConnectionDetector;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -322,7 +324,19 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                             ll_kosong.setVisibility(View.VISIBLE);
                             rv_pesanan.setVisibility(View.GONE);
                         } else {
+                            Collections.sort(pesanans, new Comparator<Pesanan>() {
+                                @Override
+                                public int compare(Pesanan o1, Pesanan o2) {
+                                    return o1.getWaktu_antar().compareTo(o2.getWaktu_antar());
+                                }
+
+                                @Override
+                                public boolean equals(Object obj) {
+                                    return false;
+                                }
+                            });
                             AdapterPesananPencarian adapterPesananPencarian = new AdapterPesananPencarian(getActivity(), pesanans);
+                            adapterPesananPencarian.notifyDataSetChanged();
                             rv_pesanan.setLayoutManager(new LinearLayoutManager(getActivity()));
                             rv_pesanan.setAdapter(adapterPesananPencarian);
                             rv_pesanan.setHasFixedSize(true);

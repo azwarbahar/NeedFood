@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F05600</color>
+    <color name="colorPrimary">#CC0000</color>
     <color name="colorPrimaryTransparan">#5BF05600</color>
-    <color name="colorPrimaryDark">#F05600</color>
+    <color name="colorPrimaryDark">#CC0000</color>
     <color name="colorAccent">#E93035</color>
 
     <color name="arrowUpColor">#077307</color>
@@ -23,14 +23,14 @@
     <color name="biruMuda">#00E0FF</color>
     <color name="biruTua">#0500FF</color>
 
-    <color name="starBtnNotifHomeColor">#F89158</color>
-    <color name="endBtnNotifHomeColor">#F55800</color>
+    <color name="starBtnNotifHomeColor">#FF8383</color>
+    <color name="endBtnNotifHomeColor">#CC0000</color>
 
     <color name="orangeDarkColor">#AA3D00</color>
 
     <color name="color1">#E93035</color>
     <color name="color2">#F05600</color>
-    <color name="color3">#FF9742</color>
+    <color name="color3">#F65959</color>
     <color name="color4">#FFE5D1</color>
     <color name="color5">#FFFBF7</color>
 

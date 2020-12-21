@@ -38,14 +38,14 @@
                     android:layout_marginLeft="16dp"
                     android:background="@drawable/ic_menu_left" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="48dp"
                     android:layout_gravity="center"
-                    android:padding="12dp"
-                    android:text="Need Food"
-                    android:textColor="@color/putih"
-                    android:textSize="18sp" />
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="8dp"
+                    android:src="@drawable/ic_logo_text_white" />
 
                 <ImageView
                     android:id="@+id/title_bar_right_menu"

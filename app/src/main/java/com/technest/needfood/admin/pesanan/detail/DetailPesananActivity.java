@@ -404,6 +404,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         if (sliding_layout != null &&
                 (sliding_layout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED || sliding_layout.getPanelState() == SlidingUpPanelLayout.PanelState.ANCHORED)) {
             sliding_layout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            hiddenContainerSliding();
         } else {
             assert sliding_layout != null;
             sliding_layout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);

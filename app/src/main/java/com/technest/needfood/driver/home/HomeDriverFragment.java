@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -67,6 +69,7 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
     private GoogleMap map;
 
     private ImageView btn_location;
+    private View dialogView;
 
     private SlidingUpPanelLayout sliding_layout;
 
@@ -103,6 +106,14 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
         ll_kosong.setVisibility(View.GONE);
         progressBar = v.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
+
+        ImageView btn_jenis_map = v.findViewById(R.id.btn_jenis_map);
+        btn_jenis_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogJenisMap();
+            }
+        });
 
         rv_pesanan_home_driver = v.findViewById(R.id.rv_pesanan_home_driver);
         sliding_layout = v.findViewById(R.id.sliding_layout);
@@ -156,6 +167,77 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
 
 
         return v;
+    }
+
+    private void dialogJenisMap() {
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getLayoutInflater();
+        dialogView = inflater.inflate(R.layout.dialog_jenis_maps, null);
+        dialog.setView(dialogView);
+        dialog.setCancelable(true);
+        dialog.setTitle("Jenis Maps");
+        dialog.show();
+
+        LinearLayout ll_maps_default = dialogView.findViewById(R.id.ll_maps_default);
+        LinearLayout ll_maps_satelit = dialogView.findViewById(R.id.ll_maps_satelit);
+
+        ImageView img_maps_default = dialogView.findViewById(R.id.img_maps_default);
+        ImageView img_maps_satelit = dialogView.findViewById(R.id.img_maps_satelit);
+
+        TextView tv_maps_default = dialogView.findViewById(R.id.tv_maps_default);
+        TextView tv_maps_satelit = dialogView.findViewById(R.id.tv_maps_satelit);
+
+        if (map.getMapType() == GoogleMap.MAP_TYPE_SATELLITE) {
+
+            img_maps_satelit.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.bg_trans_merah));
+            img_maps_satelit.setPadding(6, 6, 6, 6);
+            tv_maps_satelit.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
+            tv_maps_default.setBackground(null);
+            tv_maps_default.setPadding(0, 0, 0, 0);
+            tv_maps_default.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey2));
+        } else {
+            img_maps_default.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.bg_trans_merah));
+            img_maps_default.setPadding(6, 6, 6, 6);
+            tv_maps_default.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
+            img_maps_satelit.setBackground(null);
+            img_maps_satelit.setPadding(0, 0, 0, 0);
+            tv_maps_satelit.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey2));
+        }
+
+        ll_maps_default.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map.setMapType(map.MAP_TYPE_NORMAL);
+                img_maps_default.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.bg_trans_merah));
+                img_maps_default.setPadding(6, 6, 6, 6);
+                tv_maps_default.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
+                img_maps_satelit.setBackground(null);
+                img_maps_satelit.setPadding(0, 0, 0, 0);
+                tv_maps_satelit.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey2));
+
+            }
+        });
+
+        ll_maps_satelit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                map.setMapType(map.MAP_TYPE_SATELLITE);
+                img_maps_satelit.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.bg_trans_merah));
+                img_maps_satelit.setPadding(6, 6, 6, 6);
+                tv_maps_satelit.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+
+                img_maps_default.setBackground(null);
+                img_maps_default.setPadding(0, 0, 0, 0);
+                tv_maps_default.setTextColor(ContextCompat.getColor(getActivity(), R.color.grey2));
+
+            }
+        });
+
+
     }
 
     private void loadData() {
@@ -277,6 +359,7 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
 
         LatLng latLngzoom = new LatLng(-5.160892, 119.456143);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 12));
+//        map.setMapType(map.MAP_TYPE_SATELLITE);
         map.setOnInfoWindowClickListener(this);
         map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 

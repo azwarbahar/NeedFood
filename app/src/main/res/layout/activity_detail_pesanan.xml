@@ -669,6 +669,7 @@
         android:background="@color/putih">
 
         <RelativeLayout
+            android:background="@drawable/bg_fragment"
             android:id="@+id/container_transaksi"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -980,6 +981,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:background="@drawable/bg_fragment"
             android:id="@+id/container_bahan"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -1039,10 +1041,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_kode_pesanan_bahan"
                 android:layout_marginLeft="16dp"
-                android:text="Paket"
                 android:layout_marginTop="12dp"
-                android:textStyle="bold"
-                android:textColor="@color/hitam" />
+                android:text="Paket"
+                android:textColor="@color/hitam"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_kosong_sliding_paket"
@@ -1067,6 +1069,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:background="@drawable/bg_fragment"
             android:id="@+id/container_alat"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -1148,9 +1151,193 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:background="@drawable/bg_fragment"
             android:id="@+id/container_driver"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_close_panel4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/ic_close_black_24dp"
+                        app:tint="@color/color1" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/img2"
+                android:layout_width="150dp"
+                android:layout_height="156dp"
+                android:layout_below="@id/cv_close_panel4"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/illustrasi_driver" />
+
+            <TextView
+                android:id="@+id/tv14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img2"
+                android:layout_marginLeft="16dp"
+                android:textSize="18dp"
+                android:layout_marginTop="22dp"
+                android:text="Antar"
+                android:textColor="@color/hitam" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_antar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv14"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="10dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_img_foto_driver_antar"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"
+                        android:layout_marginLeft="3dp"
+                        app:cardCornerRadius="25dp"
+                        app:cardElevation="3dp">
+
+                        <com.vatsal.imagezoomer.ImageZoomButton
+                            android:id="@+id/img_foto_driver_antar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/image_daging" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/cv_img_foto_driver_antar"
+                        android:text="Andi Abdillah"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/bg_status_done"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="3dp"
+                        android:text="Aktif"
+                        android:textColor="@color/doneText" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_antar"
+                android:layout_marginRight="16dp"
+                android:textSize="18dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:text="Jemput"
+                android:textColor="@color/hitam" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv15"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="10dp"
+                android:elevation="8dp"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_img_foto_driver_jemput"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="3dp"
+                        app:cardCornerRadius="25dp"
+                        app:cardElevation="3dp">
+
+                        <com.vatsal.imagezoomer.ImageZoomButton
+                            android:id="@+id/img_foto_driver_jemput"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/image_daging" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@+id/cv_img_foto_driver_jemput"
+                        android:text="Andi Abdillah"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/bg_status_done"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="3dp"
+                        android:text="Aktif"
+                        android:textColor="@color/doneText" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
 
         </RelativeLayout>
 

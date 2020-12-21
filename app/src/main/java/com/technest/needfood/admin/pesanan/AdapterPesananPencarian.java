@@ -53,7 +53,7 @@ public class AdapterPesananPencarian extends RecyclerView.Adapter<AdapterPesanan
 
         if (status.equals("New")){
             holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.newText));
-            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_new));
+                holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_new));
         } else if (status.equals("Accept")){
             holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.acceptText));
             holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_accept));
