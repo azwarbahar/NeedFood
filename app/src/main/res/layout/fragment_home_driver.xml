@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -52,10 +51,10 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/hitam"
                     android:layout_toRightOf="@id/img1"
-                    android:text="Hari ini" />
+                    android:text="Hari ini"
+                    android:textColor="@color/hitam"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/total_hari_ini"
@@ -77,19 +76,19 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_pesanan_home_driver"
-            android:layout_below="@+id/cv_hari_ini"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
+            android:layout_below="@+id/cv_hari_ini"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 
             <RelativeLayout
-                android:background="@color/colorPrimaryDark"
                 android:id="@+id/rl_pesanan_home_driver"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimaryDark">
 
                 <ImageView
                     android:id="@+id/img2"
@@ -105,16 +104,28 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:textStyle="bold"
                     android:layout_marginRight="16dp"
-                    android:textColor="@color/putih"
                     android:layout_toRightOf="@id/img2"
-                    android:text="Pesanan" />
+                    android:text="Pesanan"
+                    android:textColor="@color/putih"
+                    android:textStyle="bold" />
 
 
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/btn_help"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignTop="@id/cv_hari_ini"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="14dp"
+            android:background="@drawable/btn_location"
+            android:elevation="8dp"
+            android:padding="3dp"
+            android:src="@drawable/ic_baseline_help_outline_24" />
 
         <ImageView
             android:id="@+id/btn_my_location"
@@ -148,10 +159,11 @@
         android:background="@drawable/bg_sliding_up_panel">
 
         <RelativeLayout
-            android:background="@color/colorPrimaryDark"
             android:id="@+id/rv1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark">
+
             <TextView
                 android:id="@+id/tv2"
                 android:layout_width="wrap_content"
@@ -167,39 +179,39 @@
                 android:id="@+id/tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
                 android:layout_below="@id/tv2"
-                android:textColor="@color/backgroundColor"
+                android:layout_marginLeft="16dp"
                 android:layout_marginBottom="10dp"
-                android:text="Hari ini"/>
+                android:text="Hari ini"
+                android:textColor="@color/backgroundColor" />
         </RelativeLayout>
 
 
         <LinearLayout
             android:id="@+id/ll_kosong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/rv1"
-            android:gravity="center"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="100dp"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:gravity="center"
+            android:orientation="vertical">
 
 
             <ImageView
-                android:src="@drawable/kosong"
                 android:layout_width="150dp"
-                android:layout_height="150dp"/>
+                android:layout_height="150dp"
+                android:src="@drawable/kosong" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"
+                android:text="Kosong.."
                 android:textColor="@color/grey2"
                 android:textSize="20dp"
-                android:text="Kosong.."
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -216,8 +228,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/rv1"
-            android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
             android:indeterminateTint="@color/colorPrimary" />
 
     </RelativeLayout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
@@ -26,15 +26,6 @@
                 android:textColor="@color/color3"
                 android:textSize="20dp"
                 android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/img_status"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="16dp"
-                tools:src="@drawable/ic_android_black_24dp"
-                android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/tv1"
@@ -81,7 +72,7 @@
                 android:layout_height="1dp"
                 android:layout_below="@id/tv_alamat"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:background="@color/grey2" />
 
             <TextView
@@ -90,9 +81,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/view1"
                 android:layout_marginLeft="12dp"
+                android:textColor="@color/biruTua"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="14dp"
-                android:text="Tanggal pesanan" />
+                android:text="Tanggal pesanan"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_jam"
@@ -103,7 +96,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginBottom="14dp"
-                android:text="Jam pesanan" />
+                android:text="Jam pesanan"
+                android:textSize="12sp" />
 
         </RelativeLayout>
 

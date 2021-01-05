@@ -100,8 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (role.equals("driver")) {
                     startActivity(new Intent(this, DashboardDriverActivity.class));
                     finish();
-                } else {
-
                 }
             }
         }
@@ -163,19 +161,19 @@ public class LoginActivity extends AppCompatActivity {
 
         //fill list screen
         final List<SliderItem> mList = new ArrayList<>();
-        mList.add(new SliderItem("Admin",
-                "Mengatur manajemen keuanagn, mengonfirmasi pesanan dan memantau Anjay-anjay " +
-                        "yang ada",
-                R.drawable.ic_android_black_24dp));
+        mList.add(new SliderItem("Manajemen Pesanan",
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+                        "Lorem Ipsum has been the industry's",
+                R.drawable.img_intro1));
 
-        mList.add(new SliderItem("Dapur",
-                "Memastikan kebutuhan bahan makanan alat dan barang yang ingin di gunakan" +
-                        " dan yang di pesan oleh pemesan",
-                R.drawable.ic_android_black_24dp));
+        mList.add(new SliderItem("Monitoring Bahan & alat",
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
+                        "Lorem Ipsum",
+                R.drawable.img_intro2));
 
-        mList.add(new SliderItem("Driver", "Mengefisienkan waktu untuk mengantarkan " +
-                "pesanan para pelanggan",
-                R.drawable.ic_android_black_24dp));
+        mList.add(new SliderItem("Lokasi Pesanan",
+                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+                R.drawable.ic_img_intro3));
 
         // setup view pager
         final ViewPager screenPager = findViewById(R.id.view_pager);
@@ -326,6 +324,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor = sharedpreferences.edit();
                         editor.putString("ID", id);
                         editor.putString("ROLE", role);
+                        editor.putString("PASSWORD", pass);
                         editor.apply();
 
                         switch (role) {

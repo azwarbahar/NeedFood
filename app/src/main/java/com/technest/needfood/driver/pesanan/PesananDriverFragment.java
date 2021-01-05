@@ -15,8 +15,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.technest.needfood.R;
 import com.technest.needfood.driver.pesanan.adapter.PesananDriverPagerAdapter;
-import com.technest.needfood.driver.pesanan.pengantaran.PengantaranFragment;
-import com.technest.needfood.driver.pesanan.penjemputan.PenjemputanFragment;
 
 //import android.widget.TableLayout;
 

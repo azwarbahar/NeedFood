@@ -1,23 +1,1241 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:gravity="bottom"
+    sothree:umanoDragView="@+id/rv_sliding_up"
+    sothree:umanoOverlay="true"
+    sothree:umanoPanelHeight="0dp"
+    sothree:umanoShadowHeight="0dp"
     tools:context=".driver.riwayat.DetailRwayatDriverActivity">
 
-    <TextView
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:text="Detail Search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn3"
-        android:layout_centerInParent="true"
-        android:text="Detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/cv_down_detail">
 
-</RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
+
+                    <ImageView
+                        android:id="@+id/item_stok_toolbar_image1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@null"
+                        android:fitsSystemWindows="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/image_daging" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/gradient_tarns_black" />
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="Detail Pesanan"
+                        android:textColor="@color/putih"
+                        android:textSize="24dp" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <TextView
+                        android:id="@+id/tv_jam"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="12dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_tanggal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_jam"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="14dp"
+                        android:textSize="12sp"
+                        android:text="Jumat 14 Januari 2020"
+                        android:textColor="@color/biruTua" />
+
+                    <TextView
+                        android:id="@+id/tv_kode_pesanan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/bg_gradient_radius_orange"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:text="NFC-114022020"
+                        android:textColor="@color/putih"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_status_pesanan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_kode_pesanan"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_trans_primary"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="2dp"
+                        android:text="Accept"
+                        android:textColor="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_tanggal"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:text="Pelanggan"
+                        android:textSize="18sp" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_pelanggan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv1"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardElevation="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/img_peson"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/ic_person_grey" />
+
+                            <TextView
+                                android:id="@+id/tv_nama"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/img_peson"
+                                android:layout_alignBottom="@id/img_peson"
+                                android:layout_marginLeft="16dp"
+                                android:layout_toRightOf="@id/img_peson"
+                                android:gravity="center_vertical"
+                                android:text="Andi Abdillah"
+                                android:textColor="@color/hitam" />
+
+
+                            <View
+                                android:id="@+id/line2"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_below="@id/img_peson"
+                                android:layout_marginHorizontal="10dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@color/grey2" />
+
+                            <ImageView
+                                android:id="@+id/img_telpon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/line2"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="8dp"
+                                android:src="@drawable/ic_phone_grey" />
+
+                            <TextView
+                                android:id="@+id/tv_telpon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/img_telpon"
+                                android:layout_alignBottom="@id/img_telpon"
+                                android:layout_marginLeft="16dp"
+                                android:layout_toRightOf="@id/img_telpon"
+                                android:gravity="center_vertical"
+                                android:text="+628975875683"
+                                android:textColor="@color/hitam" />
+
+
+                            <View
+                                android:id="@+id/line1"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_below="@id/img_telpon"
+                                android:layout_marginHorizontal="10dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@color/grey2" />
+
+                            <ImageView
+                                android:id="@+id/img_place"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/line1"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:src="@drawable/ic_place_grey" />
+
+                            <TextView
+                                android:id="@+id/tv_alamat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/img_place"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginRight="3dp"
+                                android:layout_marginBottom="8dp"
+                                android:layout_toLeftOf="@id/img_chevron"
+                                android:layout_toRightOf="@id/img_place"
+                                android:gravity="center_vertical"
+                                android:maxLines="2"
+                                android:text="Jalan A.P Pettarani No 221 Kelurahan Mangasa Kecamatan"
+                                android:textColor="@color/hitam" />
+
+                            <ImageView
+                                android:id="@+id/img_chevron"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/tv_alamat"
+                                android:layout_alignBottom="@id/tv_alamat"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="12dp"
+                                android:src="@drawable/ic_chevron_right_grey" />
+
+                            <RelativeLayout
+                                android:id="@+id/continer_map"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/img_place"
+                                android:layout_marginTop="10dp"
+                                android:animateLayoutChanges="true"
+                                android:visibility="gone">
+
+                                <fragment
+                                    android:id="@+id/map"
+                                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="164dp" />
+
+                            </RelativeLayout>
+
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cv_pelanggan"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Waktu"
+                        android:textSize="18sp" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_paket"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv2"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardElevation="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/tv_paket1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@drawable/bg_grey_corner"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                android:text="Tanggal Antar"
+                                android:textColor="@color/putih" />
+
+                            <TextView
+                                android:id="@+id/tv_tanggal_antar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/tv_paket1"
+                                android:layout_alignBottom="@id/tv_paket1"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="16dp"
+                                android:gravity="center"
+                                android:text="2020-09-10"
+                                android:textColor="@color/hitam" />
+
+                            <View
+                                android:id="@+id/line3"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_below="@id/tv_paket1"
+                                android:layout_marginHorizontal="10dp"
+                                android:layout_marginTop="8dp"
+                                android:background="@color/grey2" />
+
+                            <TextView
+                                android:id="@+id/tv_paket2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/line3"
+                                android:layout_marginLeft="12dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:background="@drawable/bg_grey_corner"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                android:text="Waktu"
+                                android:textColor="@color/putih" />
+
+                            <TextView
+                                android:id="@+id/tv_waktu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@id/tv_paket2"
+                                android:layout_alignBottom="@id/tv_paket2"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="16dp"
+                                android:gravity="center"
+                                android:text="Pagi"
+                                android:textColor="@color/hitam" />
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/tv4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cv_paket"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Catatan"
+                        android:textSize="18sp" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_catatan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv4"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardElevation="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/tv_catatatn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="8dp"
+                                android:layout_marginLeft="12dp"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="3dp"
+                                tools:text="dsfdg0g" />
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/tv3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cv_catatan"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Paket"
+                        android:textSize="18sp" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_paket1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv3"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="10dp"
+                        app:cardElevation="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/tv_kosong_paket"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_marginVertical="8dp"
+                                android:text="- Kosong -"
+                                android:textColor="@color/grey2"
+                                android:textStyle="italic" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_paket"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="-1dp"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/item_list_paket" />
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <TextView
+                        android:id="@+id/tv5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/cv_paket1"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:text="Additional"
+                        android:textSize="18sp" />
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cv_additionam"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv5"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="15dp"
+                        app:cardElevation="5dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:id="@+id/tv_kosong_additional"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_marginVertical="8dp"
+                                android:text="- Kosong -"
+                                android:textColor="@color/grey2"
+                                android:textStyle="italic" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_additional"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="-1dp"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/item_list_paket" />
+
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_anchor="@+id/item_stok_appbar"
+                    app:layout_anchorGravity="center" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_down_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:cardElevation="12dp">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_close_detail_pesanan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_margin="5dp"
+                            android:src="@drawable/ic_close_black_24dp"
+                            app:tint="@color/color1" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <RelativeLayout
+                    android:id="@+id/rl_btn_bukti"
+                    android:layout_width="110dp"
+                    android:layout_height="40dp"
+                    android:layout_marginVertical="8dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/bg_gradient_radius_grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/cv_close_detail_pesanan"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Selesai"
+                        android:textColor="@color/putih"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/img_alat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_icon_alat_merah"
+                    app:layout_constraintBottom_toBottomOf="@+id/rl_btn_bukti"
+                    app:layout_constraintEnd_toStartOf="@+id/img_bahan"
+                    app:layout_constraintStart_toEndOf="@+id/rl_btn_bukti"
+                    app:layout_constraintTop_toTopOf="@+id/rl_btn_bukti" />
+
+                <ImageView
+                    android:id="@+id/img_bahan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_icon_bahan_merah"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_alat"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/rl_btn_bukti"
+                    app:layout_constraintTop_toTopOf="@+id/img_alat" />
+
+
+                <ImageView
+                    android:id="@+id/img_whatsapp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icon_whatsapp"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_alat"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/img_bahan"
+                    app:layout_constraintTop_toTopOf="@+id/img_alat" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rv_sliding_up"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/putih">
+
+        <RelativeLayout
+            android:id="@+id/container_bahan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_fragment">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_close_panel2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/ic_close_black_24dp"
+                        app:tint="@color/color1" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_title_bahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_close_panel2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-10dp"
+                android:text="Bahan Pesanan"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_kode_pesanan_bahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title_bahan"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3dp"
+                android:text="Kode : NFC-0109102020"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tv_paket_bahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_kode_pesanan_bahan"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Paket"
+                android:textColor="@color/hitam"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_kosong_sliding_paket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_paket_bahan"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="8dp"
+                android:layout_marginTop="3dp"
+                android:text="- Kosong -"
+                android:textColor="@color/grey2"
+                android:textStyle="italic" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_sliding_paket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_paket_bahan"
+                android:layout_marginTop="3dp"
+                tools:listitem="@layout/item_bahan_alat_sliding_pesanan" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/container_alat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_fragment">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_close_panel3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/ic_close_black_24dp"
+                        app:tint="@color/color1" />
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_title_bahan3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cv_close_panel3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-10dp"
+                android:text="Alat Pesanan"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_kode_pesanan_bahan3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title_bahan3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3dp"
+                android:text="Kode : NFC-0109102020"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tv_kosong_sliding_alat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_kode_pesanan_bahan3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="8dp"
+                android:layout_marginTop="15dp"
+                android:text="- Belum diproses -"
+                android:textColor="@color/grey2"
+                android:textStyle="italic" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_sliding_continer_alat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_kode_pesanan_bahan3"
+                android:layout_marginTop="3dp"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_sliding_container_alat" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <!--    <RelativeLayout-->
+    <!--        android:id="@+id/container_list_alat"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_above="@id/cv_down_detail"-->
+    <!--        android:background="@color/hitamTrans">-->
+
+    <!--        <ImageView-->
+    <!--            android:id="@+id/img_close_list_alat"-->
+    <!--            android:layout_width="40dp"-->
+    <!--            android:layout_height="40dp"-->
+    <!--            android:layout_marginLeft="16dp"-->
+    <!--            android:layout_marginTop="20dp"-->
+    <!--            android:src="@drawable/ic_close_black_24dp"-->
+    <!--            app:tint="@color/putih" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginLeft="14dp"-->
+    <!--            android:layout_marginTop="30dp"-->
+    <!--            android:layout_toRightOf="@id/img_close_list_alat"-->
+    <!--            android:text="List Alat"-->
+    <!--            android:textColor="@color/putih"-->
+    <!--            android:textSize="20dp"-->
+    <!--            android:textStyle="bold" />-->
+
+    <!--        <LinearLayout-->
+    <!--            android:id="@+id/ll_list"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_below="@id/img_close_list_alat"-->
+    <!--            android:layout_marginTop="40dp"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical">-->
+
+    <!--                <LinearLayout-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:gravity="center_vertical"-->
+    <!--                    android:orientation="horizontal">-->
+
+    <!--                    <ImageView-->
+    <!--                        android:layout_width="8dp"-->
+    <!--                        android:layout_height="8dp"-->
+    <!--                        android:layout_marginLeft="20dp"-->
+    <!--                        android:src="@drawable/indicator_selector"-->
+    <!--                        app:tint="@color/putih" />-->
+
+    <!--                    <TextView-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginLeft="12dp"-->
+    <!--                        android:text="Kompor Portable"-->
+    <!--                        android:textColor="@color/putih"-->
+    <!--                        android:textSize="16sp" />-->
+
+    <!--                    <TextView-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginRight="16dp"-->
+    <!--                        android:gravity="end"-->
+    <!--                        android:text="2"-->
+    <!--                        android:textColor="@color/putih"-->
+    <!--                        android:textSize="16sp" />-->
+    <!--                </LinearLayout>-->
+
+    <!--                <View-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="1dp"-->
+    <!--                    android:layout_marginHorizontal="16dp"-->
+    <!--                    android:layout_marginTop="8dp"-->
+    <!--                    android:layout_marginBottom="5dp"-->
+    <!--                    android:background="@color/grey" />-->
+
+    <!--            </LinearLayout>-->
+
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical">-->
+
+    <!--                <LinearLayout-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:gravity="center_vertical"-->
+    <!--                    android:orientation="horizontal">-->
+
+    <!--                    <ImageView-->
+    <!--                        android:layout_width="8dp"-->
+    <!--                        android:layout_height="8dp"-->
+    <!--                        android:layout_marginLeft="20dp"-->
+    <!--                        android:src="@drawable/indicator_selector"-->
+    <!--                        app:tint="@color/putih" />-->
+
+    <!--                    <TextView-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginLeft="12dp"-->
+    <!--                        android:text="Sumpit"-->
+    <!--                        android:textColor="@color/putih"-->
+    <!--                        android:textSize="16sp" />-->
+
+    <!--                    <TextView-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginRight="16dp"-->
+    <!--                        android:gravity="end"-->
+    <!--                        android:text="2"-->
+    <!--                        android:textColor="@color/putih"-->
+    <!--                        android:textSize="16sp" />-->
+
+    <!--                </LinearLayout>-->
+
+    <!--                <View-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="1dp"-->
+    <!--                    android:layout_marginHorizontal="16dp"-->
+    <!--                    android:layout_marginTop="8dp"-->
+    <!--                    android:layout_marginBottom="5dp"-->
+    <!--                    android:background="@color/grey" />-->
+
+    <!--            </LinearLayout>-->
+
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical">-->
+
+    <!--                <LinearLayout-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:gravity="center_vertical"-->
+    <!--                    android:orientation="horizontal">-->
+
+    <!--                    <ImageView-->
+    <!--                        android:layout_width="8dp"-->
+    <!--                        android:layout_height="8dp"-->
+    <!--                        android:layout_marginLeft="20dp"-->
+    <!--                        android:src="@drawable/indicator_selector"-->
+    <!--                        app:tint="@color/putih" />-->
+
+    <!--                    <TextView-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginLeft="12dp"-->
+    <!--                        android:text="Panci"-->
+    <!--                        android:textColor="@color/putih"-->
+    <!--                        android:textSize="16sp" />-->
+
+    <!--                    <TextView-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginRight="16dp"-->
+    <!--                        android:gravity="end"-->
+    <!--                        android:text="2"-->
+    <!--                        android:textColor="@color/putih"-->
+    <!--                        android:textSize="16sp" />-->
+
+    <!--                </LinearLayout>-->
+
+    <!--                <View-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="1dp"-->
+    <!--                    android:layout_marginHorizontal="16dp"-->
+    <!--                    android:layout_marginTop="8dp"-->
+    <!--                    android:layout_marginBottom="5dp"-->
+    <!--                    android:background="@color/grey" />-->
+
+    <!--            </LinearLayout>-->
+
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical">-->
+
+    <!--                <LinearLayout-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:gravity="center_vertical"-->
+    <!--                    android:orientation="horizontal">-->
+
+    <!--                    <ImageView-->
+    <!--                        android:layout_width="8dp"-->
+    <!--                        android:layout_height="8dp"-->
+    <!--                        android:layout_marginLeft="20dp"-->
+    <!--                        android:src="@drawable/indicator_selector"-->
+    <!--                        app:tint="@color/putih" />-->
+
+    <!--                    <TextView-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginLeft="12dp"-->
+    <!--                        android:text="Mangkok"-->
+    <!--                        android:textColor="@color/putih"-->
+    <!--                        android:textSize="16sp" />-->
+
+    <!--                    <TextView-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginRight="16dp"-->
+    <!--                        android:gravity="end"-->
+    <!--                        android:text="2"-->
+    <!--                        android:textColor="@color/putih"-->
+    <!--                        android:textSize="16sp" />-->
+
+    <!--                </LinearLayout>-->
+
+    <!--                <View-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="1dp"-->
+    <!--                    android:layout_marginHorizontal="16dp"-->
+    <!--                    android:layout_marginTop="8dp"-->
+    <!--                    android:layout_marginBottom="5dp"-->
+    <!--                    android:background="@color/grey" />-->
+
+    <!--            </LinearLayout>-->
+
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:orientation="vertical">-->
+
+    <!--                <LinearLayout-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:gravity="center_vertical"-->
+    <!--                    android:orientation="horizontal">-->
+
+    <!--                    <ImageView-->
+    <!--                        android:layout_width="8dp"-->
+    <!--                        android:layout_height="8dp"-->
+    <!--                        android:layout_marginLeft="20dp"-->
+    <!--                        android:src="@drawable/indicator_selector"-->
+    <!--                        app:tint="@color/putih" />-->
+
+    <!--                    <TextView-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginLeft="12dp"-->
+    <!--                        android:text="Pisau"-->
+    <!--                        android:textColor="@color/putih"-->
+    <!--                        android:textSize="16sp" />-->
+
+    <!--                    <TextView-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_marginRight="16dp"-->
+    <!--                        android:gravity="end"-->
+    <!--                        android:text="2"-->
+    <!--                        android:textColor="@color/putih"-->
+    <!--                        android:textSize="16sp" />-->
+
+    <!--                </LinearLayout>-->
+
+    <!--                <View-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="1dp"-->
+    <!--                    android:layout_marginHorizontal="16dp"-->
+    <!--                    android:layout_marginTop="8dp"-->
+    <!--                    android:layout_marginBottom="5dp"-->
+    <!--                    android:background="@color/grey" />-->
+
+    <!--            </LinearLayout>-->
+
+    <!--        </LinearLayout>-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_below="@id/ll_list"-->
+    <!--            android:layout_centerHorizontal="true"-->
+    <!--            android:layout_marginTop="50dp"-->
+    <!--            android:background="@drawable/bg_gradient_radius_orange">-->
+
+    <!--            <TextView-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:padding="10dp"-->
+    <!--                android:text="Cek Alat Kembali"-->
+    <!--                android:textColor="@color/putih" />-->
+
+    <!--        </LinearLayout>-->
+
+
+    <!--    </RelativeLayout>-->
+
+    <!--    <RelativeLayout-->
+    <!--        android:id="@+id/container_kamera"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_above="@id/cv_down_detail"-->
+    <!--        android:background="@color/backgroundColor2">-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/tv5"-->
+    <!--            style="@style/TextAppearance.AppCompat.Title"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_centerHorizontal="true"-->
+    <!--            android:layout_marginTop="12dp"-->
+    <!--            android:text="Ambil Gambar" />-->
+
+    <!--        <LinearLayout-->
+    <!--            android:id="@+id/continer_img_foto"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="300dp"-->
+    <!--            android:layout_below="@id/tv5"-->
+    <!--            android:layout_marginHorizontal="16dp"-->
+    <!--            android:layout_marginTop="10dp">-->
+
+    <!--            <ImageView-->
+    <!--                android:id="@+id/img_foto"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="match_parent"-->
+    <!--                android:background="@drawable/stroke_orange"-->
+    <!--                android:scaleType="fitCenter"-->
+    <!--                android:src="@drawable/ic_icon_kamera"-->
+    <!--                app:tint="@color/grey2" />-->
+
+    <!--        </LinearLayout>-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_below="@id/continer_img_foto"-->
+    <!--            android:layout_marginHorizontal="26dp"-->
+    <!--            android:layout_marginTop="16dp"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            android:weightSum="2">-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/tv_batal"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginRight="10dp"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:background="@color/putih"-->
+    <!--                android:gravity="center"-->
+    <!--                android:paddingVertical="8dp"-->
+    <!--                android:text="Batal"-->
+    <!--                android:textColor="@color/grey"-->
+    <!--                android:textSize="16dp" />-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/tv_ambil"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginLeft="10dp"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:background="@color/colorPrimaryDark"-->
+    <!--                android:gravity="center"-->
+    <!--                android:paddingVertical="8dp"-->
+    <!--                android:text="Ambil"-->
+    <!--                android:textColor="@color/putih"-->
+    <!--                android:textSize="16dp" />-->
+    <!--        </LinearLayout>-->
+
+    <!--    </RelativeLayout>-->
+
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:id="@+id/cv_down_detail"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        app:cardElevation="12dp">-->
+
+    <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent">-->
+
+    <!--            <androidx.cardview.widget.CardView-->
+    <!--                android:id="@+id/cv_close_detail_pesanan"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginStart="16dp"-->
+    <!--                android:layout_marginLeft="16dp"-->
+    <!--                app:cardCornerRadius="8dp"-->
+    <!--                app:cardElevation="4dp"-->
+    <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--                app:layout_constraintStart_toStartOf="parent"-->
+    <!--                app:layout_constraintTop_toTopOf="parent">-->
+
+    <!--                <RelativeLayout-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content">-->
+
+    <!--                    <ImageView-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_centerInParent="true"-->
+    <!--                        android:layout_margin="5dp"-->
+    <!--                        android:src="@drawable/ic_close_black_24dp"-->
+    <!--                        app:tint="@color/color1" />-->
+
+    <!--                </RelativeLayout>-->
+
+    <!--            </androidx.cardview.widget.CardView>-->
+
+    <!--            <RelativeLayout-->
+    <!--                android:id="@+id/rl_btn_bukti"-->
+    <!--                android:layout_width="140dp"-->
+    <!--                android:layout_height="40dp"-->
+    <!--                android:layout_marginVertical="8dp"-->
+    <!--                android:layout_marginStart="10dp"-->
+    <!--                android:layout_marginLeft="10dp"-->
+    <!--                android:background="@drawable/bg_gradient_radius_orange"-->
+    <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--                app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                app:layout_constraintHorizontal_bias="0.0"-->
+    <!--                app:layout_constraintStart_toEndOf="@+id/cv_close_detail_pesanan"-->
+    <!--                app:layout_constraintTop_toTopOf="parent">-->
+
+    <!--                <TextView-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_centerInParent="true"-->
+    <!--                    android:text="Sampai"-->
+    <!--                    android:textColor="@color/putih"-->
+    <!--                    android:textSize="18sp"-->
+    <!--                    android:textStyle="bold" />-->
+
+    <!--            </RelativeLayout>-->
+
+    <!--            <ImageView-->
+    <!--                android:id="@+id/img_call"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:src="@drawable/ic_icon_alat"-->
+    <!--                app:layout_constraintBottom_toBottomOf="@+id/rl_btn_bukti"-->
+    <!--                app:layout_constraintEnd_toStartOf="@+id/img_refuse"-->
+    <!--                app:layout_constraintStart_toEndOf="@+id/rl_btn_bukti"-->
+    <!--                app:layout_constraintTop_toTopOf="@+id/rl_btn_bukti" />-->
+
+    <!--            <ImageView-->
+    <!--                android:id="@+id/img_refuse"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:src="@drawable/ic_icon_kamera"-->
+    <!--                app:layout_constraintBottom_toBottomOf="@+id/img_call"-->
+    <!--                app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                app:layout_constraintStart_toEndOf="@+id/rl_btn_bukti"-->
+    <!--                app:layout_constraintTop_toTopOf="@+id/img_call" />-->
+
+
+    <!--            <ImageView-->
+    <!--                android:id="@+id/img_accept"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:src="@drawable/ic_icon_telpon_grey"-->
+    <!--                app:layout_constraintBottom_toBottomOf="@+id/img_call"-->
+    <!--                app:layout_constraintEnd_toEndOf="parent"-->
+    <!--                app:layout_constraintStart_toEndOf="@+id/img_refuse"-->
+    <!--                app:layout_constraintTop_toTopOf="@+id/img_call" />-->
+
+    <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+    <!--    </androidx.cardview.widget.CardView>-->
+
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

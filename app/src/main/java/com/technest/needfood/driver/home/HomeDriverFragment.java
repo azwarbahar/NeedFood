@@ -1,20 +1,25 @@
 package com.technest.needfood.driver.home;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -25,6 +30,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -32,6 +38,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -42,11 +52,22 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState;
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
+import com.technest.needfood.driver.MapsHelper;
 import com.technest.needfood.driver.delivery.DeliveryDriverActivity;
 import com.technest.needfood.driver.pesanan.PesananDriverFragment;
 import com.technest.needfood.models.pesanan.Pesanan;
@@ -55,18 +76,56 @@ import com.technest.needfood.network.ApiClient;
 import com.technest.needfood.network.ApiInterface;
 import com.technest.needfood.network.ConnectionDetector;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback {
+public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWindowClickListener, OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        com.google.android.gms.location.LocationListener,
+        MapsHelper {
 
     private View v;
 
+    private String id;
+    private String role;
+    private String nama;
+    private String alamat;
+    private String email;
+    private String telepon;
+    private String foto;
+    private String status;
+    private String username;
+
+    private boolean firstTime = true;
+
     private GoogleMap map;
+    private GoogleMap mapDriver;
+    private MarkerOptions markerOptionsDriver;
+
+    private Location currentLocation;
+    private LocationManager mLocationManager;
+    private LocationManager locationManager;
+    private LocationRequest mLocationRequest;
+    private String tanggal_now;
+
+    Location mLastLocation;
+    Marker mCurrLocationMarker;
+
+    private GoogleApiClient mGoogleApiClient;
+    private boolean isPermission;
+    private long UPDATE_INTERVAL = 2000;
+    private long FASTES_INTERVAL = 5000;
+
+    private Polyline currentPolyline;
 
     private ImageView btn_location;
     private View dialogView;
@@ -81,8 +140,11 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
     private ProgressBar progressBar;
     private LinearLayout ll_kosong;
     private ArrayList<Pesanan> pesanans;
+    private ArrayList<Pesanan> pesanansAntar;
 
     private TextView total_hari_ini;
+
+    private LatLng latLng_driver;
 
     HashMap<String, Pesanan> markerMap = new HashMap<String, Pesanan>();
 
@@ -100,12 +162,22 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
         assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
+        loadBundle();
+
         total_hari_ini = v.findViewById(R.id.total_hari_ini);
 
         ll_kosong = v.findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
         progressBar = v.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
+
+        ImageView btn_help = v.findViewById(R.id.btn_help);
+        btn_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogHelp();
+            }
+        });
 
         ImageView btn_jenis_map = v.findViewById(R.id.btn_jenis_map);
         btn_jenis_map.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +196,8 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
         btn_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//                LatLng latLngzoom = new LatLng(location.getLatitude(), location.getLongitude());
+                mapDriver.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng_driver, 13));
             }
         });
 
@@ -151,13 +224,10 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
             }
         });
 
-
         // check Koneksi
         if (ConnectionDetector.isInternetAvailble()) {
             loadData();
-            SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-            assert supportMapFragment != null;
-            supportMapFragment.getMapAsync(HomeDriverFragment.this);
+            loadDataJemput();
         } else {
             rv_pesanan_home_driver.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
@@ -165,8 +235,89 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
             ll_kosong.setVisibility(View.VISIBLE);
         }
 
+        if (requestSinglePermission()) {
 
+            mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                    .addConnectionCallbacks(this)
+                    .addApi(LocationServices.API)
+                    .build();
+            mLocationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+            checkLocation();
+        }
         return v;
+    }
+
+    private void dialogHelp() {
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getLayoutInflater();
+        dialogView = inflater.inflate(R.layout.dialog_help_map, null);
+        dialog.setView(dialogView);
+        dialog.setIcon(R.drawable.ic_baseline_help_outline_24);
+        dialog.setCancelable(true);
+        dialog.setTitle("Info Marker");
+        dialog.show();
+    }
+
+    private void loadDataJemput() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        tanggal_now = dateFormat.format(date);
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponsePesanan> responsePesananCall = apiInterface.getPesananHariIni("Bearer " + BuildConfig.TOKEN, "Taking", tanggal_now);
+        responsePesananCall.enqueue(new Callback<ResponsePesanan>() {
+            @Override
+            public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    if (response.body().getmSuccess()) {
+                        pesanansAntar = (ArrayList<Pesanan>) response.body().getmPesanan();
+                        setMarkerPesananPesanan(pesanansAntar);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponsePesanan> call, Throwable t) {
+            }
+        });
+
+    }
+
+    private void setMarkerPesananPesanan(ArrayList<Pesanan> pesanansAntar) {
+        for (int a = 0; a < pesanansAntar.size(); a++) {
+
+            double latit = Double.parseDouble(pesanansAntar.get(a).getLatitude());
+            double longit = Double.parseDouble(pesanansAntar.get(a).getLogitude());
+            Marker marker = map.addMarker(new MarkerOptions().title("Kode : " + pesanansAntar.get(a).getKd_pemesanan())
+                    .icon(bitmapDescriptor(getActivity(), R.drawable.ic_icon_lokasi_jemput))
+                    .snippet("Nama : " + pesanansAntar.get(a).getNama() +
+                            "\nWaktu : " + pesanansAntar.get(a).getWaktu_antar())
+                    .position(new LatLng(latit, longit)));
+
+            String idmark = marker.getId();
+            markerMap.put(idmark, pesanansAntar.get(a));
+
+            SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+            assert supportMapFragment != null;
+            supportMapFragment.getMapAsync(HomeDriverFragment.this);
+        }
+    }
+
+    private void loadBundle() {
+        Bundle bundle = this.getArguments();
+        assert bundle != null;
+        if (!bundle.isEmpty()) {
+            id = bundle.getString("GET_ID");
+            nama = bundle.getString("GET_NAME");
+            alamat = bundle.getString("GET_ALAMAT");
+            telepon = bundle.getString("GET_USERNAME");
+            foto = bundle.getString("GET_USERNAME");
+            status = bundle.getString("GET_USERNAME");
+            username = bundle.getString("GET_USERNAME");
+        }
     }
 
     private void dialogJenisMap() {
@@ -241,8 +392,14 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
     }
 
     private void loadData() {
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+//        Toast.makeText(getActivity(), dateFormat.format(date), Toast.LENGTH_SHORT).show();
+        tanggal_now = dateFormat.format(date);
+
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponsePesanan> responsePesananCall = apiInterface.getPesananHariIni("Bearer " + BuildConfig.TOKEN, "Delivery");
+        Call<ResponsePesanan> responsePesananCall = apiInterface.getPesananHariIni("Bearer " + BuildConfig.TOKEN, "Delivery", tanggal_now);
         responsePesananCall.enqueue(new Callback<ResponsePesanan>() {
             @Override
             public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
@@ -289,20 +446,36 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
             double latit = Double.parseDouble(pesanans.get(a).getLatitude());
             double longit = Double.parseDouble(pesanans.get(a).getLogitude());
             Marker marker = map.addMarker(new MarkerOptions().title("Kode : " + pesanans.get(a).getKd_pemesanan())
-                    .icon(bitmapDescriptor(getActivity()))
+                    .icon(bitmapDescriptor(getActivity(), R.drawable.ic_icon_lokasi_tujuan))
                     .snippet("Nama : " + pesanans.get(a).getNama() +
                             "\nWaktu : " + pesanans.get(a).getWaktu_antar())
                     .position(new LatLng(latit, longit)));
 
             String idmark = marker.getId();
             markerMap.put(idmark, pesanans.get(a));
+
+            SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+            assert supportMapFragment != null;
+            supportMapFragment.getMapAsync(HomeDriverFragment.this);
         }
     }
 
-    private BitmapDescriptor bitmapDescriptor(Context context) {
+    private BitmapDescriptor bitmapDescriptor(Context context, int vactorResid) {
         int height = 90;
         int width = 60;
-        Drawable vectorDrawble = ContextCompat.getDrawable(context, R.drawable.ic_icon_lokasi_tujuan);
+        Drawable vectorDrawble = ContextCompat.getDrawable(context, vactorResid);
+        assert vectorDrawble != null;
+        vectorDrawble.setBounds(0, 0, width, height);
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawble.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    private BitmapDescriptor bitmapDescriptorDriver(Context context, int vactorResid) {
+        int height = 70;
+        int width = 70;
+        Drawable vectorDrawble = ContextCompat.getDrawable(context, vactorResid);
         assert vectorDrawble != null;
         vectorDrawble.setBounds(0, 0, width, height);
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -341,6 +514,7 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        mapDriver = googleMap;
         map = googleMap;
         map.setPadding(0, 0, 0, 200);
         try {
@@ -357,8 +531,6 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
             Log.e("MapsActivity", "Can't find style. Error: ", e);
         }
 
-        LatLng latLngzoom = new LatLng(-5.160892, 119.456143);
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 12));
 //        map.setMapType(map.MAP_TYPE_SATELLITE);
         map.setOnInfoWindowClickListener(this);
         map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -410,5 +582,173 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
         Intent intent = new Intent(getActivity(), DeliveryDriverActivity.class);
         intent.putExtra(DeliveryDriverActivity.EXTRA_DATA, markerMap.get(marker.getId()));
         getActivity().startActivity(intent);
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+                        PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        startLocationUpdate();
+        currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (currentLocation == null) {
+            startLocationUpdate();
+        }
+    }
+
+    private void startLocationUpdate() {
+
+        progressBar.setVisibility(View.GONE);
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(UPDATE_INTERVAL)
+                .setFastestInterval(FASTES_INTERVAL);
+
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+                        PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                mLocationRequest, this);
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        mLastLocation = location;
+        if (mCurrLocationMarker != null) {
+            mCurrLocationMarker.remove();
+        }
+        latLng_driver = new LatLng(location.getLatitude(), location.getLongitude());
+
+        FirebaseDatabase database1 = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database1.getReference("live_location").child("driver");
+        String live_latitude = String.valueOf(location.getLatitude());
+        String live_longitude = String.valueOf(location.getLongitude());
+        myRef.child(id).child("latitude").setValue(live_latitude);
+        myRef.child(id).child("longitude").setValue(live_longitude);
+//        mapDriver.clear();
+        if (markerOptionsDriver == null) {
+            markerOptionsDriver = new MarkerOptions().position(latLng_driver).icon(bitmapDescriptorDriver(getActivity(),
+                    R.drawable.ic_icon_lokasi_driver));
+            mapDriver.addMarker(markerOptionsDriver);
+        } else {
+            markerOptionsDriver = new MarkerOptions().position(latLng_driver).icon(bitmapDescriptorDriver(getActivity(),
+                    R.drawable.ic_icon_lokasi_driver));
+        }
+
+//        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+//        assert supportMapFragment != null;
+//        supportMapFragment.getMapAsync(HomeDriverFragment.this);
+
+        //move map camera
+        if (firstTime) {
+            firstTime = false;
+            LatLng latLngzoom = new LatLng(location.getLatitude(), location.getLongitude());
+            mapDriver.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 13));
+        }
+    }
+
+    private boolean isLocationEnable() {
+        locationManager = (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    private boolean checkLocation() {
+
+        if (!isLocationEnable()) {
+            showAlert();
+        }
+        return isLocationEnable();
+    }
+
+
+    private void showAlert() {
+        final android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(getActivity());
+        dialog.setTitle("Enable Location")
+                .setMessage("Yout Locations Settings is set to 'off'.\nPlease Enable Location to " +
+                        "use this app")
+                .setPositiveButton("Location Setting", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        dialog.show();
+    }
+
+    private boolean requestSinglePermission() {
+
+        Dexter.withActivity(getActivity())
+                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        isPermission = true;
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        if (response.isPermanentlyDenied()) {
+                            isPermission = false;
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+                    }
+                }).check();
+
+        return isPermission;
+    }
+
+    @Override
+    public void onTaskDone(Object... values) {
+        if (currentPolyline != null)
+            currentPolyline.remove();
+        currentPolyline = map.addPolyline((PolylineOptions) values[0]);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
     }
 }

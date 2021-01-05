@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,9 +17,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
-import com.technest.needfood.admin.stok.item_stok.ItemStokActivity;
 import com.technest.needfood.admin.stok.item_stok.detail.adapter.RiwayarStokBahanAdapter;
-import com.technest.needfood.admin.stok.item_stok.detail.model.RiwayarStokBahanModel;
 import com.technest.needfood.models.bahan.Bahan;
 import com.technest.needfood.models.bahan.ResponseBahan;
 import com.technest.needfood.models.bahan.RiwayatBeli;
@@ -46,7 +43,7 @@ public class DetailItemStokActivity extends AppCompatActivity {
 
     private String satuan;
     private LinearLayout ll_kosong;
-    private ProgressBar progressBar;
+    private CardView cvProgressBar;
 
     private RecyclerView rv_riwayat_item_stok;
     private Bahan bahans;
@@ -60,8 +57,8 @@ public class DetailItemStokActivity extends AppCompatActivity {
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
 
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        cvProgressBar = findViewById(R.id.cvProgressBar);
+        cvProgressBar.setVisibility(View.VISIBLE);
         ll_kosong = findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
 
@@ -94,7 +91,7 @@ public class DetailItemStokActivity extends AppCompatActivity {
         if (ConnectionDetector.isInternetAvailble()) {
             getDataBahan(String.valueOf(bahan.getId()));
         } else {
-            progressBar.setVisibility(View.GONE);
+            cvProgressBar.setVisibility(View.GONE);
             actionNotConnection();
             ll_kosong.setVisibility(View.VISIBLE);
         }
@@ -120,7 +117,7 @@ public class DetailItemStokActivity extends AppCompatActivity {
         responseBahanCall.enqueue(new Callback<ResponseBahan>() {
             @Override
             public void onResponse(Call<ResponseBahan> call, Response<ResponseBahan> response) {
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     if (response.body().getSuccess()) {
                         ll_kosong.setVisibility(View.GONE);
@@ -136,7 +133,7 @@ public class DetailItemStokActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBahan> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
             }
         });
@@ -145,7 +142,7 @@ public class DetailItemStokActivity extends AppCompatActivity {
     }
 
     private void setList(Bahan bahans) {
-        progressBar.setVisibility(View.GONE);
+        cvProgressBar.setVisibility(View.GONE);
         RiwayarStokBahanAdapter riwayarStokBahanAdapter = new RiwayarStokBahanAdapter(this, (ArrayList<RiwayatBeli>) bahans.getRiwayatBeli(), satuan);
         rv_riwayat_item_stok.setLayoutManager(new LinearLayoutManager(this));
         rv_riwayat_item_stok.setAdapter(riwayarStokBahanAdapter);
@@ -161,6 +158,6 @@ public class DetailItemStokActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-            finish();
+        finish();
     }
 }

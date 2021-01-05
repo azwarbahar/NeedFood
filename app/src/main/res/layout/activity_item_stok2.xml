@@ -109,11 +109,22 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvProgressBar"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="20dp"
+        android:layout_width="40dp"
         android:layout_centerInParent="true"
-        android:indeterminateTint="@color/colorPrimary" />
+        android:padding="6dp"
+        android:layout_height="40dp">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cv_search"
+            android:indeterminateTint="@color/colorPrimary" />
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

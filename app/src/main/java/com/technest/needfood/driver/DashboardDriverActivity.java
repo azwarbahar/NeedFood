@@ -6,21 +6,30 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
+import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
-import com.technest.needfood.admin.DashboardAdminActivity;
 import com.technest.needfood.driver.akun.AkunDriverFragment;
 import com.technest.needfood.driver.home.HomeDriverFragment;
 import com.technest.needfood.driver.pesanan.PesananDriverFragment;
 import com.technest.needfood.driver.riwayat.RiwayatDriverFragment;
 import com.technest.needfood.intro.LoginActivity;
+import com.technest.needfood.models.user.ResponDriver;
+import com.technest.needfood.network.ApiClient;
+import com.technest.needfood.network.ApiInterface;
+import com.technest.needfood.network.ConnectionDetector;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.technest.needfood.intro.LoginActivity.my_shared_preferences;
 
@@ -38,19 +47,95 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
     private String id;
     private String role;
     private String nama;
+    private String alamat;
+    private String email;
+    private String telepon;
+    private String foto;
+    private String status;
     private String username;
-    private ProgressBar progressBar;
+    private CardView cvProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_driver);
 
+        cvProgressBar = findViewById(R.id.cvProgressBar);
+        cvProgressBar.setVisibility(View.VISIBLE);
         mContext = this;
+        mPreferences = getApplicationContext().getSharedPreferences(my_shared_preferences, MODE_PRIVATE);
+        id = mPreferences.getString("ID", "");
+        role = mPreferences.getString("ROLE", "");
+        ConnectionDetector connectionDetector = new ConnectionDetector(
+                mContext.getApplicationContext());
+
+        if (connectionDetector.isInternetAvailble()) {
+            loadData(id);
+        } else {
+            cvProgressBar.setVisibility(View.GONE);
+            actionNotConnection();
+        }
 
         setUpMenu();
         changeFragment(new HomeDriverFragment());
 
+    }
+
+    private void loadData(String id) {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponDriver> responDriverCall = apiInterface.getDriver("Bearer " + BuildConfig.TOKEN, id);
+        responDriverCall.enqueue(new Callback<ResponDriver>() {
+            @Override
+            public void onResponse(Call<ResponDriver> call, Response<ResponDriver> response) {
+                cvProgressBar.setVisibility(View.GONE);
+                if (response.isSuccessful()) {
+                    assert response.body() != null;
+                    if (response.body().isSuccess()) {
+                        nama = response.body().getDriver().getNama();
+                        alamat = response.body().getDriver().getAlamat();
+                        email = response.body().getDriver().getEmail();
+                        telepon = response.body().getDriver().getTelepon();
+                        foto = response.body().getDriver().getFoto();
+                        status = response.body().getDriver().getStatus();
+                        username = response.body().getDriver().getUsername();
+                    } else {
+                        gagalLoadData();
+                    }
+                } else {
+                    actionNotConnection();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponDriver> call, Throwable t) {
+                cvProgressBar.setVisibility(View.GONE);
+                gagalLoadData();
+            }
+        });
+    }
+
+    private void gagalLoadData() {
+        Snackbar.make(findViewById(android.R.id.content), "Gagal Proses Data!", Snackbar.LENGTH_INDEFINITE)
+                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
+                .setAction("Close", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        v.setVisibility(View.GONE);
+                    }
+                })
+                .show();
+    }
+
+    private void actionNotConnection() {
+        Snackbar.make(findViewById(android.R.id.content), "Koneksi Tidak Ada!", Snackbar.LENGTH_INDEFINITE)
+                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
+                .setAction("Close", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        v.setVisibility(View.GONE);
+                    }
+                })
+                .show();
     }
 
     private void setUpMenu() {
@@ -63,11 +148,11 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
         resideMenu.setSwipeDirectionDisable(0);
         resideMenu.setSwipeDirectionDisable(1);
 
-        itemHome     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Home");
-        itemPesanan     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Pesanan");
-        itemRiwayat     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Riwayat");
-        itemAkun     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Akun");
-        itemLogout     = new ResideMenuItem(this, R.drawable.ic_android_putih, "Logout");
+        itemHome = new ResideMenuItem(this, R.drawable.ic_icon_home_putih, "Home");
+        itemPesanan = new ResideMenuItem(this, R.drawable.ic_icon_pesanan_putih, "Pesanan");
+        itemRiwayat = new ResideMenuItem(this, R.drawable.ic_baseline_local_library_24, "Riwayat");
+        itemAkun = new ResideMenuItem(this, R.drawable.ic_icon_user, "Akun");
+        itemLogout = new ResideMenuItem(this, R.drawable.ic_icon_logout_putih, "Logout");
 
         itemHome.setOnClickListener(this);
         itemPesanan.setOnClickListener(this);
@@ -115,7 +200,19 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
         }
     };
 
-    private void changeFragment(Fragment targetFragment){
+    private void changeFragment(Fragment targetFragment) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("GET_ID", id);
+        bundle.putString("GET_NAME", nama);
+        bundle.putString("GET_ALAMAT", alamat);
+        bundle.putString("GET_EMAIL", email);
+        bundle.putString("GET_TELPON", telepon);
+        bundle.putString("GET_FOTO", foto);
+        bundle.putString("GET_STATUS", status);
+        bundle.putString("GET_USERNAME", username);
+        targetFragment.setArguments(bundle);
+
         resideMenu.clearIgnoredViewList();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -128,19 +225,19 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
 
-        if (v == itemHome){
+        if (v == itemHome) {
             changeFragment(new HomeDriverFragment());
             resideMenu.closeMenu();
-        }else if (v == itemPesanan){
+        } else if (v == itemPesanan) {
             changeFragment(new PesananDriverFragment());
             resideMenu.closeMenu();
-        }else if (v == itemRiwayat){
+        } else if (v == itemRiwayat) {
             changeFragment(new RiwayatDriverFragment());
             resideMenu.closeMenu();
-        }else if (v == itemAkun){
+        } else if (v == itemAkun) {
             changeFragment(new AkunDriverFragment());
             resideMenu.closeMenu();
-        }else if (v == itemLogout){
+        } else if (v == itemLogout) {
 
             Intent intent = new Intent(DashboardDriverActivity.this, LoginActivity.class);
             startActivity(intent);

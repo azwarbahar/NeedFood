@@ -1,18 +1,17 @@
 package com.technest.needfood.admin.inventori.item_alat.detail;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
@@ -43,7 +42,7 @@ public class DetailItemAlatActivity extends AppCompatActivity {
     private TextView tv_kuantitas_alat_keluar;
     private String satuan;
     private LinearLayout ll_kosong;
-    private ProgressBar progressBar;
+    private CardView cvProgressBar;
     private RecyclerView rv_riwayat_item_alat;
     private Alat alats;
 
@@ -56,8 +55,8 @@ public class DetailItemAlatActivity extends AppCompatActivity {
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
 
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        cvProgressBar = findViewById(R.id.cvProgressBar);
+        cvProgressBar.setVisibility(View.VISIBLE);
         ll_kosong = findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
 
@@ -89,7 +88,7 @@ public class DetailItemAlatActivity extends AppCompatActivity {
         if (ConnectionDetector.isInternetAvailble()) {
             getDataAlat(String.valueOf(alat.getId()));
         } else {
-            progressBar.setVisibility(View.GONE);
+            cvProgressBar.setVisibility(View.GONE);
             actionNotConnection("Koneksi Tidak Ada!");
             ll_kosong.setVisibility(View.VISIBLE);
         }
@@ -103,9 +102,9 @@ public class DetailItemAlatActivity extends AppCompatActivity {
         responseAlatCall.enqueue(new Callback<ResponseAlat>() {
             @Override
             public void onResponse(Call<ResponseAlat> call, Response<ResponseAlat> response) {
-                progressBar.setVisibility(View.GONE);
-                if (response.isSuccessful()){
-                    if (response.body().isSuccess()){
+                cvProgressBar.setVisibility(View.GONE);
+                if (response.isSuccessful()) {
+                    if (response.body().isSuccess()) {
                         ll_kosong.setVisibility(View.GONE);
                         alats = response.body().getResult();
                         setList(alats);
@@ -122,7 +121,7 @@ public class DetailItemAlatActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseAlat> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
                 actionNotConnection("Gagal load data!");
             }
@@ -131,7 +130,7 @@ public class DetailItemAlatActivity extends AppCompatActivity {
     }
 
     private void setList(Alat alats) {
-        progressBar.setVisibility(View.GONE);
+        cvProgressBar.setVisibility(View.GONE);
         RiwayarAlatAdapter riwayarAlatAdapter = new RiwayarAlatAdapter(this, (ArrayList<RiwayatBeliItem>) alats.mRiwayatBeliItem(), satuan);
         rv_riwayat_item_alat.setLayoutManager(new LinearLayoutManager(this));
         rv_riwayat_item_alat.setAdapter(riwayarAlatAdapter);

@@ -46,49 +46,49 @@ public class AdapterPesananPencarian extends RecyclerView.Adapter<AdapterPesanan
     public void onBindViewHolder(@NonNull AdapterPesananPencarian.MyHolderView holder, int position) {
 
         holder.tv_nama_pelanggan.setText(pesanans.get(position).getNama());
-        holder.tv_telpon_pesanan.setText("Tel : "+ pesanans.get(position).getNo_telepon());
+        holder.tv_telpon_pesanan.setText("Tel : " + pesanans.get(position).getNo_telepon());
         holder.tv_kode_pesanan.setText(pesanans.get(position).getKd_pemesanan());
         holder.tv_status_pesanan.setText(pesanans.get(position).getStatus());
         String status = pesanans.get(position).getStatus();
 
-        if (status.equals("New")){
-            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.newText));
-                holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_new));
-        } else if (status.equals("Accept")){
-            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.acceptText));
-            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_accept));
-        } else if (status.equals("Proccess")){
-            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.proccessText));
-            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_proccess));
-        } else if (status.equals("Delivery")){
-            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.deliveryText));
-            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_delivery));
-        } else if (status.equals("Arrived")){
-            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.arrivedText));
-            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_arrived));
-        } else if (status.equals("Taking")){
-            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.deliveryText));
-            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_delivery));
-        } else if (status.equals("Done")){
-            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.doneText));
-            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_done));
-        } else if (status.equals("Refuse")){
-            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context,R.color.refuseText));
-            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context,R.drawable.bg_status_refuse));
+        if (status.equals("New")) {
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.newText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_new));
+        } else if (status.equals("Accept")) {
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.acceptText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_accept));
+        } else if (status.equals("Proccess")) {
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.proccessText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_proccess));
+        } else if (status.equals("Delivery")) {
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.deliveryText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_delivery));
+        } else if (status.equals("Arrived")) {
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.arrivedText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_arrived));
+        } else if (status.equals("Taking")) {
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.deliveryText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_delivery));
+        } else if (status.equals("Done")) {
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.doneText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_done));
+        } else if (status.equals("Refuse")) {
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.refuseText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_refuse));
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (status.equals("New")){
+                if (status.equals("New")) {
                     Intent intent = new Intent(context, DetailPesananBaruActivity.class);
                     intent.putExtra(DetailPesananBaruActivity.EXTRA_DATA, pesanans.get(position));
+//                    intent.putExtra("ID_PESANAN", pesanans.get(position).getId());
                     context.startActivity(intent);
                 } else {
-//                    context.startActivity(new Intent(context, DetailPesananActivity.class));
-
                     Intent intent = new Intent(context, DetailPesananActivity.class);
                     intent.putExtra(DetailPesananBaruActivity.EXTRA_DATA, pesanans.get(position));
+//                    intent.putExtra("ID_PESANAN", pesanans.get(position).getId());
                     context.startActivity(intent);
                 }
             }
@@ -119,7 +119,7 @@ public class AdapterPesananPencarian extends RecyclerView.Adapter<AdapterPesanan
         }
     }
 
-    void setFilter(ArrayList<Pesanan> filterList){
+    void setFilter(ArrayList<Pesanan> filterList) {
         pesanans = new ArrayList<>();
         pesanans.addAll(filterList);
         notifyDataSetChanged();

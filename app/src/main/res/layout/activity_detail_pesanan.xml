@@ -669,7 +669,6 @@
         android:background="@color/putih">
 
         <RelativeLayout
-            android:background="@drawable/bg_fragment"
             android:id="@+id/container_transaksi"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -981,10 +980,10 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:background="@drawable/bg_fragment"
             android:id="@+id/container_bahan"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_fragment">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_close_panel2"
@@ -1069,10 +1068,10 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:background="@drawable/bg_fragment"
             android:id="@+id/container_alat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_fragment">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_close_panel3"
@@ -1135,7 +1134,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginVertical="8dp"
                 android:layout_marginTop="15dp"
-                android:text="- Kosong -"
+                android:text="- Belum diproses -"
                 android:textColor="@color/grey2"
                 android:textStyle="italic" />
 
@@ -1151,10 +1150,10 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:background="@drawable/bg_fragment"
             android:id="@+id/container_driver"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_fragment">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_close_panel4"
@@ -1198,10 +1197,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/img2"
                 android:layout_marginLeft="16dp"
-                android:textSize="18dp"
                 android:layout_marginTop="22dp"
                 android:text="Antar"
-                android:textColor="@color/hitam" />
+                android:textColor="@color/hitam"
+                android:textSize="18dp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_antar"
@@ -1270,12 +1269,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cv_antar"
-                android:layout_marginRight="16dp"
-                android:textSize="18dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="16dp"
                 android:text="Jemput"
-                android:textColor="@color/hitam" />
+                android:textColor="@color/hitam"
+                android:textSize="18dp" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -1296,9 +1295,9 @@
                         android:id="@+id/cv_img_foto_driver_jemput"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_margin="5dp"
-                        android:layout_alignParentRight="true"
                         android:layout_marginRight="3dp"
                         app:cardCornerRadius="25dp"
                         app:cardElevation="3dp">

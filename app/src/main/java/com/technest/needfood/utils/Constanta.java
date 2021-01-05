@@ -13,4 +13,7 @@ public class Constanta {
     //url gambar bahan
     public static final String url_foto_bahan = "https://kesiniku.com/assets/images/bahan/";
 
+    //url gambar akun driver
+    public static final String url_foto_foto_driver = "https://kesiniku.com/assets/images/driver/";
+
 }

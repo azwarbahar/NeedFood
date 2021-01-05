@@ -1,20 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.technest.needfood">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_kesiniku"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_kesiniku_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".admin.pesanan.detail.DetailPesananActivity"></activity>
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".driver.akun.ViewImageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_view_image"
+            android:theme="@style/AppTheme.Fullscreen"></activity>
+        <activity android:name=".driver.akun.ImagePickerActivity" />
+
+        <service
+            android:name=".ServiceNotifikasiPesananBaru"
+            android:directBootAware="true"
+            android:exported="false"
+            tools:targetApi="n">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service> <!-- Icon pada notif -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_kesiniku_foreground" /> <!-- warna text notifikasi -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <activity android:name=".admin.pesanan.detail.DetailPesananActivity" />
         <activity android:name=".admin.pesanan.SearchPesananActivity" />
         <activity android:name=".admin.pesanan.detail.DetailPesananBaruActivity" />
         <activity android:name=".admin.home.PesananTerbaruActivity" />
@@ -30,7 +62,10 @@
         <activity android:name=".driver.riwayat.SearchRiwayatDriverActivity" />
         <activity android:name=".admin.stok.item_stok.ItemStokActivity" />
         <activity android:name=".admin.stok.item_stok.detail.DetailItemStokActivity" />
-        <activity android:name=".driver.DashboardDriverActivity" />
+        <activity
+            android:name=".driver.DashboardDriverActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".dapur.DashboardDapurActivity" />
         <activity android:name=".admin.DashboardAdminActivity" />
         <activity android:name=".intro.SplashScreanActivity">
@@ -41,7 +76,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".intro.LoginActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity" /> <!-- uCrop cropping activity -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait" /> <!-- cache directory file provider paths -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -25,7 +25,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
     <LinearLayout
         android:id="@+id/ll_kosong"
         android:layout_width="wrap_content"
@@ -61,13 +60,22 @@
         android:scrollbars="vertical"
         tools:listitem="@layout/item_pesanan" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/appBar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:indeterminateTint="@color/colorPrimary" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvProgressBarr"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="20dp"
+        android:layout_width="40dp"
+        android:layout_centerInParent="true"
+        android:padding="6dp"
+        android:layout_height="40dp">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cv_search"
+            android:indeterminateTint="@color/colorPrimary" />
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

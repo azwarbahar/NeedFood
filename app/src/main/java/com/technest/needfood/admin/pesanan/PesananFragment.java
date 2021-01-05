@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,7 +41,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
     View v;
     private RecyclerView rv_pesanan;
     private ArrayList<Pesanan> pesanans;
-    private ProgressBar progressBar;
+    private CardView cvProgressBar;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private LinearLayout ll_kosong;
     private SlidingUpPanelLayout sliding_layout;
@@ -75,8 +74,8 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
         ll_kosong = v.findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
-        progressBar = v.findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        cvProgressBar = v.findViewById(R.id.cvProgressBar);
+        cvProgressBar.setVisibility(View.VISIBLE);
         rv_pesanan = v.findViewById(R.id.rv_pesanan);
         sliding_layout = v.findViewById(R.id.sliding_layout);
         cv_filter = v.findViewById(R.id.cv_filter);
@@ -93,7 +92,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 rv_pesanan.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.GONE);
                 showPanel();
-                progressBar.setVisibility(View.VISIBLE);
+                cvProgressBar.setVisibility(View.VISIBLE);
                 loadDataPesanan();
             }
         });
@@ -107,7 +106,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
+                cvProgressBar.setVisibility(View.VISIBLE);
                 loadPesananStatus(status);
             }
         });
@@ -121,7 +120,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
+                cvProgressBar.setVisibility(View.VISIBLE);
                 loadPesananStatus(status);
             }
         });
@@ -134,7 +133,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
+                cvProgressBar.setVisibility(View.VISIBLE);
                 loadPesananStatus(status);
             }
         });
@@ -147,7 +146,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
+                cvProgressBar.setVisibility(View.VISIBLE);
                 loadPesananStatus(status);
             }
         });
@@ -160,7 +159,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
+                cvProgressBar.setVisibility(View.VISIBLE);
                 loadPesananStatus(status);
             }
         });
@@ -173,7 +172,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
+                cvProgressBar.setVisibility(View.VISIBLE);
                 loadPesananStatus(status);
             }
         });
@@ -187,7 +186,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
+                cvProgressBar.setVisibility(View.VISIBLE);
                 loadPesananStatus(status);
             }
         });
@@ -201,7 +200,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
+                cvProgressBar.setVisibility(View.VISIBLE);
                 loadPesananStatus(status);
             }
         });
@@ -235,7 +234,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 } else {
                     rv_pesanan.setVisibility(View.GONE);
                     actionNotConnection();
-                    progressBar.setVisibility(View.GONE);
+                    cvProgressBar.setVisibility(View.GONE);
                     ll_kosong.setVisibility(View.VISIBLE);
                 }
             }
@@ -252,7 +251,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
                 rv_pesanan.setVisibility(View.VISIBLE);
                 mSwipeRefreshLayout.setRefreshing(false);
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     if (response.body().getmSuccess()) {
                         pesanans = (ArrayList<Pesanan>) response.body().getmPesanan();
@@ -278,7 +277,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onFailure(Call<ResponsePesanan> call, Throwable t) {
                 mSwipeRefreshLayout.setRefreshing(false);
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
                 Log.d("ERROR", "Respon : " + t.getMessage());
 
@@ -316,7 +315,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
                 rv_pesanan.setVisibility(View.VISIBLE);
                 mSwipeRefreshLayout.setRefreshing(false);
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     if (response.body().getmSuccess()) {
                         pesanans = (ArrayList<Pesanan>) response.body().getmPesanan();
@@ -355,7 +354,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onFailure(Call<ResponsePesanan> call, Throwable t) {
                 mSwipeRefreshLayout.setRefreshing(false);
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
                 Log.d("ERROR", "Respon : " + t.getMessage());
 

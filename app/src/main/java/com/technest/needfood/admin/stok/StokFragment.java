@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +38,7 @@ public class StokFragment extends Fragment {
     private LinearLayout ll_kosong;
     private RecyclerView rv_kategori_stok;
     private ArrayList<Kategori> kategoris;
-    private ProgressBar progressBar;
+    private CardView cvProgressBar;
 
     @Nullable
     @Override
@@ -52,14 +52,14 @@ public class StokFragment extends Fragment {
         rv_kategori_stok = v.findViewById(R.id.rv_kategori_stok);
         ll_kosong = v.findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
-        progressBar = v.findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        cvProgressBar = v.findViewById(R.id.cvProgressBar);
+        cvProgressBar.setVisibility(View.VISIBLE);
 
         // check Koneksi
         if (ConnectionDetector.isInternetAvailble()) {
             loadDataKategori();
         } else {
-            progressBar.setVisibility(View.GONE);
+            cvProgressBar.setVisibility(View.GONE);
             actionNotConnection();
             ll_kosong.setVisibility(View.VISIBLE);
         }
@@ -86,7 +86,7 @@ public class StokFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponKategori> call, Response<ResponKategori> response) {
                 if (response.isSuccessful()) {
-                    progressBar.setVisibility(View.GONE);
+                    cvProgressBar.setVisibility(View.GONE);
                     assert response.body() != null;
                     if (response.body().getSuccess()) {
                         kategoris = (ArrayList<Kategori>) response.body().getResult();
@@ -101,14 +101,14 @@ public class StokFragment extends Fragment {
                     }
                     Log.d("Respon", "Message = " + response.body().getMessage());
                 } else {
-                    progressBar.setVisibility(View.GONE);
+                    cvProgressBar.setVisibility(View.GONE);
                     ll_kosong.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponKategori> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
                 Log.d("ERROR", "Respon : " + t.getMessage());
             }

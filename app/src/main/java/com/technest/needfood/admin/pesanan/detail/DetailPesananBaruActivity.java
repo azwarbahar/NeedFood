@@ -402,7 +402,6 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
     }
 
     private BitmapDescriptor bitmapDescriptor(Context context, int vactorResid) {
-
         int height = 70;
         int width = 50;
         Drawable vectorDrawble = ContextCompat.getDrawable(context, vactorResid);
@@ -547,7 +546,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
                     .icon(bitmapDescriptor(getApplicationContext(),
                             R.drawable.ic_icon_lokasi_tujuan))
                     .position(latLngzoom));
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 13));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLngzoom, 15));
         }
     }
 }

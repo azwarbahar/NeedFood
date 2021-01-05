@@ -16,7 +16,7 @@
     <RelativeLayout
         android:id="@+id/rl_footer"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="320dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/footer_1"
         android:orientation="vertical">
@@ -43,7 +43,7 @@
             android:textColorHint="@color/putih"
             app:boxStrokeColor="@color/putih"
             app:hintTextColor="@color/putih"
-            app:startIconDrawable="@drawable/ic_android_black_24dp"
+            app:startIconDrawable="@drawable/ic_icon_user"
             app:startIconTint="@color/putih">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -67,30 +67,30 @@
             android:layout_marginTop="15dp"
             android:textColorHint="@color/putih"
             app:boxStrokeColor="@color/putih"
-            app:hintTextColor="@color/putih"
-            app:endIconTint="@color/putih"
-            app:startIconTint="@color/putih"
             app:endIconMode="password_toggle"
-            app:startIconDrawable="@drawable/ic_android_black_24dp">
+            app:endIconTint="@color/putih"
+            app:hintTextColor="@color/putih"
+            app:startIconDrawable="@drawable/ic_icon_lock"
+            app:startIconTint="@color/putih">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tie_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
+                android:inputType="textPassword"
                 android:textColor="@color/putih"
-                android:textColorHint="@color/putih"
-                android:inputType="textPassword" />
+                android:textColorHint="@color/putih" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <LinearLayout
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/til_password"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/btn_masuk"
@@ -105,7 +105,6 @@
                 android:textSize="14dp" />
 
         </LinearLayout>
-
 
 
     </RelativeLayout>

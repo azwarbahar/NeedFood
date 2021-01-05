@@ -6,11 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +17,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
-import com.technest.needfood.admin.stok.item_stok.ItemStokActivity;
-import com.technest.needfood.admin.stok.item_stok.adapter.ItemStokBahanAdapter;
 import com.technest.needfood.models.alat.Alat;
 import com.technest.needfood.models.alat.ResponseAllAlat;
 import com.technest.needfood.models.kategori.Kategori;
@@ -45,7 +42,7 @@ public class ItemAlatActivity extends AppCompatActivity {
 
     private RecyclerView rv_item_alat;
     private ArrayList<Alat> alats;
-    private ProgressBar progressBar;
+    private CardView cvProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +54,10 @@ public class ItemAlatActivity extends AppCompatActivity {
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
 
-        progressBar = findViewById(R.id.progressBar);
+        cvProgressBar = findViewById(R.id.cvProgressBar);
         ll_kosong = findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
+        cvProgressBar.setVisibility(View.VISIBLE);
         rv_item_alat = findViewById(R.id.rv_item_alat);
 
 
@@ -81,7 +78,7 @@ public class ItemAlatActivity extends AppCompatActivity {
         if (ConnectionDetector.isInternetAvailble()) {
             getData(String.valueOf(kategori.getId()));
         } else {
-            progressBar.setVisibility(View.GONE);
+            cvProgressBar.setVisibility(View.GONE);
             actionNotConnection();
             ll_kosong.setVisibility(View.VISIBLE);
         }
@@ -102,38 +99,38 @@ public class ItemAlatActivity extends AppCompatActivity {
 
     private void getData(String id) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseAllAlat> responseAllAlatCall = apiInterface.getAllAlat("Bearer "+ BuildConfig.TOKEN, id);
+        Call<ResponseAllAlat> responseAllAlatCall = apiInterface.getAllAlat("Bearer " + BuildConfig.TOKEN, id);
         responseAllAlatCall.enqueue(new Callback<ResponseAllAlat>() {
             @Override
             public void onResponse(Call<ResponseAllAlat> call, Response<ResponseAllAlat> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ll_kosong.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.GONE);
-                    if (response.body().getmSuccess()){
+                    cvProgressBar.setVisibility(View.GONE);
+                    if (response.body().getmSuccess()) {
                         ll_kosong.setVisibility(View.GONE);
                         alats = (ArrayList<Alat>) response.body().getmResult();
-                        for (int a = 0 ; a < alats.size(); a++){
-                            Log.d("Cek ALAT", "Respon : "+alats.get(a).getNama());
+                        for (int a = 0; a < alats.size(); a++) {
+                            Log.d("Cek ALAT", "Respon : " + alats.get(a).getNama());
                         }
                         ItemAlatAdapter itemAlatAdapter = new ItemAlatAdapter(ItemAlatActivity.this, alats);
                         rv_item_alat.setLayoutManager(new LinearLayoutManager(ItemAlatActivity.this));
                         rv_item_alat.setAdapter(itemAlatAdapter);
                     } else {
-                        progressBar.setVisibility(View.GONE);
+                        cvProgressBar.setVisibility(View.GONE);
                         ll_kosong.setVisibility(View.VISIBLE);
                     }
-                    Log.d("Respon", "Message1 = "+response.body().getmMessage() );
+                    Log.d("Respon", "Message1 = " + response.body().getmMessage());
                 } else {
-                    progressBar.setVisibility(View.GONE);
+                    cvProgressBar.setVisibility(View.GONE);
                     ll_kosong.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseAllAlat> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
-                Log.d("ERROR" ,"Respon : "+t.getMessage() );
+                Log.d("ERROR", "Respon : " + t.getMessage());
             }
         });
     }

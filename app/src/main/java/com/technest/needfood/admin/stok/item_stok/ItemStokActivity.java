@@ -1,19 +1,15 @@
 package com.technest.needfood.admin.stok.item_stok;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,12 +17,10 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
-import com.technest.needfood.admin.stok.adapter.KategoriStokAdapter;
+import com.technest.needfood.admin.stok.item_stok.adapter.ItemStokBahanAdapter;
 import com.technest.needfood.models.bahan.Bahan;
 import com.technest.needfood.models.bahan.ResponseAllBahan;
 import com.technest.needfood.models.kategori.Kategori;
-import com.technest.needfood.admin.stok.item_stok.adapter.ItemStokBahanAdapter;
-import com.technest.needfood.admin.stok.item_stok.model.ItemStokBahanModel;
 import com.technest.needfood.network.ApiClient;
 import com.technest.needfood.network.ApiInterface;
 import com.technest.needfood.network.ConnectionDetector;
@@ -41,7 +35,6 @@ import retrofit2.Response;
 public class ItemStokActivity extends AppCompatActivity {
 
 
-
     public static final String EXTRA_DATA = "extra_data";
 
     private ImageView item_stok_toolbar_image;
@@ -50,7 +43,7 @@ public class ItemStokActivity extends AppCompatActivity {
 
     private RecyclerView rv_item_stok;
     private ArrayList<Bahan> bahans;
-    private ProgressBar progressBar;
+    private CardView cvProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +54,11 @@ public class ItemStokActivity extends AppCompatActivity {
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
 
-        progressBar = findViewById(R.id.progressBar);
+        cvProgressBar = findViewById(R.id.cvProgressBar);
         ll_kosong = findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
-        progressBar.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
+        cvProgressBar.setVisibility(View.GONE);
+        cvProgressBar.setVisibility(View.VISIBLE);
         rv_item_stok = findViewById(R.id.rv_item_stok);
 
         item_stok_toolbar_image = findViewById(R.id.item_stok_toolbar_image);
@@ -76,13 +69,13 @@ public class ItemStokActivity extends AppCompatActivity {
         if (ConnectionDetector.isInternetAvailble()) {
             getData(String.valueOf(kategori.getId()));
         } else {
-            progressBar.setVisibility(View.GONE);
+            cvProgressBar.setVisibility(View.GONE);
             actionNotConnection();
             ll_kosong.setVisibility(View.VISIBLE);
         }
 
         Glide.with(this)
-                .load(Constanta.url_foto_kategori+kategori.getFoto())
+                .load(Constanta.url_foto_kategori + kategori.getFoto())
                 .placeholder(R.drawable.loading_animation)
                 .error(R.drawable.ic_broken_image)
                 .into(item_stok_toolbar_image);
@@ -91,9 +84,9 @@ public class ItemStokActivity extends AppCompatActivity {
     }
 
 
-    private void actionNotConnection(){
+    private void actionNotConnection() {
         Snackbar.make(findViewById(android.R.id.content), "Koneksi Tidak Ada!", Snackbar.LENGTH_INDEFINITE)
-                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
+                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
                 .setAction("Close", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -105,15 +98,15 @@ public class ItemStokActivity extends AppCompatActivity {
 
     private void getData(String id) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseAllBahan> responseAllBahanCall = apiInterface.getAllBahan("Bearer "+ BuildConfig.TOKEN, id);
+        Call<ResponseAllBahan> responseAllBahanCall = apiInterface.getAllBahan("Bearer " + BuildConfig.TOKEN, id);
         responseAllBahanCall.enqueue(new Callback<ResponseAllBahan>() {
             @Override
             public void onResponse(Call<ResponseAllBahan> call, Response<ResponseAllBahan> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ll_kosong.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.GONE);
+                    cvProgressBar.setVisibility(View.GONE);
                     assert response.body() != null;
-                    if (response.body().getSuccess()){
+                    if (response.body().getSuccess()) {
                         ll_kosong.setVisibility(View.GONE);
                         bahans = (ArrayList<Bahan>) response.body().getResult();
 
@@ -122,21 +115,21 @@ public class ItemStokActivity extends AppCompatActivity {
                         rv_item_stok.setAdapter(itemStokBahanAdapter);
 
                     } else {
-                        progressBar.setVisibility(View.GONE);
+                        cvProgressBar.setVisibility(View.GONE);
                         ll_kosong.setVisibility(View.VISIBLE);
                     }
-                    Log.d("Respon", "Message = "+response.body().getMessage() );
+                    Log.d("Respon", "Message = " + response.body().getMessage());
                 } else {
-                    progressBar.setVisibility(View.GONE);
+                    cvProgressBar.setVisibility(View.GONE);
                     ll_kosong.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseAllBahan> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
-                Log.d("ERROR" ,"Respon : "+t.getMessage() );
+                Log.d("ERROR", "Respon : " + t.getMessage());
             }
         });
 

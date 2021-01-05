@@ -6,18 +6,77 @@
     android:layout_height="match_parent"
     tools:context=".driver.riwayat.SearchRiwayatDriverActivity">
 
-    <TextView
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:text="SEARCH"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        tools:targetApi="LOLLIPOP">
 
-    <Button
-        android:id="@+id/btn2"
-        android:layout_centerInParent="true"
-        android:text="next2"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            app:theme="@style/ToolbarTheme"
+            app:title="Pesanan"
+            app:titleTextColor="@color/putih" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_kosong"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/kosong" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Kosong.."
+            android:textColor="@color/grey2"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_pesanan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appBar"
+        android:layout_marginTop="16dp"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/item_pesanan" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvProgressBarr"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="20dp"
+        android:layout_width="40dp"
+        android:layout_centerInParent="true"
+        android:padding="6dp"
+        android:layout_height="40dp">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cv_search"
+            android:indeterminateTint="@color/colorPrimary" />
+
+    </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

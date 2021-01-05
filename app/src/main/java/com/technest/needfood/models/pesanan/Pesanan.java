@@ -25,7 +25,7 @@ public class Pesanan implements Parcelable {
     private String kd_pemesanan;
     @SerializedName("latitude")
     private String latitude;
-    @SerializedName("logitude")
+    @SerializedName("longitude")
     private String logitude;
     @SerializedName("nama")
     private String nama;

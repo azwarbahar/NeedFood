@@ -70,6 +70,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
     private TextView tv_tanggal_antar;
     private TextView tv_waktu;
     private TextView tv_catatatn;
+    private TextView tv_tanggal;
 
     // PanelUp
     private TextView tv_total_harga;
@@ -169,6 +170,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         rl_btn_bukti = findViewById(R.id.rl_btn_bukti);
         tv_status_pesanan = findViewById(R.id.tv_status_pesanan);
         tv_alamat = findViewById(R.id.tv_alamat);
+        tv_tanggal = findViewById(R.id.tv_tanggal);
         tv_kode_pesanan = findViewById(R.id.tv_kode_pesanan);
         tv_nama = findViewById(R.id.tv_nama);
         tv_telpon = findViewById(R.id.tv_telpon);
@@ -215,7 +217,6 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
             }
         });
 
-
         continer_map = findViewById(R.id.continer_map);
         img_chevron = findViewById(R.id.img_chevron);
         tv_alamat.setOnClickListener(new View.OnClickListener() {
@@ -230,6 +231,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
                 animationMaps();
             }
         });
+
         img_close = findViewById(R.id.img_close);
         img_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,6 +263,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         tv_kode_pesanan.setText(pesanan_parcelable.getKd_pemesanan());
         tv_kode_pesanan_bahan.setText(pesanan_parcelable.getKd_pemesanan());
         tv_kode_pesanan_bahan3.setText(pesanan_parcelable.getKd_pemesanan());
+        tv_tanggal.setText(getDate(pesanan_parcelable.getCreated_at()));
         tv_nama.setText(pesanan_parcelable.getNama());
         tv_telpon.setText(pesanan_parcelable.getNo_telepon());
         tv_alamat.setText(pesanan_parcelable.getDeskripsi_lokasi());
@@ -409,7 +412,6 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
             assert sliding_layout != null;
             sliding_layout.setPanelState(SlidingUpPanelLayout.PanelState.ANCHORED);
         }
-
     }
 
 
@@ -422,7 +424,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
             e.printStackTrace();
         }
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE, dd MMMM yyyy");
         assert date != null;
         return dateFormatter.format(date);
     }

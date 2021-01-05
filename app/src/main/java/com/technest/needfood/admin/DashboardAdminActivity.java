@@ -1,9 +1,12 @@
 package com.technest.needfood.admin;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -11,11 +14,17 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 import com.technest.needfood.BuildConfig;
@@ -51,8 +60,6 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
     private ResideMenuItem itemPesanan;
     private ResideMenuItem itemStokBahan;
     private ResideMenuItem itemInventori;
-    //    private ResideMenuItem itemKeuangan;
-    //    private ResideMenuItem itemSetting;
     private ResideMenuItem itemLogout;
 
     private SharedPreferences mPreferences;
@@ -61,14 +68,24 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
     private String role;
     private String nama;
     private String username;
-    private ProgressBar progressBar;
+    private CardView cvProgressBar;
+    private static final String PRIMARY_CHANNEL_ID =
+            "primary_notification_channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            NotificationChannel channel = new NotificationChannel(PRIMARY_CHANNEL_ID,
+//                    "NotifyApps", NotificationManager.IMPORTANCE_HIGH);
+//            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//            manager.createNotificationChannel(channel);
+//        }
+
         setContentView(R.layout.activity_dashboard_admin);
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        cvProgressBar = findViewById(R.id.cvProgressBar);
+        cvProgressBar.setVisibility(View.VISIBLE);
         mContext = this;
         mPreferences = getApplicationContext().getSharedPreferences(my_shared_preferences, MODE_PRIVATE);
         id = mPreferences.getString("ID", "");
@@ -79,9 +96,17 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
         if (connectionDetector.isInternetAvailble()) {
             loadData(id);
         } else {
-            progressBar.setVisibility(View.GONE);
+            cvProgressBar.setVisibility(View.GONE);
             actionNotConnection();
         }
+
+//        getCurrentFirebaseToken();
+
+//        Bundle bundle = getIntent().getExtras();
+//
+//        if(bundle != null)  {
+//            Toast.makeText(mContext, "Title : "+bundle.getString("title")+" and Message : "+ bundle.getString("message"), Toast.LENGTH_SHORT).show();
+//        }
 
         setUpMenu();
         changeFragment(new HomeFragment());
@@ -94,7 +119,7 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
         responAdminCall.enqueue(new Callback<ResponAdmin>() {
             @Override
             public void onResponse(Call<ResponAdmin> call, Response<ResponAdmin> response) {
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     assert response.body() != null;
                     if (response.body().isSuccess()) {
@@ -113,9 +138,31 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
 
             @Override
             public void onFailure(Call<ResponAdmin> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void getCurrentFirebaseToken() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("TAG", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        Log.e("currentToken", token);
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("TAG", msg);
+//                        Toast.makeText(DashboardAdminActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void gagalLoadData() {
@@ -217,6 +264,7 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
                 .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
     }
+
 
     @Override
     public void onClick(View view) {

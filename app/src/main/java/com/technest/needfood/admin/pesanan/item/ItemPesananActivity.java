@@ -10,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.technest.needfood.R;
-import com.technest.needfood.driver.pesanan.pengantaran.adapter.PengantraanDriverAdapter;
-import com.technest.needfood.driver.pesanan.pengantaran.model.PengantaranDriverModel;
 
 import java.util.ArrayList;
 

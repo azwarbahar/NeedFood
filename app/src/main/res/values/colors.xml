@@ -18,6 +18,8 @@
     <color name="grey2">#A3A2A2</color>
     <color name="grey3">#E7E7E7</color>
 
+    <color name="profile_default_tint">#e0e0e0</color>
+
     <color name="backgroundColor">#F8F8F8</color>
     <color name="backgroundColor2">#9E9E9E</color>
     <color name="biruMuda">#00E0FF</color>
@@ -54,4 +56,10 @@
 
     <color name="refuseText">#DC0000</color>
     <color name="refuseBack">#FACFCF</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
+
 </resources>

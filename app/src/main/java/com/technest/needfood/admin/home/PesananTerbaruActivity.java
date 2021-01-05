@@ -6,10 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -34,11 +34,11 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
 
     private TextView tv_title_halaman;
     private RecyclerView rv_item_pesanan_baru;
-    private ProgressBar progressBar;
+    private CardView cvProgressBar;
     private LinearLayout ll_kosong;
     private ImageView img_back;
     private ArrayList<Pesanan> pesanans;
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +51,9 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
 
         ll_kosong = findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        cvProgressBar = findViewById(R.id.cvProgressBar);
+        cvProgressBar.setVisibility(View.VISIBLE);
         rv_item_pesanan_baru = findViewById(R.id.rv_item_pesanan_baru);
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             String title = extras.getString("extra_data");
@@ -77,7 +76,7 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
                     loadData();
                 } else {
                     rv_item_pesanan_baru.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.GONE);
+                    cvProgressBar.setVisibility(View.GONE);
                     actionNotConnection();
                     ll_kosong.setVisibility(View.VISIBLE);
                 }
@@ -114,7 +113,7 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
             public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccessful()) {
-                    progressBar.setVisibility(View.GONE);
+                    cvProgressBar.setVisibility(View.GONE);
                     assert response.body() != null;
                     if (response.body().getmSuccess()) {
                         pesanans = (ArrayList<Pesanan>) response.body().getmPesanan();
@@ -133,7 +132,7 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
                     Log.d("Respon", "Message = " + response.body().getmMessage());
                 } else {
                     rv_item_pesanan_baru.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.GONE);
+                    cvProgressBar.setVisibility(View.GONE);
                     ll_kosong.setVisibility(View.VISIBLE);
                 }
             }
@@ -141,7 +140,7 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
             @Override
             public void onFailure(Call<ResponsePesanan> call, Throwable t) {
                 mSwipeRefreshLayout.setRefreshing(false);
-                progressBar.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
                 Log.d("ERROR", "Respon : " + t.getMessage());
             }

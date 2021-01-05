@@ -1,5 +1,6 @@
-package com.technest.needfood.driver.pesanan.pengantaran.adapter;
+package com.technest.needfood.driver.pesanan.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,18 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.technest.needfood.R;
 import com.technest.needfood.driver.delivery.DeliveryDriverActivity;
-import com.technest.needfood.driver.pesanan.pengantaran.model.PengantaranDriverModel;
+import com.technest.needfood.models.pesanan.Pesanan;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class PengantraanDriverAdapter extends RecyclerView.Adapter<PengantraanDriverAdapter.MyHolderView> {
 
     private Context mContext;
-    private ArrayList<PengantaranDriverModel> pengantaranDriverModels;
+    private ArrayList<Pesanan> pesanans;
 
-    public PengantraanDriverAdapter(Context mContext, ArrayList<PengantaranDriverModel> pengantaranDriverModels) {
+    public PengantraanDriverAdapter(Context mContext, ArrayList<Pesanan> pesanans) {
         this.mContext = mContext;
-        this.pengantaranDriverModels = pengantaranDriverModels;
+        this.pesanans = pesanans;
     }
 
     @NonNull
@@ -37,19 +42,36 @@ public class PengantraanDriverAdapter extends RecyclerView.Adapter<PengantraanDr
 
     }
 
+    private String getDate(String time) {
+        SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+        Date date = null;
+        try {
+            date = dateParser.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+        assert date != null;
+        return dateFormatter.format(date);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull PengantraanDriverAdapter.MyHolderView holder, int position) {
 
-        holder.tv_kode_pesanan.setText(pengantaranDriverModels.get(position).getKode());
-        holder.tv_nama_pelanggan.setText(": "+pengantaranDriverModels.get(position).getNama());
-        holder.tv_alamat.setText(": "+pengantaranDriverModels.get(position).getAlamat());
-        holder.tv_tanggal.setText(pengantaranDriverModels.get(position).getTanggal());
-        holder.tv_jam.setText(pengantaranDriverModels.get(position).getJam());
+        holder.tv_kode_pesanan.setText(pesanans.get(position).getKd_pemesanan());
+        holder.tv_nama_pelanggan.setText(": "+pesanans.get(position).getNama());
+        holder.tv_alamat.setText(": "+pesanans.get(position).getDeskripsi_lokasi());
+        String tgl = getDate(pesanans.get(position).getTanggal_antar());
+        holder.tv_tanggal.setText(tgl);
+        holder.tv_jam.setText("Waktu : "+pesanans.get(position).getWaktu_antar());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, DeliveryDriverActivity.class));
+                Intent intent = new Intent(mContext, DeliveryDriverActivity.class);
+                intent.putExtra(DeliveryDriverActivity.EXTRA_DATA, pesanans.get(position));
+                mContext.startActivity(intent);
             }
         });
 
@@ -57,7 +79,7 @@ public class PengantraanDriverAdapter extends RecyclerView.Adapter<PengantraanDr
 
     @Override
     public int getItemCount() {
-        return pengantaranDriverModels.size();
+        return pesanans.size();
     }
 
     public class MyHolderView extends RecyclerView.ViewHolder {

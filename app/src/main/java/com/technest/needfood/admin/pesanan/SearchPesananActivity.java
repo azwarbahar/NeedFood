@@ -1,14 +1,6 @@
 package com.technest.needfood.admin.pesanan;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -17,8 +9,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
@@ -38,7 +36,7 @@ public class SearchPesananActivity extends AppCompatActivity {
 
     private RecyclerView rv_pesanan;
     private ArrayList<Pesanan> pesanans;
-    private ProgressBar progressBar;
+    private CardView cvProgressBarr;
     private LinearLayout ll_kosong;
     private AdapterPesananPencarian adapterPesananPencarian;
 
@@ -54,8 +52,8 @@ public class SearchPesananActivity extends AppCompatActivity {
 
         ll_kosong = findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        cvProgressBarr = findViewById(R.id.cvProgressBarr);
+        cvProgressBarr.setVisibility(View.VISIBLE);
         rv_pesanan = findViewById(R.id.rv_pesanan);
 
         loadDataPesanan();
@@ -69,7 +67,7 @@ public class SearchPesananActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
                 rv_pesanan.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
+                cvProgressBarr.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     if (response.body().getmSuccess()) {
                         pesanans = (ArrayList<Pesanan>) response.body().getmPesanan();
@@ -95,7 +93,7 @@ public class SearchPesananActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponsePesanan> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+                cvProgressBarr.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
                 Log.d("ERROR", "Respon : " + t.getMessage());
 
@@ -123,13 +121,13 @@ public class SearchPesananActivity extends AppCompatActivity {
                 newText = newText.toLowerCase();
 //                Toast.makeText(SearchPesananActivity.this, "ubah", Toast.LENGTH_SHORT).show();
                 ArrayList<Pesanan> dataFilter = new ArrayList<>();
-                for (Pesanan pesanan : pesanans){
+                for (Pesanan pesanan : pesanans) {
                     String nama = pesanan.getNama().toLowerCase();
                     String telpon = pesanan.getNo_telepon().toLowerCase();
                     String kode = pesanan.getKd_pemesanan().toLowerCase();
                     String status = pesanan.getStatus().toLowerCase();
 
-                    if (nama.contains(newText) || telpon.contains(newText) ||  kode.contains(newText) || status.contains(newText)){
+                    if (nama.contains(newText) || telpon.contains(newText) || kode.contains(newText) || status.contains(newText)) {
                         dataFilter.add(pesanan);
                     }
 
