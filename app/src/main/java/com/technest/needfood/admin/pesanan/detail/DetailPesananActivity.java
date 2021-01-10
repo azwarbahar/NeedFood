@@ -8,12 +8,11 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -21,6 +20,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
 import com.technest.needfood.admin.pesanan.detail.adapter.AdapterAdditional;
 import com.technest.needfood.admin.pesanan.detail.adapter.AdapterBahanPaket;
@@ -40,15 +42,24 @@ import com.technest.needfood.models.pesanan.AlatPesanan;
 import com.technest.needfood.models.pesanan.BahanPesanan;
 import com.technest.needfood.models.pesanan.Paket;
 import com.technest.needfood.models.pesanan.Pesanan;
+import com.technest.needfood.models.pesanan.ResponsePesananID;
 import com.technest.needfood.models.pesanan.Transaksi;
+import com.technest.needfood.models.user.Driver;
+import com.technest.needfood.models.user.ResponDriver;
+import com.technest.needfood.network.ApiClient;
+import com.technest.needfood.network.ApiInterface;
 import com.technest.needfood.network.ConnectionDetector;
+import com.technest.needfood.utils.Constanta;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailPesananActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -80,6 +91,8 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
     private TextView tv_harga_paket;
     private TextView tv_kode_pesanan2;
     private TextView tv_nama_pelanggan2;
+    private ImageView img_bukti_pembayaran;
+    private PhotoView img_zoom;
 
     private TextView tv_kode_pesanan_bahan;
     private TextView tv_kode_pesanan_bahan3;
@@ -110,7 +123,18 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
     private TextView tv_kosong_sliding_alat;
 
     private Pesanan pesanan_parcelable;
+    private Pesanan pesanan_bundle;
 
+    private ImageButton img_foto_driver_antar;
+    private TextView tv_nama_driver_antar;
+    private TextView status_driver_antar;
+    private TextView tv_kosong_antar;
+    private ImageButton img_foto_driver_jemput;
+    private TextView tv_nama_driver_jemput;
+    private TextView status_driver_jemput;
+    private TextView tv_kosong_jemput;
+
+    private Driver driver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +160,14 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         containerImageZoom = findViewById(R.id.containerImageZoom);
         containerImageZoom.setVisibility(View.GONE);
 
+        img_foto_driver_antar = findViewById(R.id.img_foto_driver_antar);
+        tv_nama_driver_antar = findViewById(R.id.tv_nama_driver_antar);
+        status_driver_antar = findViewById(R.id.status_driver_antar);
+        tv_kosong_antar = findViewById(R.id.tv_kosong_antar);
+        img_foto_driver_jemput = findViewById(R.id.img_foto_driver_jemput);
+        tv_nama_driver_jemput = findViewById(R.id.tv_nama_driver_jemput);
+        status_driver_jemput = findViewById(R.id.status_driver_jemput);
+        tv_kosong_jemput = findViewById(R.id.tv_kosong_jemput);
 
         tv_kosong_additional = findViewById(R.id.tv_kosong_additional);
         tv_kosong_additional.setVisibility(View.GONE);
@@ -156,7 +188,6 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         container_alat = findViewById(R.id.container_alat);
         tv_kode_pesanan_bahan3 = findViewById(R.id.tv_kode_pesanan_bahan3);
         rv_sliding_continer_alat = findViewById(R.id.rv_sliding_continer_alat);
-
         container_transaksi = findViewById(R.id.container_transaksi);
 
         hiddenContainerSliding();
@@ -185,7 +216,6 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
                 hiddenContainerSliding();
                 showPanel();
                 container_alat.setVisibility(View.VISIBLE);
-                setDataAlatPesanan((ArrayList<AlatPesanan>) pesanan_parcelable.getAlat());
             }
         });
         rl_bahan = findViewById(R.id.rl_bahan);
@@ -195,7 +225,6 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
                 hiddenContainerSliding();
                 showPanel();
                 container_bahan.setVisibility(View.VISIBLE);
-                setDataBahanPaket((ArrayList<BahanPesanan>) pesanan_parcelable.getBahan());
             }
         });
         rl_transaksi = findViewById(R.id.rl_transaksi);
@@ -258,23 +287,226 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         });
 
         pesanan_parcelable = getIntent().getParcelableExtra(EXTRA_DATA);
-        assert pesanan_parcelable != null;
-        setStatus(pesanan_parcelable.getStatus());
-        tv_kode_pesanan.setText(pesanan_parcelable.getKd_pemesanan());
-        tv_kode_pesanan_bahan.setText(pesanan_parcelable.getKd_pemesanan());
-        tv_kode_pesanan_bahan3.setText(pesanan_parcelable.getKd_pemesanan());
-        tv_tanggal.setText(getDate(pesanan_parcelable.getCreated_at()));
-        tv_nama.setText(pesanan_parcelable.getNama());
-        tv_telpon.setText(pesanan_parcelable.getNo_telepon());
-        tv_alamat.setText(pesanan_parcelable.getDeskripsi_lokasi());
-        String tgl = getDate(pesanan_parcelable.getTanggal_antar());
+        if (pesanan_parcelable != null) {
+            setStatus(pesanan_parcelable.getStatus());
+            tv_kode_pesanan.setText(pesanan_parcelable.getKd_pemesanan());
+            tv_kode_pesanan_bahan.setText(pesanan_parcelable.getKd_pemesanan());
+            tv_kode_pesanan_bahan3.setText(pesanan_parcelable.getKd_pemesanan());
+            tv_tanggal.setText(getDate(pesanan_parcelable.getCreated_at()));
+            tv_nama.setText(pesanan_parcelable.getNama());
+            tv_telpon.setText(pesanan_parcelable.getNo_telepon());
+            tv_alamat.setText(pesanan_parcelable.getDeskripsi_lokasi());
+            String tgl = getDate(pesanan_parcelable.getTanggal_antar());
+            tv_tanggal_antar.setText(tgl);
+            tv_waktu.setText(pesanan_parcelable.getWaktu_antar());
+            tv_catatatn.setText(pesanan_parcelable.getCatatan());
+            setDataPanelUp(pesanan_parcelable.getTransaksi(), pesanan_parcelable.getNama(), pesanan_parcelable.getKd_pemesanan(), pesanan_parcelable.getBukti_pembayaran());
+            setDataPaker((ArrayList<Paket>) pesanan_parcelable.getPaket());
+            setDataAddiyional((ArrayList<Additional>) pesanan_parcelable.getAdditional());
+            setMapLokasi(pesanan_parcelable.getLatitude(), pesanan_parcelable.getLogitude());
+            setDataAlatPesanan((ArrayList<AlatPesanan>) pesanan_parcelable.getAlat());
+            setDataBahanPaket((ArrayList<BahanPesanan>) pesanan_parcelable.getBahan());
+            String id_antar = String.valueOf(pesanan_parcelable.getPengantaran());
+            if (id_antar == null) {
+                tv_kosong_antar.setVisibility(View.VISIBLE);
+                tv_nama_driver_antar.setVisibility(View.GONE);
+                img_foto_driver_antar.setVisibility(View.GONE);
+                status_driver_antar.setVisibility(View.GONE);
+            } else {
+                setDataDriverPengantaran(id_antar);
+            }
+            String id_jemput = String.valueOf(pesanan_parcelable.getPenjemputan());
+            if (id_jemput == null) {
+                tv_kosong_jemput.setVisibility(View.VISIBLE);
+                tv_nama_driver_jemput.setVisibility(View.GONE);
+                img_foto_driver_jemput.setVisibility(View.GONE);
+                status_driver_jemput.setVisibility(View.GONE);
+            } else {
+                setDataDriverPenjemputan(id_jemput);
+            }
+        } else {
+            Bundle bundle = getIntent().getExtras();
+            String id_pesanan = bundle.getString("ID_PESANAN");
+
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            Call<ResponsePesananID> pesananIDCall = apiInterface.getPesananId("Bearer " + BuildConfig.TOKEN, id_pesanan);
+            pesananIDCall.enqueue(new Callback<ResponsePesananID>() {
+                @Override
+                public void onResponse(Call<ResponsePesananID> call, Response<ResponsePesananID> response) {
+                    assert response.body() != null;
+                    pesanan_bundle = response.body().getmPesanan();
+                    setBundle(pesanan_bundle);
+                }
+
+                @Override
+                public void onFailure(Call<ResponsePesananID> call, Throwable t) {
+
+                }
+            });
+
+        }
+
+    }
+
+    private void setBundle(Pesanan pesanan_bundle) {
+        setStatus(pesanan_bundle.getStatus());
+        tv_kode_pesanan.setText(pesanan_bundle.getKd_pemesanan());
+        tv_kode_pesanan_bahan.setText(pesanan_bundle.getKd_pemesanan());
+        tv_kode_pesanan_bahan3.setText(pesanan_bundle.getKd_pemesanan());
+        tv_tanggal.setText(getDate(pesanan_bundle.getCreated_at()));
+        tv_nama.setText(pesanan_bundle.getNama());
+        tv_telpon.setText(pesanan_bundle.getNo_telepon());
+        tv_alamat.setText(pesanan_bundle.getDeskripsi_lokasi());
+        String tgl = getDate(pesanan_bundle.getTanggal_antar());
         tv_tanggal_antar.setText(tgl);
-        tv_waktu.setText(pesanan_parcelable.getWaktu_antar());
-        tv_catatatn.setText(pesanan_parcelable.getCatatan());
-        setDataPanelUp(pesanan_parcelable.getTransaksi(), pesanan_parcelable.getNama(), pesanan_parcelable.getKd_pemesanan());
-        setDataPaker((ArrayList<Paket>) pesanan_parcelable.getPaket());
-        setDataAddiyional((ArrayList<Additional>) pesanan_parcelable.getAdditional());
-        setMapLokasi(pesanan_parcelable.getLatitude(), pesanan_parcelable.getLogitude());
+        tv_waktu.setText(pesanan_bundle.getWaktu_antar());
+        tv_catatatn.setText(pesanan_bundle.getCatatan());
+        setDataPanelUp(pesanan_bundle.getTransaksi(), pesanan_bundle.getNama(), pesanan_bundle.getKd_pemesanan(), pesanan_bundle.getBukti_pembayaran());
+        setDataPaker((ArrayList<Paket>) pesanan_bundle.getPaket());
+        setDataAddiyional((ArrayList<Additional>) pesanan_bundle.getAdditional());
+        setMapLokasi(pesanan_bundle.getLatitude(), pesanan_bundle.getLogitude());
+        setDataAlatPesanan((ArrayList<AlatPesanan>) pesanan_bundle.getAlat());
+        setDataBahanPaket((ArrayList<BahanPesanan>) pesanan_bundle.getBahan());
+        String id_antar = String.valueOf(pesanan_bundle.getPengantaran());
+        if (id_antar == null) {
+            tv_kosong_antar.setVisibility(View.VISIBLE);
+            tv_nama_driver_antar.setVisibility(View.GONE);
+            img_foto_driver_antar.setVisibility(View.GONE);
+            status_driver_antar.setVisibility(View.GONE);
+        } else {
+            setDataDriverPengantaran(id_antar);
+        }
+        String id_jemput = String.valueOf(pesanan_bundle.getPenjemputan());
+        if (id_jemput == null) {
+            tv_kosong_jemput.setVisibility(View.VISIBLE);
+            tv_nama_driver_jemput.setVisibility(View.GONE);
+            img_foto_driver_jemput.setVisibility(View.GONE);
+            status_driver_jemput.setVisibility(View.GONE);
+        } else {
+            setDataDriverPenjemputan(id_jemput);
+        }
+
+    }
+
+    private void setDataDriverPengantaran(String pengantaran) {
+        if (pengantaran == null) {
+            tv_kosong_antar.setVisibility(View.VISIBLE);
+            tv_nama_driver_antar.setVisibility(View.GONE);
+            img_foto_driver_antar.setVisibility(View.GONE);
+            status_driver_antar.setVisibility(View.GONE);
+        } else {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            Call<ResponDriver> pengantaranCall = apiInterface.getDriver("Bearer " + BuildConfig.TOKEN, String.valueOf(pengantaran));
+            pengantaranCall.enqueue(new Callback<ResponDriver>() {
+                @Override
+                public void onResponse(Call<ResponDriver> call, Response<ResponDriver> response) {
+                    if (response.isSuccessful()) {
+                        driver = response.body().getDriver();
+                        if (driver == null) {
+                            tv_kosong_antar.setVisibility(View.VISIBLE);
+                            tv_nama_driver_antar.setVisibility(View.GONE);
+                            img_foto_driver_antar.setVisibility(View.GONE);
+                            status_driver_antar.setVisibility(View.GONE);
+                        } else {
+                            tv_kosong_antar.setVisibility(View.GONE);
+                            tv_nama_driver_antar.setVisibility(View.VISIBLE);
+                            img_foto_driver_antar.setVisibility(View.VISIBLE);
+                            status_driver_antar.setVisibility(View.VISIBLE);
+                            tv_nama_driver_antar.setText(driver.getNama());
+                            String status = driver.getStatus();
+                            if (status.equals("active")) {
+                                status_driver_antar.setText(status);
+                                status_driver_antar.setTextColor(ContextCompat.getColor(DetailPesananActivity.this, R.color.doneText));
+                                status_driver_antar.setBackground(ContextCompat.getDrawable(DetailPesananActivity.this, R.drawable.bg_status_done));
+                            } else {
+                                status_driver_antar.setText(status);
+                                status_driver_antar.setTextColor(ContextCompat.getColor(DetailPesananActivity.this, R.color.refuseText));
+                                status_driver_antar.setBackground(ContextCompat.getDrawable(DetailPesananActivity.this, R.drawable.bg_status_refuse));
+                            }
+                            Glide.with(DetailPesananActivity.this)
+                                    .load(Constanta.url_foto_foto_driver + driver.getFoto())
+                                    .placeholder(R.drawable.loading_animation)
+                                    .error(R.drawable.ic_broken_image)
+                                    .into(img_foto_driver_antar);
+                        }
+                    } else {
+                        tv_kosong_antar.setVisibility(View.VISIBLE);
+                        tv_nama_driver_antar.setVisibility(View.GONE);
+                        img_foto_driver_antar.setVisibility(View.GONE);
+                        status_driver_antar.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponDriver> call, Throwable t) {
+                    tv_kosong_antar.setVisibility(View.VISIBLE);
+                    tv_nama_driver_antar.setVisibility(View.GONE);
+                    img_foto_driver_antar.setVisibility(View.GONE);
+                    status_driver_antar.setVisibility(View.GONE);
+                }
+            });
+        }
+    }
+
+    private void setDataDriverPenjemputan(String penjemputan) {
+        if (penjemputan == null) {
+            tv_kosong_jemput.setVisibility(View.VISIBLE);
+            tv_nama_driver_jemput.setVisibility(View.GONE);
+            img_foto_driver_jemput.setVisibility(View.GONE);
+            status_driver_jemput.setVisibility(View.GONE);
+        } else {
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            Call<ResponDriver> penjemputanCall = apiInterface.getDriver("Bearer " + BuildConfig.TOKEN, String.valueOf(penjemputan));
+            penjemputanCall.enqueue(new Callback<ResponDriver>() {
+                @Override
+                public void onResponse(Call<ResponDriver> call, Response<ResponDriver> response) {
+                    if (response.isSuccessful()) {
+                        driver = response.body().getDriver();
+                        if (driver == null) {
+                            tv_kosong_jemput.setVisibility(View.VISIBLE);
+                            tv_nama_driver_jemput.setVisibility(View.GONE);
+                            img_foto_driver_jemput.setVisibility(View.GONE);
+                            status_driver_jemput.setVisibility(View.GONE);
+                        } else {
+                            tv_kosong_jemput.setVisibility(View.GONE);
+                            tv_nama_driver_jemput.setVisibility(View.VISIBLE);
+                            img_foto_driver_jemput.setVisibility(View.VISIBLE);
+                            status_driver_jemput.setVisibility(View.VISIBLE);
+                            tv_nama_driver_jemput.setText(driver.getNama());
+                            String status = driver.getStatus();
+                            if (status.equals("active")) {
+                                status_driver_jemput.setText(status);
+                                status_driver_jemput.setTextColor(ContextCompat.getColor(DetailPesananActivity.this, R.color.doneText));
+                                status_driver_jemput.setBackground(ContextCompat.getDrawable(DetailPesananActivity.this, R.drawable.bg_status_done));
+                            } else {
+                                status_driver_jemput.setText(status);
+                                status_driver_jemput.setTextColor(ContextCompat.getColor(DetailPesananActivity.this, R.color.refuseText));
+                                status_driver_jemput.setBackground(ContextCompat.getDrawable(DetailPesananActivity.this, R.drawable.bg_status_refuse));
+                            }
+                            Glide.with(DetailPesananActivity.this)
+                                    .load(Constanta.url_foto_foto_driver + driver.getFoto())
+                                    .placeholder(R.drawable.loading_animation)
+                                    .error(R.drawable.ic_broken_image)
+                                    .into(img_foto_driver_jemput);
+                        }
+                    } else {
+                        tv_kosong_jemput.setVisibility(View.VISIBLE);
+                        tv_nama_driver_jemput.setVisibility(View.GONE);
+                        img_foto_driver_jemput.setVisibility(View.GONE);
+                        status_driver_jemput.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponDriver> call, Throwable t) {
+                    tv_kosong_jemput.setVisibility(View.VISIBLE);
+                    tv_nama_driver_jemput.setVisibility(View.GONE);
+                    img_foto_driver_jemput.setVisibility(View.GONE);
+                    status_driver_jemput.setVisibility(View.GONE);
+                }
+            });
+        }
+
 
     }
 
@@ -383,7 +615,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
 
     }
 
-    private void setDataPanelUp(Transaksi transaksi, String nama, String kd_pemesanan) {
+    private void setDataPanelUp(Transaksi transaksi, String nama, String kd_pemesanan, String bukti_pembayaran) {
 
         tv_total_harga = findViewById(R.id.tv_total_harga);
         tv_harga_lainnya = findViewById(R.id.tv_harga_lainnya);
@@ -392,6 +624,8 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         tv_harga_paket = findViewById(R.id.tv_harga_paket);
         tv_kode_pesanan2 = findViewById(R.id.tv_kode_pesanan2);
         tv_nama_pelanggan2 = findViewById(R.id.tv_nama_pelanggan2);
+        img_bukti_pembayaran = findViewById(R.id.img_bukti_pembayaran);
+        img_zoom = findViewById(R.id.img_zoom);
 
         tv_nama_pelanggan2.setText(nama);
         tv_kode_pesanan2.setText(kd_pemesanan);
@@ -400,6 +634,20 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         tv_biaya_pengiriman.setText(String.valueOf(transaksi.getBiayaPengiriman()));
         tv_harga_lainnya.setText(String.valueOf(transaksi.getHargaLainnya()));
         tv_total_harga.setText(String.valueOf(transaksi.getTotalHarga()));
+
+        if (bukti_pembayaran != null) {
+            Glide.with(DetailPesananActivity.this)
+                    .load(Constanta.url_foto_bukti_pesanan + bukti_pembayaran)
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image)
+                    .into(img_bukti_pembayaran);
+
+            Glide.with(DetailPesananActivity.this)
+                    .load(Constanta.url_foto_bukti_pesanan + bukti_pembayaran)
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image)
+                    .into(img_zoom);
+        }
 
     }
 

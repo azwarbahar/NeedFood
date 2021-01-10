@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,6 +21,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,7 +30,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.snackbar.Snackbar;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -45,6 +45,7 @@ import com.technest.needfood.models.pesanan.Transaksi;
 import com.technest.needfood.network.ApiClient;
 import com.technest.needfood.network.ApiInterface;
 import com.technest.needfood.network.ConnectionDetector;
+import com.technest.needfood.utils.Constanta;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -89,6 +90,8 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
     private TextView tv_harga_paket;
     private TextView tv_kode_pesanan2;
     private TextView tv_nama_pelanggan2;
+    private ImageView img_bukti_pembayaran;
+    private PhotoView img_zoom;
 
     private CardView cv_close_detail_pesanan;
     private ImageView img_close;
@@ -128,7 +131,6 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         tv_kosong_additional = findViewById(R.id.tv_kosong_additional);
         tv_kosong_additional.setVisibility(View.GONE);
         tv_kosong_paket.setVisibility(View.GONE);
-
 
         img_call = findViewById(R.id.img_call);
         img_accept = findViewById(R.id.img_accept);
@@ -206,7 +208,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         tv_tanggal_antar.setText(tgl);
         tv_waktu.setText(pesanan.getWaktu_antar());
         tv_catatatn.setText(pesanan.getCatatan());
-        setDataPanelUp(pesanan.getTransaksi(), pesanan.getNama(), pesanan.getKd_pemesanan());
+        setDataPanelUp(pesanan.getTransaksi(), pesanan.getNama(), pesanan.getKd_pemesanan(), pesanan.getBukti_pembayaran());
         setDataPaker((ArrayList<Paket>) pesanan.getPaket());
         setDataAddiyional((ArrayList<Additional>) pesanan.getAdditional());
         setMapLokasi(pesanan.getLatitude(), pesanan.getLogitude());
@@ -433,7 +435,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
 
     }
 
-    private void setDataPanelUp(Transaksi transaksi, String nama, String kd_pemesanan) {
+    private void setDataPanelUp(Transaksi transaksi, String nama, String kd_pemesanan, String bukti_pembayaran) {
 
         tv_total_harga = findViewById(R.id.tv_total_harga);
         tv_harga_lainnya = findViewById(R.id.tv_harga_lainnya);
@@ -442,6 +444,8 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         tv_harga_paket = findViewById(R.id.tv_harga_paket);
         tv_kode_pesanan2 = findViewById(R.id.tv_kode_pesanan2);
         tv_nama_pelanggan2 = findViewById(R.id.tv_nama_pelanggan2);
+        img_bukti_pembayaran = findViewById(R.id.img_bukti_pembayaran);
+        img_zoom = findViewById(R.id.img_zoom);
 
         tv_nama_pelanggan2.setText(nama);
         tv_kode_pesanan2.setText(kd_pemesanan);
@@ -450,6 +454,20 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         tv_biaya_pengiriman.setText(String.valueOf(transaksi.getBiayaPengiriman()));
         tv_harga_lainnya.setText(String.valueOf(transaksi.getHargaLainnya()));
         tv_total_harga.setText(String.valueOf(transaksi.getTotalHarga()));
+
+        if (bukti_pembayaran != null) {
+            Glide.with(DetailPesananBaruActivity.this)
+                    .load(Constanta.url_foto_bukti_pesanan + bukti_pembayaran)
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image)
+                    .into(img_bukti_pembayaran);
+
+            Glide.with(DetailPesananBaruActivity.this)
+                    .load(Constanta.url_foto_bukti_pesanan + bukti_pembayaran)
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image)
+                    .into(img_zoom);
+        }
 
     }
 
@@ -540,7 +558,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
 
-        if (latLngzoom != null){
+        if (latLngzoom != null) {
             map.clear();
             googleMap.addMarker(new MarkerOptions().title("Lokasi Pesanan")
                     .icon(bitmapDescriptor(getApplicationContext(),

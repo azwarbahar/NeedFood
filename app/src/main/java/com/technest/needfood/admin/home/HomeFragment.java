@@ -16,9 +16,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.technest.needfood.R;
 import com.technest.needfood.admin.dompet.DompetFragment;
+import com.technest.needfood.admin.dompet.KeuanganActivity;
 import com.technest.needfood.admin.inventori.InventoriFragment;
 import com.technest.needfood.admin.pesanan.PesananFragment;
 import com.technest.needfood.admin.stok.StokFragment;
+import com.technest.needfood.example.ContohChartActivity;
 
 public class HomeFragment extends Fragment {
 
@@ -118,6 +120,7 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction.replace(R.id.main_fragment, keuanganFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+//                startActivity(new Intent(getActivity(), KeuanganActivity.class));
 
             }
         });

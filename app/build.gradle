@@ -52,21 +52,15 @@ dependencies {
     //cardview
     implementation 'androidx.cardview:cardview:1.0.0'
 
-//    //glide
+    //glide
     implementation 'com.dyhdyh.support:glide:1.0.0'
 
-    //Glide
-//    implementation 'com.github.bumptech.glide:glide:4.11.0'
-//    implementation 'com.github.bumptech.glide:annotations:4.11.0'
-//    implementation('com.github.bumptech.glide:okhttp3-integration:4.0.0') {
-//        exclude group: 'glide-parent'
-//    }
-//    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    // chart Timelane
+    implementation 'com.ruesga.timeline-chart-view:timeline-chart-view:1.0.2'
 
     // Google MAPS
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
-    implementation 'com.karumi:dexter:5.0.0'
     implementation 'org.greenrobot:eventbus:3.2.0'
 
     //library retrofit
@@ -99,4 +93,14 @@ dependencies {
 
     //uCrpt Photo
     implementation 'com.github.yalantis:ucrop:2.2.2'
+
+    implementation 'com.github.ismaeltoe:flowlayout:1.0'
+
+    // MPAndroidChart
+//    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //ChartProgressBar-Android
+    implementation 'com.github.hadiidbouk:ChartProgressBar-Android:2.0.6'
+
+//    implementation 'com.hrules:charter:1.5.1'
 }

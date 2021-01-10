@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#CC0000</color>
     <color name="colorPrimaryTransparan">#5BF05600</color>
+    <color name="colorPrimaryTransparan2">#17CC0000</color>
     <color name="colorPrimaryDark">#CC0000</color>
     <color name="colorAccent">#E93035</color>
 
@@ -11,6 +12,7 @@
     <color name="merah">#B30000</color>
     <color name="putih">#FFFFFF</color>
     <color name="putihtrans">#CBFFFFFF</color>
+    <color name="putihtran2">#3EFFFFFF</color>
     <color name="hitam">#000000</color>
     <color name="hitamTrans">#EE000000</color>
     <color name="transparan">#00000000</color>
@@ -61,5 +63,10 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+
+    <color name="lightBlue500">#03a9f4</color>
+    <color name="lightBlue400">#29b6f6</color>
+    <color name="lightBlue300">#4fc3f7</color>
 
 </resources>

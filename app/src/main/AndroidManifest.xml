@@ -22,12 +22,15 @@
         android:roundIcon="@mipmap/ic_kesiniku_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon">
+        <activity android:name=".admin.dompet.SearchKeuanganActivity"></activity>
+        <activity android:name=".admin.dompet.KeuanganActivity" />
+        <activity android:name=".example.ContohChartActivity" />
         <activity
             android:name=".driver.akun.ViewImageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_view_image"
-            android:theme="@style/AppTheme.Fullscreen"></activity>
+            android:theme="@style/AppTheme.Fullscreen" />
         <activity android:name=".driver.akun.ImagePickerActivity" />
 
         <service

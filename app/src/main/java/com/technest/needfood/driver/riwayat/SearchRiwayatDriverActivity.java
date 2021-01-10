@@ -114,6 +114,7 @@ public class SearchRiwayatDriverActivity extends AppCompatActivity {
             public void onFailure(Call<ResponsePesanan> call, Throwable t) {
                 cvProgressBarr.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.VISIBLE);
+                rv_pesanan.setVisibility(View.GONE);
                 Log.d("ERROR", "Respon : " + t.getMessage());
             }
         });

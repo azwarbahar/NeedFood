@@ -6,6 +6,8 @@ import com.technest.needfood.models.bahan.ResponseAllBahan;
 import com.technest.needfood.models.bahan.ResponseBahan;
 import com.technest.needfood.models.intro.LoginModel;
 import com.technest.needfood.models.kategori.ResponKategori;
+import com.technest.needfood.models.keuangan.ResponseKeuangan;
+import com.technest.needfood.models.keuangan.ResponseKeuanganSingle;
 import com.technest.needfood.models.pesanan.ResponsePesanan;
 import com.technest.needfood.models.pesanan.ResponsePesananID;
 import com.technest.needfood.models.user.ResponAdmin;
@@ -26,6 +28,15 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
+
+    //KEUANGAN
+    @GET("keuangan/getdata")
+    Call<ResponseKeuangan> getKeuangan(@Header("Authorization") String authToken,
+                                       @Query("jenis") String jenis,
+                                       @Query("waktu") String waktu);
+    @GET("keuangan/getdata/{id}")
+    Call<ResponseKeuanganSingle> getKeuanganSingle(@Header("Authorization") String authToken,
+                                                   @Path("id") String id);
 
     // PESANAN
     @GET("datapesanan")

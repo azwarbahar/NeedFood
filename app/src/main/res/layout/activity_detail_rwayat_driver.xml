@@ -433,7 +433,7 @@
 
 
                     <TextView
-                        android:id="@+id/tv5"
+                        android:id="@+id/tv_kredit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/cv_paket1"
@@ -447,7 +447,7 @@
                         android:id="@+id/cv_additionam"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv5"
+                        android:layout_below="@id/tv_kredit"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="15dp"

@@ -16,4 +16,7 @@ public class Constanta {
     //url gambar akun driver
     public static final String url_foto_foto_driver = "https://kesiniku.com/assets/images/driver/";
 
+    //url gambar bukti pesanan
+    public static final String url_foto_bukti_pesanan = "https://kesiniku.com/assets/images/konfirmasi/";
+
 }

@@ -420,7 +420,7 @@
 
 
                     <TextView
-                        android:id="@+id/tv5"
+                        android:id="@+id/tv_kredit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/cv_paket1"
@@ -434,7 +434,7 @@
                         android:id="@+id/cv_additionam"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv5"
+                        android:layout_below="@id/tv_kredit"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="15dp"
@@ -849,7 +849,7 @@
                     android:layout_toLeftOf="@id/img_chevron2"
                     android:layout_centerVertical="true"
                     android:scaleType="fitXY"
-                    android:src="@drawable/contoh_gambar" />
+                    android:src="@drawable/bukti_pembayaran_default" />
 
                 <ImageView
                     android:id="@+id/img_chevron2"
@@ -884,7 +884,7 @@
             <com.github.chrisbanes.photoview.PhotoView
                 android:layout_below="@id/img_close"
                 android:id="@+id/img_zoom"
-                android:src="@drawable/contoh_gambar"
+                android:src="@drawable/bukti_pembayaran_default"
                 android:layout_centerInParent="true"
                 android:layout_width="match_parent"
                 android:scaleType="fitCenter"

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="6dp"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="16dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/color5"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            tools:src="@drawable/arrow_up" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_toLeftOf="@+id/tv_nominal"
+            android:layout_toRightOf="@id/img_1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_uraian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:paddingRight="10dp"
+                android:text="Pemesanan dengan kode pesanan (KSN-1305012021)"
+                android:textColor="@color/hitam"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_tangal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Senin 20 Desember 2020"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_nominal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="999.999.999"
+            android:textColor="@color/arrowUpColor"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_marginHorizontal="20dp"-->
+<!--            android:background="@color/grey2" />-->
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

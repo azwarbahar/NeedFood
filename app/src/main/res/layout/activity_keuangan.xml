@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_fragment"
-    android:orientation="vertical">
+    tools:context=".admin.dompet.KeuanganActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/tv_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ic_baseline_chevron_left_24" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tv_back"
+        android:layout_alignBottom="@id/tv_back"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/tv_back"
+        android:gravity="center_vertical"
+        android:text="Keuangan Kesiniku"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_kas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="20dp"
         app:cardCornerRadius="8dp"
@@ -56,15 +75,15 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_kas"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/tv_rp"
+                android:layout_marginRight="16dp"
                 android:layout_marginBottom="12dp"
                 android:layout_toRightOf="@id/tv_rp"
-                tools:text="520.262.000"
+                android:text="520.262.000"
                 android:textColor="@color/putih"
-                android:textSize="22dp"
+                android:textSize="24dp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
@@ -123,7 +142,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Rp."
-                    android:textSize="10dp"
                     app:layout_constraintStart_toStartOf="@+id/imgdot1"
                     app:layout_constraintTop_toBottomOf="@+id/tv4" />
 
@@ -131,16 +149,20 @@
                     android:id="@+id/tv_debit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="999.999.999"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginRight="12dp"
+                    android:text="999.999.999"
                     android:textColor="@color/grey"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/tv"
                     app:layout_constraintTop_toTopOf="@+id/tv" />
 
                 <View
                     android:id="@+id/view3"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="2dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
@@ -181,7 +203,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_10"
+                    android:id="@+id/tv_kredit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -198,24 +220,27 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Rp."
-                    android:textSize="10dp"
                     app:layout_constraintStart_toStartOf="@+id/imgdot2"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_10" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_kredit" />
 
                 <TextView
-                    android:id="@+id/tv_kredit"
+                    android:id="@+id/tv17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="999.999.999"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginRight="12dp"
+                    android:text="999.999.999"
                     android:textColor="@color/grey"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/tv6"
                     app:layout_constraintTop_toTopOf="@+id/tv6" />
 
                 <View
                     android:id="@+id/view4"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="2dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginLeft="16dp"
@@ -225,7 +250,7 @@
                     android:backgroundTint="@color/merah"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_kredit" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv17" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -234,14 +259,14 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/rl_grafik"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_1"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="10dp"
         android:background="@color/putih"
-        android:elevation="8dp">
+        android:elevation="8dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/tv7"
@@ -249,113 +274,78 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginTop="10dp"
-            android:text="Debit 7 Hari Terakhir"
-            android:textColor="@color/hitam"
+            android:text="Diagram"
+            android:textColor="@color/grey"
             android:textSize="12dp"
             android:textStyle="bold" />
 
 
         <!--charter_bar-->
 
-        <com.hadiidbouk.charts.ChartProgressBar
-            android:id="@+id/ChartProgressBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="-20dp"
-            android:gravity="center"
-            android:paddingHorizontal="20dp"
-            android:paddingBottom="30dp"
-            app:hdBarCanBeClick="true"
-            app:hdBarHeight="80dp"
-            app:hdBarRadius="10dp"
-            app:hdBarTitleColor="@color/bar_title_color"
-            app:hdBarTitleMarginTop="9dp"
-            app:hdBarTitleSelectedColor="@color/colorPrimary"
-            app:hdBarTitleTxtSize="10sp"
-            app:hdBarWidth="10dp"
-            app:hdEmptyColor="@color/grey3"
-            app:hdMaxValue="10"
-            app:hdPinBackgroundColor="@color/transparan"
-            app:hdPinDrawable="@drawable/bg_transparan"
-            app:hdPinMarginBottom="55dp"
-            app:hdPinMarginStart="-30dp"
-            app:hdPinPaddingEnd="10dp"
-            app:hdPinPaddingStart="10dp"
-            app:hdPinTextColor="@color/transparan"
-            app:hdPinTxtSize="12sp"
-            app:hdProgressClickColor="@color/starBtnNotifHomeColor"
-            app:hdProgressColor="@color/colorPrimary"
-            app:hdProgressDisableColor="@color/progress_disable" />
+
+        <!--        <com.hadiidbouk.charts.ChartProgressBar-->
+        <!--            android:id="@+id/ChartProgressBar"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:paddingBottom="30dp"-->
+        <!--            android:layout_centerInParent="true"-->
+        <!--            android:layout_marginTop="-20dp"-->
+        <!--            android:gravity="center"-->
+        <!--            android:paddingHorizontal="20dp"-->
+        <!--            app:hdBarCanBeClick="true"-->
+        <!--            app:hdBarHeight="100dp"-->
+        <!--            app:hdBarRadius="10dp"-->
+        <!--            app:hdBarTitleColor="@color/bar_title_color"-->
+        <!--            app:hdBarTitleMarginTop="9dp"-->
+        <!--            app:hdBarTitleSelectedColor="@color/colorPrimary"-->
+        <!--            app:hdBarTitleTxtSize="10sp"-->
+        <!--            app:hdBarWidth="10dp"-->
+        <!--            app:hdEmptyColor="@color/grey3"-->
+        <!--            app:hdMaxValue="10"-->
+        <!--            app:hdPinBackgroundColor="@color/pin_background"-->
+        <!--            app:hdPinDrawable="@drawable/ic_pin"-->
+        <!--            app:hdPinMarginBottom="55dp"-->
+        <!--            app:hdPinPaddingBottom="5dp"-->
+        <!--            app:hdPinPaddingEnd="10dp"-->
+        <!--            app:hdPinPaddingStart="10dp"-->
+        <!--            app:hdPinTextColor="@color/putih"-->
+        <!--            app:hdPinTxtSize="12sp"-->
+        <!--            app:hdProgressClickColor="@color/refuseBack"-->
+        <!--            app:hdProgressColor="@color/colorPrimary"-->
+        <!--            app:hdProgressDisableColor="@color/progress_disable" />-->
+
+        <!--        <com.github.mikephil.charting.charts.BarChart-->
+        <!--            android:id="@+id/barChart"-->
+        <!--            android:layout_below="@id/tv7"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="130dp"/>-->
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_grafik"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Transaksi"
-        android:textColor="@color/grey"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/inputlayout"-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginHorizontal="16dp"-->
+    <!--        android:layout_marginTop="300dp">-->
 
-    <TextView
-        android:id="@+id/tv_tahun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv8"
-        android:layout_marginHorizontal="16dp"
-        android:text="Tahun 2021"
-        android:textColor="@color/biruTua"
-        android:textSize="12dp" />
+    <!--        <AutoCompleteTextView-->
+    <!--            android:id="@+id/dropdown_menu"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:hint="Jenis"-->
+    <!--            android:inputType="text" />-->
 
-    <ImageView
-        android:id="@+id/img_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/tv8"
-        android:layout_alignParentRight="true"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_search_black_24dp" />
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_keuangan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_tahun"
-        android:layout_marginTop="10dp"
-        tools:listitem="@layout/item_keuangan" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv2"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/inputlayout"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginTop="20dp" />-->
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvProgressBar"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="300dp"
-        android:layout_centerHorizontal="true"
-        android:padding="6dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="8dp">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="3dp">
-
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminateTint="@color/colorPrimary" />
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
-
-
-    </RelativeLayout>
-</androidx.core.widget.NestedScrollView>
+</RelativeLayout>
