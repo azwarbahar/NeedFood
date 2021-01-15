@@ -23,7 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon">
-        <activity android:name=".admin.dompet.SearchKeuanganActivity"></activity>
+        <activity android:name=".driver.delivery.ImagePickerDeliveryActivity"></activity>
+        <activity android:name=".admin.dompet.SearchKeuanganActivity" />
         <activity android:name=".admin.dompet.KeuanganActivity" />
         <activity android:name=".example.ContohChartActivity" />
         <activity
@@ -52,7 +53,7 @@
         <activity android:name=".admin.pesanan.detail.DetailPesananActivity" />
         <activity android:name=".admin.pesanan.SearchPesananActivity" />
         <activity android:name=".admin.pesanan.detail.DetailPesananBaruActivity" />
-        <activity android:name=".admin.home.PesananTerbaruActivity" />
+        <activity android:name=".admin.home.pintasan.PesananTerbaruActivity" />
         <activity android:name=".admin.inventori.item_alat.detail.DetailItemAlatActivity" />
         <activity android:name=".admin.inventori.item_alat.ItemAlatActivity" />
         <activity android:name=".dapur.pesanan.DetailPesananDapurActivity" />

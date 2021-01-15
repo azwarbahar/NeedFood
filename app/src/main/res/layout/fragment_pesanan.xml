@@ -128,7 +128,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginTop="5dp"
-                                android:text="All"
+                                android:text="Semua"
                                 android:textSize="18sp" />
 
 
@@ -242,7 +242,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:paddingVertical="8dp"
-            android:text="All"
+            android:text="Semua"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -255,7 +255,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:paddingVertical="8dp"
-            android:text="New"
+            android:text="Pesanana Baru"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -267,7 +267,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:paddingVertical="8dp"
-            android:text="Accept"
+            android:text="Selesai Bayar"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -279,7 +279,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:paddingVertical="8dp"
-            android:text="Proccess"
+            android:text="Proses Dapur"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -291,7 +291,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:paddingVertical="8dp"
-            android:text="Delivery"
+            android:text="Pesanan Diantar"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -303,7 +303,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:paddingVertical="8dp"
-            android:text="Arrived"
+            android:text="Pesanan Sampai"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -315,7 +315,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:paddingVertical="8dp"
-            android:text="Taking"
+            android:text="Pesanan Dijemput"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -327,7 +327,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:paddingVertical="8dp"
-            android:text="Done"
+            android:text="Pesanan Selesai"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -339,7 +339,19 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:paddingVertical="8dp"
-            android:text="Refuse"
+            android:text="Pesanan Ditolak"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_refuse"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:paddingVertical="8dp"
+            android:text="Pesanan Batal"
             android:textSize="16dp"
             android:textStyle="bold" />
 

@@ -34,6 +34,7 @@ public interface ApiInterface {
     Call<ResponseKeuangan> getKeuangan(@Header("Authorization") String authToken,
                                        @Query("jenis") String jenis,
                                        @Query("waktu") String waktu);
+
     @GET("keuangan/getdata/{id}")
     Call<ResponseKeuanganSingle> getKeuanganSingle(@Header("Authorization") String authToken,
                                                    @Path("id") String id);
@@ -72,6 +73,12 @@ public interface ApiInterface {
     Call<ResponsePesanan> getPesananDriver(@Header("Authorization") String authToken,
                                            @Path("driver_id") String driver_id,
                                            @Query("status") String status);
+
+    @Multipart
+    @POST("driver/fotopesanan/{pesanan_id}")
+    Call<ResponsePesanan> setFotoPesanan(@Header("Authorization") String authToken,
+                                         @Part MultipartBody.Part foto,
+                                         @Path("pesanan_id") String pesanan_id);
 
 
     // KATEGORI

@@ -8,15 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
-import com.technest.needfood.admin.home.PesananTerbaruActivity;
 import com.technest.needfood.admin.pesanan.detail.DetailPesananBaruActivity;
 import com.technest.needfood.models.pesanan.Pesanan;
 import com.technest.needfood.models.pesanan.ResponsePesanan;
@@ -57,6 +54,15 @@ public class PesananTerbaruAdapter extends RecyclerView.Adapter<PesananTerbaruAd
         holder.tv_kode_pesanan.setText(pesananArrayList.get(position).getKd_pemesanan());
         holder.tv_nama_pelanggan.setText(pesananArrayList.get(position).getNama());
 
+        String status = pesananArrayList.get(position).getStatus();
+        if (status.equals("Accept")) {
+            holder.img_refuse.setVisibility(View.VISIBLE);
+            holder.img_accept.setVisibility(View.VISIBLE);
+        } else {
+            holder.img_refuse.setVisibility(View.GONE);
+            holder.img_accept.setVisibility(View.GONE);
+        }
+
         holder.img_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +91,7 @@ public class PesananTerbaruAdapter extends RecyclerView.Adapter<PesananTerbaruAd
                                 ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
                                 Call<ResponsePesanan> responsePesananCall = apiInterface.updateSatusPesanan(
                                         "Bearer " + BuildConfig.TOKEN,
-                                        String.valueOf(pesananArrayList.get(position).getId()), "Accept");
+                                        String.valueOf(pesananArrayList.get(position).getId()), "Proccess");
                                 responsePesananCall.enqueue(new Callback<ResponsePesanan>() {
                                     @Override
                                     public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
@@ -99,9 +105,11 @@ public class PesananTerbaruAdapter extends RecyclerView.Adapter<PesananTerbaruAd
                                                             @Override
                                                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                                 sweetAlertDialog.dismiss();
-                                                                if (context instanceof PesananTerbaruActivity) {
-                                                                    ((PesananTerbaruActivity) context).onRefresh();
-                                                                }
+//                                                                if (context instanceof PesananTerbaruActivity) {
+//                                                                    ((PesananTerbaruActivity) context).startfragment();
+//                                                                }
+
+                                                                removeAt(position);
                                                             }
                                                         })
                                                         .show();
@@ -178,9 +186,10 @@ public class PesananTerbaruAdapter extends RecyclerView.Adapter<PesananTerbaruAd
                                                             @Override
                                                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                                                 sweetAlertDialog.dismiss();
-                                                                if (context instanceof PesananTerbaruActivity) {
-                                                                    ((PesananTerbaruActivity) context).onRefresh();
-                                                                }
+//                                                                if (context instanceof PesananTerbaruActivity) {
+//                                                                    ((PesananTerbaruActivity) context).startfragment();
+//                                                                }
+                                                                removeAt(position);
                                                             }
                                                         })
                                                         .show();
@@ -224,6 +233,12 @@ public class PesananTerbaruAdapter extends RecyclerView.Adapter<PesananTerbaruAd
             }
         });
 
+    }
+
+    public void removeAt(int position) {
+        pesananArrayList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, pesananArrayList.size());
     }
 
     @Override

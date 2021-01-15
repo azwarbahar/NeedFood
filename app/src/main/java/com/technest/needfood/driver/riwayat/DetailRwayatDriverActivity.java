@@ -333,40 +333,49 @@ public class DetailRwayatDriverActivity extends AppCompatActivity implements OnM
     private void setStatus(String status) {
         switch (status) {
             case "New":
-                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setText("Pesanana Baru");
                 tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.newText));
                 tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_new));
                 break;
             case "Accept":
-                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setText("Selesai Bayar");
                 tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.acceptText));
                 tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_accept));
                 break;
             case "Proccess":
-                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setText("Proses Dapur");
                 tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.proccessText));
                 tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_proccess));
                 break;
             case "Delivery":
-            case "Taking":
-                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setText("Pesanan Diantar");
                 tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.deliveryText));
                 tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_delivery));
                 break;
             case "Arrived":
-                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setText("Pesanan Sampai");
                 tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.arrivedText));
                 tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_arrived));
                 break;
+            case "Taking":
+                tv_status_pesanan.setText("Pesanan Dijemput");
+                tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.deliveryText));
+                tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_delivery));
+                break;
             case "Done":
-                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setText("Pesanan Selesai");
                 tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.doneText));
                 tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_done));
                 break;
             case "Refuse":
-                tv_status_pesanan.setText(status);
+                tv_status_pesanan.setText("Pesanan Ditolak");
                 tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.refuseText));
                 tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_refuse));
+                break;
+            case "Cancel":
+                tv_status_pesanan.setText("Pesanan Batal");
+                tv_status_pesanan.setTextColor(ContextCompat.getColor(this, R.color.cancelText));
+                tv_status_pesanan.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_status_cancel));
                 break;
         }
     }

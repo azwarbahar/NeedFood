@@ -48,39 +48,50 @@ public class AdapterPesananPencarian extends RecyclerView.Adapter<AdapterPesanan
         holder.tv_nama_pelanggan.setText(pesanans.get(position).getNama());
         holder.tv_telpon_pesanan.setText("Tel : " + pesanans.get(position).getNo_telepon());
         holder.tv_kode_pesanan.setText(pesanans.get(position).getKd_pemesanan());
-        holder.tv_status_pesanan.setText(pesanans.get(position).getStatus());
         String status = pesanans.get(position).getStatus();
 
         if (status.equals("New")) {
+            holder.tv_status_pesanan.setText("Pesanana Baru");
             holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.newText));
             holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_new));
         } else if (status.equals("Accept")) {
+            holder.tv_status_pesanan.setText("Selesai Bayar");
             holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.acceptText));
             holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_accept));
         } else if (status.equals("Proccess")) {
+            holder.tv_status_pesanan.setText("Proses Dapur");
             holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.proccessText));
             holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_proccess));
         } else if (status.equals("Delivery")) {
+            holder.tv_status_pesanan.setText("Pesanan Diantar");
             holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.deliveryText));
             holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_delivery));
         } else if (status.equals("Arrived")) {
+            holder.tv_status_pesanan.setText("Pesanan Sampai");
             holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.arrivedText));
             holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_arrived));
         } else if (status.equals("Taking")) {
+            holder.tv_status_pesanan.setText("Pesanan Dijemput");
             holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.deliveryText));
             holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_delivery));
         } else if (status.equals("Done")) {
+            holder.tv_status_pesanan.setText("Pesanan Selesai");
             holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.doneText));
             holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_done));
         } else if (status.equals("Refuse")) {
+            holder.tv_status_pesanan.setText("Pesanan Ditolak");
             holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.refuseText));
             holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_refuse));
+        } else if (status.equals("Cancel")) {
+            holder.tv_status_pesanan.setText("Pesanan Batal");
+            holder.tv_status_pesanan.setTextColor(ContextCompat.getColor(context, R.color.cancelText));
+            holder.tv_status_pesanan.setBackground(ContextCompat.getDrawable(context, R.drawable.bg_status_cancel));
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (status.equals("New")) {
+                if (status.equals("New") || status.equals("Accept")) {
                     Intent intent = new Intent(context, DetailPesananBaruActivity.class);
                     intent.putExtra(DetailPesananBaruActivity.EXTRA_DATA, pesanans.get(position));
 //                    intent.putExtra("ID_PESANAN", pesanans.get(position).getId());

@@ -114,6 +114,7 @@
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/bg_trans_primary"
                         android:paddingHorizontal="12dp"
+                        android:textSize="11sp"
                         android:paddingVertical="2dp"
                         android:text="Accept"
                         android:textColor="@color/colorPrimary" />

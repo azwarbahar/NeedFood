@@ -71,20 +71,11 @@
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                     <TextView
-                        android:id="@+id/tv_jam"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="12dp"
-                        android:text="12.22" />
-
-                    <TextView
                         android:id="@+id/tv_tanggal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_jam"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="14dp"
+                        android:layout_marginTop="20dp"
                         android:text="Jumat 14 Januari 2020"
                         android:textColor="@color/biruTua" />
 

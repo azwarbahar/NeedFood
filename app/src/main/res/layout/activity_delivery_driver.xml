@@ -24,6 +24,48 @@
         android:src="@drawable/ic_close_black_24dp" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_foto_pesanan"
+        android:layout_width="372dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_close"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="6dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="5dp">
+
+            <TextView
+                android:layout_toLeftOf="@id/btn_foto_kirim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="12dp"
+                android:textSize="12dp"
+                android:layout_centerVertical="true"
+                android:text="Belum Mengirim Foto Pesanan Ke Pelanggan" />
+
+            <TextView
+                android:id="@+id/btn_foto_kirim"
+                android:text="Foto dan Kirim"
+                android:textSize="14dp"
+                android:paddingHorizontal="4dp"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:paddingVertical="8dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/cv_detail_pesanan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

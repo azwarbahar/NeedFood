@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_fragment"
     android:orientation="vertical">
 
@@ -31,67 +31,29 @@
             android:layout_marginLeft="12dp"
             android:layout_toRightOf="@id/img_back"
             android:gravity="center"
-            android:text="Nama Halaman"
+            android:text="Pesanan Terbaru"
             android:textColor="@color/putih" />
 
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/ll_kosong"
-        android:layout_below="@id/rv1"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-
-        <ImageView
-            android:src="@drawable/kosong"
-            android:layout_width="150dp"
-            android:layout_height="150dp"/>
-
-        <TextView
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/grey2"
-            android:textSize="20dp"
-            android:text="Kosong.."
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_continer"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/rv1"
-        android:layout_height="match_parent">
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_item_pesanan_baru"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/pesanan_tablayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_pesanan_baru" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvProgressBar"
-        app:cardElevation="8dp"
-        app:cardCornerRadius="20dp"
-        android:layout_width="40dp"
-        android:layout_centerInParent="true"
-        android:padding="6dp"
-        android:layout_height="40dp">
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/cv_search"
-            android:indeterminateTint="@color/colorPrimary" />
+            app:tabMode="fixed" />
 
-    </androidx.cardview.widget.CardView>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pesanan_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </RelativeLayout>

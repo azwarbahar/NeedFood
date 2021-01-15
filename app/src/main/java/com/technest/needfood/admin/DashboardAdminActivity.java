@@ -200,7 +200,7 @@ DashboardAdminActivity extends AppCompatActivity implements View.OnClickListener
         itemHome = new ResideMenuItem(this, R.drawable.ic_icon_home_putih, "Home");
         itemPesanan = new ResideMenuItem(this, R.drawable.ic_icon_pesanan_putih, "Pesanan");
         itemStokBahan = new ResideMenuItem(this, R.drawable.ic_icon_stok_putih, "Stok");
-        itemInventori = new ResideMenuItem(this, R.drawable.ic_icon_inventori_putih, "Inventori");
+        itemInventori = new ResideMenuItem(this, R.drawable.ic_icon_inventori_putih, "Alat");
         itemLogout = new ResideMenuItem(this, R.drawable.ic_icon_logout_putih, "Logout");
 
         itemHome.setOnClickListener(this);

@@ -1,15 +1,17 @@
-package com.technest.needfood.admin.home;
+package com.technest.needfood.admin.home.pintasan;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -30,39 +32,32 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class SudahBayarFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private TextView tv_title_halaman;
-    private RecyclerView rv_item_pesanan_baru;
+    View v;
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private CardView cvProgressBar;
     private LinearLayout ll_kosong;
-    private ImageView img_back;
+    private RecyclerView rv_pesanan;
     private ArrayList<Pesanan> pesanans;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pesanan_terbaru);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.fragment_sudah_bayar, container, false);
 
-        Context context = this;
+        Context context = getActivity();
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
 
-        ll_kosong = findViewById(R.id.ll_kosong);
+        ll_kosong = v.findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
-        cvProgressBar = findViewById(R.id.cvProgressBar);
+        cvProgressBar = v.findViewById(R.id.cvProgressBar);
         cvProgressBar.setVisibility(View.VISIBLE);
-        rv_item_pesanan_baru = findViewById(R.id.rv_item_pesanan_baru);
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String title = extras.getString("extra_data");
-            tv_title_halaman = findViewById(R.id.tv_title_halaman);
-            tv_title_halaman.setText(title);
-        }
+        rv_pesanan = v.findViewById(R.id.rv_pesanan);
 
-
-        mSwipeRefreshLayout = findViewById(R.id.swipe_continer);
+        mSwipeRefreshLayout = v.findViewById(R.id.swipe_continer);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
                 android.R.color.holo_blue_dark,
@@ -75,7 +70,7 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
                 if (ConnectionDetector.isInternetAvailble()) {
                     loadData();
                 } else {
-                    rv_item_pesanan_baru.setVisibility(View.GONE);
+                    rv_pesanan.setVisibility(View.GONE);
                     cvProgressBar.setVisibility(View.GONE);
                     actionNotConnection();
                     ll_kosong.setVisibility(View.VISIBLE);
@@ -83,31 +78,12 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
             }
         });
 
-
-        img_back = findViewById(R.id.img_back);
-        img_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
-    private void actionNotConnection() {
-        Snackbar.make(findViewById(android.R.id.content), "Koneksi Tidak Ada!", Snackbar.LENGTH_INDEFINITE)
-                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
-                .setAction("Close", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        v.setVisibility(View.GONE);
-                    }
-                })
-                .show();
+        return v;
     }
 
     private void loadData() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponsePesanan> responsePesananCall = apiInterface.getPesananSatus("Bearer " + BuildConfig.TOKEN, "New");
+        Call<ResponsePesanan> responsePesananCall = apiInterface.getPesananSatus("Bearer " + BuildConfig.TOKEN, "Accept");
         responsePesananCall.enqueue(new Callback<ResponsePesanan>() {
             @Override
             public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
@@ -119,19 +95,19 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
                         pesanans = (ArrayList<Pesanan>) response.body().getmPesanan();
                         if (pesanans.isEmpty()) {
                             ll_kosong.setVisibility(View.VISIBLE);
-                            rv_item_pesanan_baru.setVisibility(View.GONE);
+                            rv_pesanan.setVisibility(View.GONE);
                         } else {
-                            PesananTerbaruAdapter pesananTerbaruAdapter = new PesananTerbaruAdapter(PesananTerbaruActivity.this, pesanans);
-                            rv_item_pesanan_baru.setLayoutManager(new LinearLayoutManager(PesananTerbaruActivity.this));
-                            rv_item_pesanan_baru.setAdapter(pesananTerbaruAdapter);
+                            PesananTerbaruAdapter pesananTerbaruAdapter = new PesananTerbaruAdapter(getActivity(), pesanans);
+                            rv_pesanan.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            rv_pesanan.setAdapter(pesananTerbaruAdapter);
                         }
                     } else {
-                        rv_item_pesanan_baru.setVisibility(View.GONE);
+                        rv_pesanan.setVisibility(View.GONE);
                         ll_kosong.setVisibility(View.VISIBLE);
                     }
                     Log.d("Respon", "Message = " + response.body().getmMessage());
                 } else {
-                    rv_item_pesanan_baru.setVisibility(View.GONE);
+                    rv_pesanan.setVisibility(View.GONE);
                     cvProgressBar.setVisibility(View.GONE);
                     ll_kosong.setVisibility(View.VISIBLE);
                 }
@@ -145,11 +121,25 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
                 Log.d("ERROR", "Respon : " + t.getMessage());
             }
         });
+
+    }
+
+    private void actionNotConnection() {
+        Snackbar.make(v.findViewById(android.R.id.content), "Koneksi Tidak Ada!", Snackbar.LENGTH_INDEFINITE)
+                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
+                .setAction("Close", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        v.setVisibility(View.GONE);
+                    }
+                })
+                .show();
     }
 
     @Override
     public void onRefresh() {
-        Context context = this;
+
+        Context context = getActivity();
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
         // check Koneksi
@@ -159,5 +149,6 @@ public class PesananTerbaruActivity extends AppCompatActivity implements SwipeRe
             mSwipeRefreshLayout.setRefreshing(false);
             actionNotConnection();
         }
+
     }
 }

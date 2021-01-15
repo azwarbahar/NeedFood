@@ -63,6 +63,7 @@
             android:background="@drawable/bg_trans_primary"
             android:paddingHorizontal="8dp"
             android:paddingVertical="2dp"
+            android:textSize="10dp"
             android:text="Accept"
             android:textColor="@color/colorPrimary" />
 

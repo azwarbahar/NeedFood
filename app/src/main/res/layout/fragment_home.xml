@@ -256,7 +256,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16dp"
                             android:layout_marginTop="20dp"
-                            android:text="Inventori"
+                            android:text="Alat"
                             android:textColor="@color/putih"
                             android:textSize="16dp"
                             android:textStyle="bold" />
@@ -266,8 +266,13 @@
                             android:layout_height="100dp"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentBottom="true"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/img_inventori" />
+                            android:layout_marginStart="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/img_alat" />
 
                     </RelativeLayout>
 

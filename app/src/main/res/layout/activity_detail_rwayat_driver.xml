@@ -111,6 +111,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="16dp"
+                        android:textSize="11sp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/bg_trans_primary"
                         android:paddingHorizontal="12dp"

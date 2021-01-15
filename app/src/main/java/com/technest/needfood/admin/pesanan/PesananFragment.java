@@ -58,6 +58,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private TextView tv_taking;
     private TextView tv_done;
     private TextView tv_refuse;
+    private TextView tv_cancel;
 
     private TextView tv_titel_status;
 
@@ -87,7 +88,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
         tv_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String status = "All";
+                String status = "Semua";
                 tv_titel_status.setText(status);
                 rv_pesanan.setVisibility(View.GONE);
                 ll_kosong.setVisibility(View.GONE);
@@ -102,7 +103,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onClick(View v) {
                 String status = "New";
-                tv_titel_status.setText(status);
+                tv_titel_status.setText("Pesanana Baru");
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
@@ -116,7 +117,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onClick(View v) {
                 String status = "Accept";
-                tv_titel_status.setText(status);
+                tv_titel_status.setText("Selesai Bayar");
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
@@ -129,7 +130,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onClick(View v) {
                 String status = "Proccess";
-                tv_titel_status.setText(status);
+                tv_titel_status.setText("Proses Dapur");
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
@@ -142,7 +143,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onClick(View v) {
                 String status = "Delivery";
-                tv_titel_status.setText(status);
+                tv_titel_status.setText("Pesanan Diantar");
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
@@ -155,7 +156,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onClick(View v) {
                 String status = "Arrived";
-                tv_titel_status.setText(status);
+                tv_titel_status.setText("Pesanan Sampai");
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
@@ -168,7 +169,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onClick(View v) {
                 String status = "Taking";
-                tv_titel_status.setText(status);
+                tv_titel_status.setText("Pesanan Dijemput");
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
@@ -182,7 +183,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onClick(View v) {
                 String status = "Done";
-                tv_titel_status.setText(status);
+                tv_titel_status.setText("Pesanan Selesai");
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);
@@ -196,7 +197,21 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onClick(View v) {
                 String status = "Refuse";
-                tv_titel_status.setText(status);
+                tv_titel_status.setText("Pesanan Ditolak");
+                rv_pesanan.setVisibility(View.GONE);
+                showPanel();
+                ll_kosong.setVisibility(View.GONE);
+                cvProgressBar.setVisibility(View.VISIBLE);
+                loadPesananStatus(status);
+            }
+        });
+
+        tv_cancel = v.findViewById(R.id.tv_cancel);
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String status = "Cancel";
+                tv_titel_status.setText("Pesanan Batal");
                 rv_pesanan.setVisibility(View.GONE);
                 showPanel();
                 ll_kosong.setVisibility(View.GONE);

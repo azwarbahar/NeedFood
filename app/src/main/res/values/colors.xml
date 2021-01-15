@@ -44,8 +44,8 @@
     <color name="acceptText">#016B6B</color>
     <color name="acceptBack">#C7FFFF</color>
 
-    <color name="proccessText">#8C8820</color>
-    <color name="proccessBack">#FFFCB4</color>
+    <color name="proccessText">#494949</color>
+    <color name="proccessBack">#ACACAC</color>
 
     <color name="deliveryText">#7636A8</color>
     <color name="deliveryBack">#EED9FF</color>
@@ -55,6 +55,9 @@
 
     <color name="doneText">#089554</color>
     <color name="doneBack">#C8FFE6</color>
+
+    <color name="cancelText">#8C8820</color>
+    <color name="cancelBack">#FFFCB4</color>
 
     <color name="refuseText">#DC0000</color>
     <color name="refuseBack">#FACFCF</color>

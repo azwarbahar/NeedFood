@@ -2,6 +2,7 @@ package com.technest.needfood.admin.pesanan.detail;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -79,6 +80,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
     private TextView tv_nama;
     private TextView tv_telpon;
     private TextView tv_tanggal_antar;
+    private TextView tv_tanggal;
     private TextView tv_waktu;
     private TextView tv_catatatn;
 
@@ -147,6 +149,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         tv_nama = findViewById(R.id.tv_nama);
         tv_telpon = findViewById(R.id.tv_telpon);
         tv_tanggal_antar = findViewById(R.id.tv_tanggal_antar);
+        tv_tanggal = findViewById(R.id.tv_tanggal);
         tv_waktu = findViewById(R.id.tv_waktu);
         tv_catatatn = findViewById(R.id.tv_catatatn);
 
@@ -206,6 +209,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         tv_alamat.setText(pesanan.getDeskripsi_lokasi());
         String tgl = getDate(pesanan.getTanggal_antar());
         tv_tanggal_antar.setText(tgl);
+        tv_tanggal.setText(getDate(pesanan.getCreated_at()));
         tv_waktu.setText(pesanan.getWaktu_antar());
         tv_catatatn.setText(pesanan.getCatatan());
         setDataPanelUp(pesanan.getTransaksi(), pesanan.getNama(), pesanan.getKd_pemesanan(), pesanan.getBukti_pembayaran());
@@ -481,7 +485,6 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
 
     }
 
-
     private String getDate(String time) {
         SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         Date date = null;
@@ -490,7 +493,9 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+        assert date != null;
         return dateFormatter.format(date);
     }
 
