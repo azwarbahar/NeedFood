@@ -249,7 +249,21 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         img_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogAccept(String.valueOf(pesanan.getId()), "Accept");
+                if (pesanan.getStatus().equals("New")){
+                    new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Maaf")
+                            .setContentText("Pelanggan Belum Megirimkan Bukti Pembayaran.")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    sweetAlertDialog.dismissWithAnimation();
+                                }
+                            })
+                            .show();
+                } else {
+                    dialogAccept(String.valueOf(pesanan.getId()), "Proccess");
+                }
             }
         });
 
