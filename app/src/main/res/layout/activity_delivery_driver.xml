@@ -39,27 +39,90 @@
             android:paddingVertical="5dp">
 
             <TextView
-                android:layout_toLeftOf="@id/btn_foto_kirim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="12dp"
-                android:textSize="12dp"
                 android:layout_centerVertical="true"
-                android:text="Belum Mengirim Foto Pesanan Ke Pelanggan" />
+                android:layout_marginLeft="12dp"
+                android:layout_toLeftOf="@id/btn_foto_kirim"
+                android:text="Belum Mengirim Foto Pesanan Ke Pelanggan"
+                android:textSize="12dp" />
 
             <TextView
                 android:id="@+id/btn_foto_kirim"
-                android:text="Foto dan Kirim"
-                android:textSize="14dp"
-                android:paddingHorizontal="4dp"
-                android:layout_marginRight="12dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:paddingVertical="8dp"
-                android:textColor="@color/colorPrimary"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="8dp"
+                android:text="Foto dan Kirim"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14dp" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_falid_date"
+        android:layout_width="372dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cv_foto_pesanan"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="6dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="5dp">
+
+            <ImageView
+                android:id="@+id/img_warning"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="12dp"
+                android:src="@drawable/ic_baseline_warning_24" />
+
+            <TextView
+                android:id="@+id/tv10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/img_warning"
+                android:layout_marginLeft="8dp"
+                android:text="Tanggal Pengiriman "
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/tv_tanggal_warning"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/hitam"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/tv10"
+                android:layout_toLeftOf="@id/btn_hide"
+                android:text="10-10-2021"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/btn_hide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:paddingHorizontal="4dp"
+                android:paddingVertical="4dp"
+                android:text="Hide"
+                android:textColor="@color/colorPrimary"
+                android:textSize="13dp" />
 
         </RelativeLayout>
 

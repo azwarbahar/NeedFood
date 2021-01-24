@@ -1,11 +1,13 @@
 package com.technest.needfood.models.keuangan;
 
+import java.util.List;
+
 public class ResponseKeuanganMingguan{
-	private ResultMingguan result;
+	private List<ResultMingguan> result;
 	private boolean success;
 	private String message;
 
-	public ResultMingguan getResult() {
+	public List<ResultMingguan> getResult() {
 		return result;
 	}
 

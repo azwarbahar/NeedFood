@@ -275,7 +275,6 @@
             app:hdBarTitleTxtSize="10sp"
             app:hdBarWidth="10dp"
             app:hdEmptyColor="@color/grey3"
-            app:hdMaxValue="10"
             app:hdPinBackgroundColor="@color/transparan"
             app:hdPinDrawable="@drawable/bg_transparan"
             app:hdPinMarginBottom="55dp"

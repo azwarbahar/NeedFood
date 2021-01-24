@@ -1,5 +1,6 @@
 package com.technest.needfood.admin.dompet;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,16 +29,21 @@ import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
 import com.technest.needfood.models.keuangan.DataKas;
 import com.technest.needfood.models.keuangan.ResponseKeuangan;
+import com.technest.needfood.models.keuangan.ResponseKeuanganMingguan;
 import com.technest.needfood.models.keuangan.ResultItem;
+import com.technest.needfood.models.keuangan.ResultMingguan;
 import com.technest.needfood.network.ApiClient;
 import com.technest.needfood.network.ApiInterface;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,14 +66,8 @@ public class DompetFragment extends Fragment {
     private ArrayList<ResultItem> resultItems;
     private RecyclerView rv_keuangan;
     private ImageView img_search;
-
-    private ArrayList<String> Hari1;
-    private ArrayList<String> Hari2;
-    private ArrayList<String> Hari3;
-    private ArrayList<String> Hari4;
-    private ArrayList<String> Hari5;
-    private ArrayList<String> Hari6;
-    private ArrayList<String> Hari7;
+    private ArrayList<ResultMingguan> resultMingguans;
+    private ArrayList<Long> debit = new ArrayList<>();
 
 
     @Nullable
@@ -75,6 +75,8 @@ public class DompetFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_dompet, container, false);
 
+
+        mChart = (ChartProgressBar) view.findViewById(R.id.ChartProgressBar);
         img_search = view.findViewById(R.id.img_search);
         rv_keuangan = view.findViewById(R.id.rv_keuangan);
         tv_debit = view.findViewById(R.id.tv_debit);
@@ -89,37 +91,18 @@ public class DompetFragment extends Fragment {
         Log.e("GET TAHUN", "RESULT : " + tahun_now);
         gerDataKeuanganAll(tahun_now);
 
-        ArrayList<BarData> dataList = new ArrayList<>();
-
-        BarData data = new BarData("Sen", 3.0f, "30.000");
-        dataList.add(data);
-
-        data = new BarData("Sel", 2.0f, "20.000");
-        dataList.add(data);
-
-        data = new BarData("Rab", 1.0f, "1.000");
-        dataList.add(data);
-
-        data = new BarData("Kam", 7.3f, "4.000");
-        dataList.add(data);
-
-        data = new BarData("Jum", 0.2f, "200");
-        dataList.add(data);
-
-        data = new BarData("Sab", 8.0f, "8.000");
-        dataList.add(data);
-
-        data = new BarData("Min", 3.3f, "3.300");
-        dataList.add(data);
-
-        mChart = (ChartProgressBar) view.findViewById(R.id.ChartProgressBar);
-        mChart.setDataList(dataList);
-        mChart.build();
         mChart.setOnBarClickedListener(new OnBarClickedListener() {
             @Override
             public void onBarClicked(int i) {
 
-                Snackbar snack = Snackbar.make(getActivity().findViewById(android.R.id.content), "Posisi : " + i, Snackbar.LENGTH_LONG);
+                DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+                DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+                formatRp.setCurrencySymbol("");
+                formatRp.setMonetaryDecimalSeparator(',');
+                formatRp.setGroupingSeparator('.');
+                kursIndonesia.setDecimalFormatSymbols(formatRp);
+
+                Snackbar snack = Snackbar.make(getActivity().findViewById(android.R.id.content), "Debit : Rp. " + kursIndonesia.format(debit.get(i)), Snackbar.LENGTH_LONG);
                 View view = snack.getView();
                 FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
                 params.gravity = Gravity.BOTTOM;
@@ -136,7 +119,50 @@ public class DompetFragment extends Fragment {
             }
         });
 
+        getKeuanganMingguan();
+
+
         return view;
+    }
+
+    private void getKeuanganMingguan() {
+
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseKeuanganMingguan> keuanganMingguanCall = apiInterface.getKeuanganMingguan("Bearer " + BuildConfig.TOKEN);
+        keuanganMingguanCall.enqueue(new Callback<ResponseKeuanganMingguan>() {
+            @Override
+            public void onResponse(Call<ResponseKeuanganMingguan> call, Response<ResponseKeuanganMingguan> response) {
+                if (response.isSuccessful()){
+                    if (response.body().isSuccess()){
+                        resultMingguans = (ArrayList<ResultMingguan>) response.body().getResult();
+                        initResul(resultMingguans);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseKeuanganMingguan> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void initResul(ArrayList<ResultMingguan> resultMingguans) {
+
+        ArrayList<BarData> dataList = new ArrayList<>();
+
+        for (int a = 0; a<resultMingguans.size(); a++){
+            debit.add(resultMingguans.get(a).getDebit());
+            BarData data = new BarData(getDate(resultMingguans.get(a).getTanggal()), (float) resultMingguans.get(a).getDebit()/100, "");
+            dataList.add(data);
+        }
+        long max = Collections.max(debit);
+        long maxValue = max/90;
+        mChart.setMaxValue( (float) maxValue);
+        mChart.setDataList(dataList);
+        mChart.build();
+
     }
 
     private void gerDataKeuanganAll(String tahun_now) {
@@ -177,6 +203,20 @@ public class DompetFragment extends Fragment {
 
         }
 
+    }
+
+    private String getDate(String time) {
+        SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        Date date = null;
+        try {
+            date = dateParser.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE");
+        assert date != null;
+        return dateFormatter.format(date);
     }
 
     private void setDataKas(DataKas dataKas) {
