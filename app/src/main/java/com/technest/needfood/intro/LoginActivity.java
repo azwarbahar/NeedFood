@@ -96,8 +96,8 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(this, DashboardAdminActivity.class));
                     finish();
                 } else if (role.equals("kitchen")) {
-                    startActivity(new Intent(this, DashboardDapurActivity.class));
-                    finish();
+//                    startActivity(new Intent(this, DashboardDapurActivity.class));
+//                    finish();
                 } else if (role.equals("driver")) {
                     startActivity(new Intent(this, DashboardDriverActivity.class));
                     finish();
@@ -163,17 +163,15 @@ public class LoginActivity extends AppCompatActivity {
         //fill list screen
         final List<SliderItem> mList = new ArrayList<>();
         mList.add(new SliderItem("Manajemen Pesanan",
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
-                        "Lorem Ipsum has been the industry's",
+                "Memudahkan dalam memantau pesanan pelanggan mulai dari transaksi hingga selesai.",
                 R.drawable.img_intro1));
 
         mList.add(new SliderItem("Monitoring Bahan & alat",
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
-                        "Lorem Ipsum",
+                "Dapat mengetahui ketersediaan stok bahan dan alat",
                 R.drawable.img_intro2));
 
         mList.add(new SliderItem("Lokasi Pesanan",
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+                "Efisien dalam melakukan pengantaran atau penjemputan ke lokasi pesanan.",
                 R.drawable.ic_img_intro3));
 
         // setup view pager
@@ -333,7 +331,7 @@ public class LoginActivity extends AppCompatActivity {
                                 masukAdmin();
                                 break;
                             case "kitchen":
-                                masukDapur();
+//                                masukDapur();
                                 break;
                             case "driver":
                                 masukDriver();

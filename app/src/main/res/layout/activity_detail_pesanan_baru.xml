@@ -47,8 +47,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/gradient_tarns_black" />
+                        android:layout_alignParentBottom="true" />
 
                     <TextView
                         style="@style/TextAppearance.AppCompat.Title"
