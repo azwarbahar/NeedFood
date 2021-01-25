@@ -16,8 +16,8 @@ public class AlatPilihanPesanan implements Parcelable {
     @SerializedName("jumlah")
     private String jumlah;
 
-    public AlatPilihanPesanan() {
-    }
+    @SerializedName("status")
+    private String status;
 
     public String getAlat_id() {
         return alat_id;
@@ -43,10 +43,19 @@ public class AlatPilihanPesanan implements Parcelable {
         this.jumlah = jumlah;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     protected AlatPilihanPesanan(Parcel in) {
         alat_id = in.readString();
         nama_alat = in.readString();
         jumlah = in.readString();
+        status = in.readString();
     }
 
     public static final Creator<AlatPilihanPesanan> CREATOR = new Creator<AlatPilihanPesanan>() {
@@ -71,5 +80,6 @@ public class AlatPilihanPesanan implements Parcelable {
         dest.writeString(alat_id);
         dest.writeString(nama_alat);
         dest.writeString(jumlah);
+        dest.writeString(status);
     }
 }

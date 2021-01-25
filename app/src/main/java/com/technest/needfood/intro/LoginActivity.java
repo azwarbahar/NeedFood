@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -340,15 +341,26 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                     } else {
-                        Log.d("LOGIN", "Message = " + response.body().getMessage());
+                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Sorry...")
+                                .setContentText(response.body().getMessage())
+                                .show();
                     }
+                    } else {
+                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Sorry...")
+                                .setContentText(response.body().getMessage())
+                                .show();
                 }
             }
 
             @Override
             public void onFailure(Call<LoginModel> call, Throwable t) {
                 pd.hide();
-                actionNotConnection();
+                new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Sorry...")
+                        .setContentText(t.getMessage())
+                        .show();
             }
         });
 

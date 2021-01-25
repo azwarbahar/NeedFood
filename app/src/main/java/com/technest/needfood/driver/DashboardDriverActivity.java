@@ -27,6 +27,7 @@ import com.technest.needfood.network.ApiClient;
 import com.technest.needfood.network.ApiInterface;
 import com.technest.needfood.network.ConnectionDetector;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -81,6 +82,7 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
 
     }
 
+
     private void loadData(String id) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<ResponDriver> responDriverCall = apiInterface.getDriver("Bearer " + BuildConfig.TOKEN, id);
@@ -98,6 +100,7 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
                         foto = response.body().getDriver().getFoto();
                         status = response.body().getDriver().getStatus();
                         username = response.body().getDriver().getUsername();
+                        cekStatusAkun(status);
                     } else {
                         gagalLoadData();
                     }
@@ -112,6 +115,29 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
                 gagalLoadData();
             }
         });
+    }
+
+    private void cekStatusAkun(String status) {
+        if (status.equals("suspended")){
+            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(DashboardDriverActivity.this, SweetAlertDialog.ERROR_TYPE);
+            sweetAlertDialog.setTitleText("Sorry...");
+            sweetAlertDialog.setCancelable(false);
+            sweetAlertDialog.setContentText("Akun telah di Suspend");
+            sweetAlertDialog.setConfirmButton("Keluar", new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    Intent intent = new Intent(DashboardDriverActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    SharedPreferences mPreferences1 = getSharedPreferences(my_shared_preferences, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = mPreferences1.edit();
+                    editor.apply();
+                    editor.clear();
+                    editor.commit();
+                    finish();
+                }
+            });
+            sweetAlertDialog.show();
+        }
     }
 
     private void gagalLoadData() {
@@ -172,7 +198,6 @@ public class DashboardDriverActivity extends AppCompatActivity implements View.O
                 resideMenu.openMenu(ResideMenu.DIRECTION_LEFT);
             }
         });
-
 
         findViewById(R.id.title_bar_right_menu).setOnClickListener(new View.OnClickListener() {
             @Override

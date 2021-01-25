@@ -12,6 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <Button
+        android:id="@+id/test"
+        android:layout_centerHorizontal="true"
+        android:text="test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <ImageView
         android:id="@+id/btn_close"
         android:layout_width="44dp"
@@ -109,7 +116,7 @@
                 android:layout_toRightOf="@id/tv10"
                 android:layout_toLeftOf="@id/btn_hide"
                 android:text="10-10-2021"
-                android:textSize="12dp" />
+                android:textSize="11dp" />
 
             <TextView
                 android:id="@+id/btn_hide"
@@ -121,6 +128,7 @@
                 android:paddingHorizontal="4dp"
                 android:paddingVertical="4dp"
                 android:text="Hide"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
                 android:textSize="13dp" />
 

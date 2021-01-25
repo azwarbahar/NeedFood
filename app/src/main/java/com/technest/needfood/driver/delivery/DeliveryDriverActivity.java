@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,8 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.technest.needfood.BuildConfig;
 import com.technest.needfood.R;
 import com.technest.needfood.driver.DashboardDriverActivity;
+import com.technest.needfood.models.pesanan.AlatPesanan;
+import com.technest.needfood.models.pesanan.AlatPilihanPesanan;
 import com.technest.needfood.models.pesanan.Pesanan;
 import com.technest.needfood.models.pesanan.ResponsePesanan;
 import com.technest.needfood.models.pesanan.ResponsePesananID;
@@ -58,6 +61,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -100,7 +104,17 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
 
     private boolean ready_foto_pesanan;
     private CardView cv_foto_pesanan;
+    private CardView cv_falid_date;
     private TextView btn_foto_kirim;
+    private TextView tv_tanggal_warning;
+    private TextView btn_hide;
+
+    private Button test;
+
+    private ArrayList<AlatPilihanPesanan> alatPilihanPesanans;
+    private ArrayList<String> alat_id = new ArrayList<>();
+    private ArrayList<String> alat_status = new ArrayList<>();
+    private ArrayList<String> alat_jumlah = new ArrayList<>();
 
     private SharedPreferences mPreferences;
     private static final String TAG = DeliveryDriverActivity.class.getSimpleName();
@@ -124,8 +138,22 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
             actionNotConnection();
         }
 
+        test = findViewById(R.id.test);
+        test.setVisibility(View.GONE);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (alat_status.contains("used")){
+                    Toast.makeText(context, "belu dikembalikan..", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btn_hide = findViewById(R.id.btn_hide);
+        tv_tanggal_warning = findViewById(R.id.tv_tanggal_warning);
         btn_foto_kirim = findViewById(R.id.btn_foto_kirim);
         cv_foto_pesanan = findViewById(R.id.cv_foto_pesanan);
+        cv_falid_date = findViewById(R.id.cv_falid_date);
+        cv_falid_date.setVisibility(View.GONE);
         tv_kode = findViewById(R.id.tv_kode);
         tv_nama = findViewById(R.id.tv_nama);
         tv_lokasi_tujuan = findViewById(R.id.tv_lokasi_tujuan);
@@ -167,14 +195,19 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
 
         assert pesanan_parce != null;
         id_pesanan = String.valueOf(pesanan_parce.getId());
+        status_pesanan = pesanan_parce.getStatus();
         loadDataPesanan(id_pesanan);
         if (pesanan_parce.getFoto_pesanan() == null) {
             ready_foto_pesanan = true;
         } else {
             ready_foto_pesanan = false;
         }
-        if (ready_foto_pesanan) {
-            cv_foto_pesanan.setVisibility(View.VISIBLE);
+        if (status_pesanan.equals("Delivery")){
+            if (ready_foto_pesanan) {
+                cv_foto_pesanan.setVisibility(View.VISIBLE);
+            } else {
+                cv_foto_pesanan.setVisibility(View.GONE);
+            }
         } else {
             cv_foto_pesanan.setVisibility(View.GONE);
         }
@@ -182,7 +215,8 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
         tv_nama.setText(": " + pesanan_parce.getNama());
         tv_kode.setText(": " + pesanan_parce.getKd_pemesanan());
         tanggal = getDate(pesanan_parce.getTanggal_antar());
-        status_pesanan = pesanan_parce.getStatus();
+        tv_tanggal_warning.setText(tanggal);
+        cekAlat((ArrayList<AlatPesanan>) pesanan_parce.getAlat());
         String tlpon = pesanan_parce.getNo_wa();
         double latitud = Double.parseDouble(pesanan_parce.getLatitude());
         double longitud = Double.parseDouble(pesanan_parce.getLogitude());
@@ -211,108 +245,89 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
             @Override
             public void onClick(View v) {
 
-                DateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy");
-                Date date = new Date();
-                tanggal_now = dateFormat.format(date);
-
                 if (status_pesanan.equals("Delivery")) {
-                    if (tanggal.equals(tanggal_now)) {
-                        if (!ready_foto_pesanan) {
-                            SweetAlertDialog pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
-                            pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                            pDialog.setTitleText("Loading");
-                            pDialog.setCancelable(false);
-                            pDialog.show();
+                    if (!ready_foto_pesanan) {
+                        SweetAlertDialog pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+                        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                        pDialog.setTitleText("Loading");
+                        pDialog.setCancelable(false);
+                        pDialog.show();
 
-                            SweetAlertDialog warning = new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE);
-                            warning.setTitleText("Sampai ?");
-                            warning.setContentText("Anda sampai di Tujuan");
-                            warning.setCancelable(false);
-                            warning.setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.dismiss();
-                                    pDialog.dismiss();
-                                }
-                            });
-                            warning.setConfirmButton("OK", new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.dismiss();
-                                    pDialog.show();
+                        SweetAlertDialog warning = new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE);
+                        warning.setTitleText("Sampai ?");
+                        warning.setContentText("Anda sampai di Tujuan");
+                        warning.setCancelable(false);
+                        warning.setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismiss();
+                                pDialog.dismiss();
+                            }
+                        });
+                        warning.setConfirmButton("OK", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismiss();
+                                pDialog.show();
 
-                                    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                                    Call<ResponsePesanan> pesananCall = apiInterface.updateSatusPesanan(
-                                            "Bearer " + BuildConfig.TOKEN,
-                                            id_pesanan, "Arrived"
-                                    );
-                                    pesananCall.enqueue(new Callback<ResponsePesanan>() {
-                                        @Override
-                                        public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
-                                            pDialog.dismiss();
-                                            if (response.isSuccessful()) {
-                                                if (response.body().getmSuccess()) {
-                                                    setIdAntar(id_pesanan);
-                                                    SweetAlertDialog success = new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE);
-                                                    success.setTitleText("Success..");
-                                                    success.setCancelable(false);
-                                                    success.setContentText("Penyetujuan Berhasil");
-                                                    success.setConfirmButton("Ok", new SweetAlertDialog.OnSweetClickListener() {
-                                                        @Override
-                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                            sweetAlertDialog.dismiss();
-                                                            pDialog.dismiss();
-                                                            startActivity(new Intent(DeliveryDriverActivity.this, DashboardDriverActivity.class));
-                                                            finish();
-                                                        }
-                                                    });
-                                                    success.show();
-                                                } else {
-                                                    new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
-                                                            .setTitleText("Mohon Maaf...")
-                                                            .setContentText("Terjadi Kesalahan!")
-                                                            .show();
-                                                }
+                                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                                Call<ResponsePesanan> pesananCall = apiInterface.updateSatusPesanan(
+                                        "Bearer " + BuildConfig.TOKEN,
+                                        id_pesanan, "Arrived"
+                                );
+                                pesananCall.enqueue(new Callback<ResponsePesanan>() {
+                                    @Override
+                                    public void onResponse(Call<ResponsePesanan> call, Response<ResponsePesanan> response) {
+                                        pDialog.dismiss();
+                                        if (response.isSuccessful()) {
+                                            if (response.body().getmSuccess()) {
+                                                setIdAntar(id_pesanan);
+                                                SweetAlertDialog success = new SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE);
+                                                success.setTitleText("Success..");
+                                                success.setCancelable(false);
+                                                success.setContentText("Penyetujuan Berhasil");
+                                                success.setConfirmButton("Ok", new SweetAlertDialog.OnSweetClickListener() {
+                                                    @Override
+                                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                        sweetAlertDialog.dismiss();
+                                                        pDialog.dismiss();
+                                                        startActivity(new Intent(DeliveryDriverActivity.this, DashboardDriverActivity.class));
+                                                        finish();
+                                                    }
+                                                });
+                                                success.show();
                                             } else {
                                                 new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
-                                                        .setTitleText("Oops...")
-                                                        .setContentText("Permintaan Gagal, Periksa Koneksi Internet!")
+                                                        .setTitleText("Mohon Maaf...")
+                                                        .setContentText("Terjadi Kesalahan!")
                                                         .show();
                                             }
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<ResponsePesanan> call, Throwable t) {
-                                            pDialog.dismiss();
+                                        } else {
                                             new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
                                                     .setTitleText("Oops...")
                                                     .setContentText("Permintaan Gagal, Periksa Koneksi Internet!")
                                                     .show();
                                         }
-                                    });
+                                    }
 
-                                }
-                            });
-                            warning.show();
-                        } else {
-                            new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
-                                    .setTitleText("Gagal")
-                                    .hideConfirmButton()
-                                    .setContentText("Foto Pengantaran Pesanan Belum Dikirimkan")
-                                    .setCancelButton("Tutup", new SweetAlertDialog.OnSweetClickListener() {
-                                        @Override
-                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                            sweetAlertDialog.dismiss();
-                                        }
-                                    })
-                                    .show();
-                        }
+                                    @Override
+                                    public void onFailure(Call<ResponsePesanan> call, Throwable t) {
+                                        pDialog.dismiss();
+                                        new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+                                                .setTitleText("Oops...")
+                                                .setContentText("Permintaan Gagal, Periksa Koneksi Internet!")
+                                                .show();
+                                    }
+                                });
+
+                            }
+                        });
+                        warning.show();
                     } else {
-
                         new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("Maaf..")
+                                .setTitleText("Gagal")
                                 .hideConfirmButton()
-                                .setContentText("Tanggal Pengantaran Tidak Sesuai.")
+                                .setContentText("Foto Pengantaran Pesanan Belum Dikirimkan")
                                 .setCancelButton("Tutup", new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
@@ -321,6 +336,7 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
                                 })
                                 .show();
                     }
+
 
                 } else {
 
@@ -436,7 +452,35 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
             }
         });
 
+        btn_hide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cv_falid_date.setVisibility(View.GONE);
+            }
+        });
+
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+        Date date = new Date();
+        tanggal_now = dateFormat.format(date);
+
+        if (tanggal.equals(tanggal_now)) {
+            cv_falid_date.setVisibility(View.GONE);
+        } else {
+            cv_falid_date.setVisibility(View.VISIBLE);
+        }
+
         ImagePickerDeliveryActivity.clearCache(this);
+    }
+
+    private void cekAlat(ArrayList<AlatPesanan> alat) {
+        for (int a = 0; a<alat.size(); a++){
+            alatPilihanPesanans = alat.get(a).getAlat_dipilih();
+            for (int b = 0; b<alatPilihanPesanans.size(); b++){
+                alat_id.add(alatPilihanPesanans.get(b).getAlat_id());
+                alat_status.add(alatPilihanPesanans.get(b).getStatus());
+                alat_jumlah.add(alatPilihanPesanans.get(b).getJumlah());
+            }
+        }
     }
 
     private void loadDataPesanan(String id_pesanan) {
@@ -450,13 +494,18 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
                 pesanan_parce = response.body().getmPesanan();
 
                 assert pesanan_parce != null;
+                status_pesanan = pesanan_parce.getStatus();
                 if (pesanan_parce.getFoto_pesanan() == null) {
                     ready_foto_pesanan = true;
                 } else {
                     ready_foto_pesanan = false;
                 }
-                if (ready_foto_pesanan) {
-                    cv_foto_pesanan.setVisibility(View.VISIBLE);
+                if (status_pesanan.equals("Delivery")){
+                    if (ready_foto_pesanan) {
+                        cv_foto_pesanan.setVisibility(View.VISIBLE);
+                    } else {
+                        cv_foto_pesanan.setVisibility(View.GONE);
+                    }
                 } else {
                     cv_foto_pesanan.setVisibility(View.GONE);
                 }
@@ -464,7 +513,6 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
                 tv_nama.setText(": " + pesanan_parce.getNama());
                 tv_kode.setText(": " + pesanan_parce.getKd_pemesanan());
                 tanggal = getDate(pesanan_parce.getTanggal_antar());
-                status_pesanan = pesanan_parce.getStatus();
                 String tlpon = pesanan_parce.getNo_wa();
                 double latitud = Double.parseDouble(pesanan_parce.getLatitude());
                 double longitud = Double.parseDouble(pesanan_parce.getLogitude());

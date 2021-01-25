@@ -23,7 +23,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon">
-        <activity android:name=".driver.delivery.ImagePickerDeliveryActivity"></activity>
+        <activity android:name=".driver.SetAlatKembaliActivity"></activity>
+        <activity android:name=".driver.delivery.ImagePickerDeliveryActivity" />
         <activity android:name=".admin.dompet.SearchKeuanganActivity" />
         <activity android:name=".admin.dompet.KeuanganActivity" />
         <activity android:name=".example.ContohChartActivity" />
