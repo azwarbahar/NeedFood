@@ -112,9 +112,12 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
     private Button test;
 
     private ArrayList<AlatPilihanPesanan> alatPilihanPesanans;
-    private ArrayList<String> alat_id = new ArrayList<>();
-    private ArrayList<String> alat_status = new ArrayList<>();
-    private ArrayList<String> alat_jumlah = new ArrayList<>();
+    private MyArrayList alat_id = new MyArrayList();
+    private MyArrayList alat_status = new MyArrayList();
+    private MyArrayList alat_jumlah = new MyArrayList();
+//    private ArrayList<String> alat_id = new ArrayList<>();
+//    private ArrayList<String> alat_status = new ArrayList<>();
+//    private ArrayList<String> alat_jumlah = new ArrayList<>();
 
     private SharedPreferences mPreferences;
     private static final String TAG = DeliveryDriverActivity.class.getSimpleName();
@@ -321,7 +324,7 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
                                         } else {
                                             new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
                                                     .setTitleText("Oops...")
-                                                    .setContentText("Permintaan Gagal, Periksa Koneksi Internet!")
+                                                    .setContentText("Terjadi Kesalahan!")
                                                     .show();
                                         }
                                     }
@@ -331,7 +334,7 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
                                         pDialog.dismiss();
                                         new SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
                                                 .setTitleText("Oops...")
-                                                .setContentText("Permintaan Gagal, Periksa Koneksi Internet!")
+                                                .setContentText("Terjadi Kesalahan!")
                                                 .show();
                                     }
                                 });
@@ -496,6 +499,11 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
                 alat_status.add(alatPilihanPesanans.get(b).getStatus());
                 alat_jumlah.add(alatPilihanPesanans.get(b).getJumlah());
             }
+        }
+        if (alat_status.contains("useda")){
+            Toast.makeText(this, "ALat Digunakan", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Alat Telah digunakan", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if (requestSinglePermission()){
+        if (requestSinglePermission()) {
             checkLocation();
         }
 
@@ -331,7 +331,7 @@ public class LoginActivity extends AppCompatActivity {
                                 masukAdmin();
                                 break;
                             case "kitchen":
-//                                masukDapur();
+                                masukDapur();
                                 break;
                             case "driver":
                                 masukDriver();
@@ -344,11 +344,11 @@ public class LoginActivity extends AppCompatActivity {
                                 .setContentText(response.body().getMessage())
                                 .show();
                     }
-                    } else {
-                        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("Sorry...")
-                                .setContentText(response.body().getMessage())
-                                .show();
+                } else {
+                    new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Sorry...")
+                            .setContentText(response.body().getMessage())
+                            .show();
                 }
             }
 
@@ -382,9 +382,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void masukDapur() {
         pd.hide();
-        Intent intent = new Intent(LoginActivity.this, DashboardDapurActivity.class);
-        startActivity(intent);
-        finish();
-
+        new SweetAlertDialog(LoginActivity.this, SweetAlertDialog.ERROR_TYPE)
+                .setTitleText("Sorry...")
+                .setContentText("Akun role dapur tidak tersedia!")
+                .show();
     }
 }
