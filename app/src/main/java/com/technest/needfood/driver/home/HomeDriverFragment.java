@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -514,7 +515,6 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        mapDriver = googleMap;
         map = googleMap;
         map.setPadding(0, 0, 0, 200);
         try {
@@ -575,13 +575,21 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
                 return info;
             }
         });
+        mapDriver = googleMap;
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Intent intent = new Intent(getActivity(), DeliveryDriverActivity.class);
-        intent.putExtra(DeliveryDriverActivity.EXTRA_DATA, markerMap.get(marker.getId()));
-        getActivity().startActivity(intent);
+        if (markerMap.get(marker.getId())==null){
+            marker.hideInfoWindow();
+            Toast.makeText(getActivity(), "Marker Lokasi Driver!", Toast.LENGTH_SHORT).show();
+        } else {
+//            Toast.makeText(getActivity(), "ID"+markerMap.get(marker.getId()), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), DeliveryDriverActivity.class);
+            intent.putExtra(DeliveryDriverActivity.EXTRA_DATA, markerMap.get(marker.getId()));
+            getActivity().startActivity(intent);
+        }
+
     }
 
     @Override
@@ -679,7 +687,6 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
         }
         return isLocationEnable();
     }
-
 
     private void showAlert() {
         final android.app.AlertDialog.Builder dialog = new android.app.AlertDialog.Builder(getActivity());

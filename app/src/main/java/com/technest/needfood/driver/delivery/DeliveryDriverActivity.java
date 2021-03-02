@@ -177,7 +177,23 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
                             @Override
                             public void onPermissionsChecked(MultiplePermissionsReport report) {
                                 if (report.areAllPermissionsGranted()) {
-                                    showImagePickerOptions();
+                                    new SweetAlertDialog(DeliveryDriverActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                            .setTitleText("Kirim Foto")
+                                            .setContentText("Mengirim foto berarti telah menentukan pengantaran!")
+                                            .setCancelButton("Batal", new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    sweetAlertDialog.dismiss();
+                                                }
+                                            })
+                                            .setConfirmButton("Ok", new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    sweetAlertDialog.dismiss();
+                                                    showImagePickerOptions();
+                                                }
+                                            })
+                                            .show();
                                 }
 
                                 if (report.isAnyPermissionPermanentlyDenied()) {
@@ -601,6 +617,7 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
                     // You can update this bitmap to your server
                     Log.e(TAG, "Image URI: " + uri.toString());
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    setIdAntar(id_pesanan);
                     startUpdatePhoto(uri);
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -20,6 +20,8 @@ import com.technest.needfood.models.pesanan.Pesanan;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class AdapterPesananPencarian extends RecyclerView.Adapter<AdapterPesananPencarian.MyHolderView> {
@@ -34,10 +36,11 @@ public class AdapterPesananPencarian extends RecyclerView.Adapter<AdapterPesanan
 
     @NonNull
     @Override
-    public AdapterPesananPencarian.MyHolderView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyHolderView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view;
         view = LayoutInflater.from(context).inflate(R.layout.item_pesanan, parent, false);
-        AdapterPesananPencarian.MyHolderView myHolderView = new AdapterPesananPencarian.MyHolderView(view);
+        MyHolderView myHolderView = new MyHolderView(view);
 
         return myHolderView;
     }

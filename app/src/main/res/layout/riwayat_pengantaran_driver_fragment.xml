@@ -21,17 +21,22 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_btn_masuk">
 
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/et_cari"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="16dp"
-                        android:text="Cari.."
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginVertical="5dp"
+                        android:layout_toLeftOf="@id/img1"
+                        android:background="@color/transparan"
+                        android:hint="Search.."
+                        android:inputType="text"
                         android:textColor="@color/grey2"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <ImageView
+                        android:id="@+id/img1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"

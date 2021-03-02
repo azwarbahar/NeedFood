@@ -158,8 +158,12 @@ public class DompetFragment extends Fragment {
             dataList.add(data);
         }
         long max = Collections.max(debit);
-        long maxValue = max/90;
-        mChart.setMaxValue( (float) maxValue);
+        if (max<1){
+            mChart.setMaxValue( (float) 1);
+        } else {
+            long maxValue = max/90;
+            mChart.setMaxValue( (float) maxValue);
+        }
         mChart.setDataList(dataList);
         mChart.build();
 

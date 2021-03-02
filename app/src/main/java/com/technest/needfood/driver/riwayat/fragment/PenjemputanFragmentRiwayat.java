@@ -4,10 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -47,6 +50,8 @@ public class PenjemputanFragmentRiwayat extends Fragment implements SwipeRefresh
     private ArrayList<Pesanan> pesanans;
     private SharedPreferences mPreferences;
     private CardView cv_search;
+    private EditText et_cari;
+    RiwayatDriverAdapter riwayatDriverAdapter;
 
     @Nullable
     @Override
@@ -56,15 +61,37 @@ public class PenjemputanFragmentRiwayat extends Fragment implements SwipeRefresh
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
 
-        cv_search = v.findViewById(R.id.cv_search);
-        cv_search.setOnClickListener(new View.OnClickListener() {
+        et_cari = v.findViewById(R.id.et_cari);
+        et_cari.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchRiwayatDriverActivity.class);
-                intent.putExtra("DATA", "Penjemputan");
-                startActivity(intent);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().isEmpty() || editable.toString().equals("")) {
+
+                } else {
+                    filter(editable.toString());
+                }
             }
         });
+
+//        cv_search = v.findViewById(R.id.cv_search);
+//        cv_search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), SearchRiwayatDriverActivity.class);
+//                intent.putExtra("DATA", "Penjemputan");
+//                startActivity(intent);
+//            }
+//        });
 
         ll_kosong = v.findViewById(R.id.ll_kosong);
         ll_kosong.setVisibility(View.GONE);
@@ -95,6 +122,24 @@ public class PenjemputanFragmentRiwayat extends Fragment implements SwipeRefresh
 
         return v;
     }
+
+
+    private void filter(String text) {
+        ArrayList<Pesanan> filteredList = new ArrayList<>();
+        for (Pesanan pesanan : pesanans) {
+            String nama = pesanan.getNama().toLowerCase();
+            String telpon = pesanan.getNo_telepon().toLowerCase();
+            String kode = pesanan.getKd_pemesanan().toLowerCase();
+            String status = pesanan.getStatus().toLowerCase();
+
+            if (nama.contains(text) || telpon.contains(text) || kode.contains(text) || status.contains(text)) {
+                filteredList.add(pesanan);
+            }
+
+        }
+        riwayatDriverAdapter.setFilter(filteredList);
+    }
+
     private void loadData() {
 
         mPreferences = getActivity().getApplicationContext().getSharedPreferences(my_shared_preferences, Context.MODE_PRIVATE);
@@ -114,24 +159,24 @@ public class PenjemputanFragmentRiwayat extends Fragment implements SwipeRefresh
                     if (response.body().getmSuccess()) {
                         pesanans = (ArrayList<Pesanan>) response.body().getmPesanan();
                         if (pesanans.isEmpty()) {
-                            cv_search.setEnabled(false);
+                            et_cari.setEnabled(false);
                             ll_kosong.setVisibility(View.VISIBLE);
                             rv_pengantaran.setVisibility(View.GONE);
                         } else {
-                            cv_search.setEnabled(true);
-                            RiwayatDriverAdapter riwayatDriverAdapter = new RiwayatDriverAdapter(getContext(), pesanans);
+                            et_cari.setEnabled(true);
+                            riwayatDriverAdapter = new RiwayatDriverAdapter(getContext(), pesanans);
                             rv_pengantaran.setLayoutManager(new LinearLayoutManager(getActivity()));
                             rv_pengantaran.setAdapter(riwayatDriverAdapter);
 
                         }
                     } else {
-                        cv_search.setEnabled(false);
+                        et_cari.setEnabled(false);
                         rv_pengantaran.setVisibility(View.GONE);
                         ll_kosong.setVisibility(View.VISIBLE);
                     }
                     Log.d("Respon", "Message = " + response.body().getmMessage());
                 } else {
-                    cv_search.setEnabled(false);
+                    et_cari.setEnabled(false);
                     rv_pengantaran.setVisibility(View.GONE);
                     cvProgressBar.setVisibility(View.GONE);
                     ll_kosong.setVisibility(View.VISIBLE);

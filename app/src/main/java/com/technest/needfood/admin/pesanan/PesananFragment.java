@@ -3,10 +3,13 @@ package com.technest.needfood.admin.pesanan;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -61,6 +64,8 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private TextView tv_cancel;
 
     private TextView tv_titel_status;
+    private EditText et_cari;
+    private AdapterPesananPencarian adapterPesananPencarian;
 
 
     @Nullable
@@ -81,6 +86,28 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
         sliding_layout = v.findViewById(R.id.sliding_layout);
         cv_filter = v.findViewById(R.id.cv_filter);
         cv_search = v.findViewById(R.id.cv_search);
+        et_cari = v.findViewById(R.id.et_cari);
+        et_cari.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().isEmpty() || editable.toString().equals("")) {
+
+                } else {
+                    filter(editable.toString());
+                }
+            }
+        });
+
 
         tv_titel_status = v.findViewById(R.id.tv_titel_status);
 
@@ -227,12 +254,12 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
             }
         });
 
-        cv_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SearchPesananActivity.class));
-            }
-        });
+//        cv_search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(), SearchPesananActivity.class));
+//            }
+//        });
 
         mSwipeRefreshLayout = v.findViewById(R.id.swipe_continer);
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -258,6 +285,22 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
         return v;
     }
 
+    private void filter(String text) {
+        ArrayList<Pesanan> filteredList = new ArrayList<>();
+        for (Pesanan pesanan : pesanans) {
+            String nama = pesanan.getNama().toLowerCase();
+            String telpon = pesanan.getNo_telepon().toLowerCase();
+            String kode = pesanan.getKd_pemesanan().toLowerCase();
+            String status = pesanan.getStatus().toLowerCase();
+
+            if (nama.contains(text) || telpon.contains(text) || kode.contains(text) || status.contains(text)) {
+                filteredList.add(pesanan);
+            }
+
+        }
+        adapterPesananPencarian.setFilter(filteredList);
+    }
+
     private void loadPesananStatus(String status) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<ResponsePesanan> responsePesananCall = apiInterface.getPesananSatus("Bearer " + BuildConfig.TOKEN, status);
@@ -274,7 +317,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                             ll_kosong.setVisibility(View.VISIBLE);
                             rv_pesanan.setVisibility(View.GONE);
                         } else {
-                            AdapterPesananPencarian adapterPesananPencarian = new AdapterPesananPencarian(getActivity(), pesanans);
+                            adapterPesananPencarian = new AdapterPesananPencarian(getActivity(), pesanans);
                             rv_pesanan.setLayoutManager(new LinearLayoutManager(getActivity()));
                             rv_pesanan.setAdapter(adapterPesananPencarian);
                         }
@@ -349,7 +392,7 @@ public class PesananFragment extends Fragment implements SwipeRefreshLayout.OnRe
                                     return false;
                                 }
                             });
-                            AdapterPesananPencarian adapterPesananPencarian = new AdapterPesananPencarian(getActivity(), pesanans);
+                            adapterPesananPencarian = new AdapterPesananPencarian(getActivity(), pesanans);
                             adapterPesananPencarian.notifyDataSetChanged();
                             rv_pesanan.setLayoutManager(new LinearLayoutManager(getActivity()));
                             rv_pesanan.setAdapter(adapterPesananPencarian);
