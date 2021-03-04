@@ -500,7 +500,7 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
                 alat_jumlah.add(alatPilihanPesanans.get(b).getJumlah());
             }
         }
-        if (alat_status.contains("useda")){
+        if (alat_status.contains("used")){
             Toast.makeText(this, "ALat Digunakan", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Alat Telah digunakan", Toast.LENGTH_SHORT).show();
