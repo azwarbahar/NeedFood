@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -128,7 +129,7 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
 
     private Polyline currentPolyline;
 
-    private ImageView btn_location;
+//    private ImageView btn_location;
     private View dialogView;
 
     private SlidingUpPanelLayout sliding_layout;
@@ -192,15 +193,15 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
         sliding_layout = v.findViewById(R.id.sliding_layout);
         rv_btn_hariini = v.findViewById(R.id.rv_btn_hariini);
         cv_pesanan_home_driver = v.findViewById(R.id.cv_pesanan_home_driver);
-        btn_location = v.findViewById(R.id.btn_my_location);
-
-        btn_location.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                LatLng latLngzoom = new LatLng(location.getLatitude(), location.getLongitude());
-                mapDriver.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng_driver, 13));
-            }
-        });
+//        btn_location = v.findViewById(R.id.btn_my_location);
+//
+//        btn_location.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                LatLng latLngzoom = new LatLng(location.getLatitude(), location.getLongitude());
+//                mapDriver.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng_driver, 13));
+//            }
+//        });
 
         cv_pesanan_home_driver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -576,6 +577,61 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
             }
         });
         mapDriver = googleMap;
+
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                //Location Permission already granted
+//                buildGoogleApiClient();
+                map.setMyLocationEnabled(true);
+            } else {
+                //Request Location Permission
+                checkLocationPermission();
+            }
+        } else {
+//            buildGoogleApiClient();
+            map.setMyLocationEnabled(true);
+        }
+    }
+
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new android.app.AlertDialog.Builder(getActivity())
+                        .setTitle("Location Permission Needed")
+                        .setMessage("This app needs the Location permission, please accept to use location functionality")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+        }
     }
 
     @Override
@@ -590,6 +646,15 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
             getActivity().startActivity(intent);
         }
 
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
     }
 
     @Override
@@ -653,14 +718,17 @@ public class HomeDriverFragment extends Fragment implements GoogleMap.OnInfoWind
         myRef.child(id).child("latitude").setValue(live_latitude);
         myRef.child(id).child("longitude").setValue(live_longitude);
 //        mapDriver.clear();
-        if (markerOptionsDriver == null) {
-            markerOptionsDriver = new MarkerOptions().position(latLng_driver).icon(bitmapDescriptorDriver(getActivity(),
-                    R.drawable.ic_icon_lokasi_driver));
-            mapDriver.addMarker(markerOptionsDriver);
-        } else {
-            markerOptionsDriver = new MarkerOptions().position(latLng_driver).icon(bitmapDescriptorDriver(getActivity(),
-                    R.drawable.ic_icon_lokasi_driver));
-        }
+//        if (markerOptionsDriver == null) {
+//            markerOptionsDriver = new MarkerOptions().position(latLng_driver).icon(bitmapDescriptorDriver(getActivity(),
+//                    R.drawable.ic_icon_lokasi_driver));
+//            mapDriver.addMarker(markerOptionsDriver);
+//        } else {
+//            markerOptionsDriver = new MarkerOptions().position(latLng_driver).icon(bitmapDescriptorDriver(getActivity(),
+//                    R.drawable.ic_icon_lokasi_driver));
+//        }
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
 
 //        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 //        assert supportMapFragment != null;

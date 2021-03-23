@@ -51,6 +51,11 @@ public class DetailItemAlatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_item_alat);
 
+        Toolbar toolbar = findViewById(R.id.item_alat_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         Context context = DetailItemAlatActivity.this;
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
@@ -146,6 +151,12 @@ public class DetailItemAlatActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }

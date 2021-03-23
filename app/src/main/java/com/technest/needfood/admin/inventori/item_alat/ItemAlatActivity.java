@@ -50,6 +50,11 @@ public class ItemAlatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_alat);
 
 
+        Toolbar toolbar = findViewById(R.id.item_alat_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         Context context = ItemAlatActivity.this;
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
@@ -133,5 +138,11 @@ public class ItemAlatActivity extends AppCompatActivity {
                 Log.d("ERROR", "Respon : " + t.getMessage());
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

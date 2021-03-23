@@ -50,6 +50,11 @@ public class ItemStokActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_stok2);
 
+        Toolbar toolbar = findViewById(R.id.item_stok_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         Context context = ItemStokActivity.this;
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
@@ -81,6 +86,12 @@ public class ItemStokActivity extends AppCompatActivity {
                 .into(item_stok_toolbar_image);
         item_stok_toolbar.setTitle(kategori.getKategori());
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 

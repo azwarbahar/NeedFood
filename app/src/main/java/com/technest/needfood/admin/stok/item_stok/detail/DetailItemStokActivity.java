@@ -53,6 +53,11 @@ public class DetailItemStokActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_stok);
 
+        Toolbar toolbar = findViewById(R.id.item_stok_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         Context context = DetailItemStokActivity.this;
         ConnectionDetector ConnectionDetector = new ConnectionDetector(
                 context.getApplicationContext());
@@ -96,6 +101,12 @@ public class DetailItemStokActivity extends AppCompatActivity {
             ll_kosong.setVisibility(View.VISIBLE);
         }
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private void actionNotConnection() {
