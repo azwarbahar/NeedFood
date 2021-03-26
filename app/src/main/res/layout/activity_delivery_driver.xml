@@ -14,10 +14,10 @@
 
     <Button
         android:id="@+id/test"
-        android:layout_centerHorizontal="true"
-        android:text="test"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="test" />
 
     <ImageView
         android:id="@+id/btn_close"
@@ -101,22 +101,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/img_warning"
                 android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/img_warning"
                 android:text="Tanggal Pengiriman "
                 android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/tv_tanggal_warning"
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/hitam"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/tv10"
                 android:layout_toLeftOf="@id/btn_hide"
+                android:layout_toRightOf="@id/tv10"
                 android:text="10-10-2021"
-                android:textSize="11dp" />
+                android:textColor="@color/hitam"
+                android:textSize="11dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/btn_hide"
@@ -128,9 +128,9 @@
                 android:paddingHorizontal="4dp"
                 android:paddingVertical="4dp"
                 android:text="Hide"
-                android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:textSize="13dp" />
+                android:textSize="13dp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -340,5 +340,35 @@
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_cekalat"
+        android:layout_width="@dimen/dimen_40dp"
+        android:layout_height="40dp"
+        android:layout_toLeftOf="@id/cv_sampai"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="@dimen/dimen_20dp"
+        android:clickable="true"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark">
+
+            <ImageView
+                android:id="@+id/icon_alat"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_icon_alat_merah"
+                app:tint="@color/putih" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

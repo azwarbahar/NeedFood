@@ -89,6 +89,7 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
     private ImageView img_whatsapp;
     private CardView cv_detail_pesanan;
     private CardView cv_sampai;
+    private CardView cv_cekalat;
 
     private TextView tv_lokasi_tujuan;
     private TextView tv_nama;
@@ -162,6 +163,7 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
         tv_lokasi_tujuan = findViewById(R.id.tv_lokasi_tujuan);
 
         img_whatsapp = findViewById(R.id.img_whatsapp);
+        cv_cekalat = findViewById(R.id.cv_cekalat);
 
         btn_close = findViewById(R.id.btn_close);
         btn_close.setOnClickListener(new View.OnClickListener() {
@@ -235,7 +237,9 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
         tv_kode.setText(": " + pesanan_parce.getKd_pemesanan());
         tanggal = getDate(pesanan_parce.getTanggal_antar());
         tv_tanggal_warning.setText(tanggal);
-        cekAlat((ArrayList<AlatPesanan>) pesanan_parce.getAlat());
+        if (status_pesanan.equals("Taking")){
+            cekAlat((ArrayList<AlatPesanan>) pesanan_parce.getAlat());
+        }
         String tlpon = pesanan_parce.getNo_wa();
         double latitud = Double.parseDouble(pesanan_parce.getLatitude());
         double longitud = Double.parseDouble(pesanan_parce.getLogitude());
@@ -260,6 +264,9 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
         } else {
             tv_cv_sampai.setText("Selesai");
         }
+
+        cv_cekalat.setOnClickListener(this::clickCekAlat);
+
         cv_sampai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -491,6 +498,11 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
         ImagePickerDeliveryActivity.clearCache(this);
     }
 
+    private void clickCekAlat(View view) {
+        Intent intent = new Intent(DeliveryDriverActivity.this, CekAlatActivity.class);
+        startActivity(intent);
+    }
+
     private void cekAlat(ArrayList<AlatPesanan> alat) {
         for (int a = 0; a<alat.size(); a++){
             alatPilihanPesanans = alat.get(a).getAlat_dipilih();
@@ -501,9 +513,9 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
             }
         }
         if (alat_status.contains("used")){
-//            Toast.makeText(this, "ALat Digunakan", Toast.LENGTH_SHORT).show();
+            cv_cekalat.setVisibility(View.VISIBLE);
         } else {
-//            Toast.makeText(this, "Alat Telah digunakan", Toast.LENGTH_SHORT).show();
+            cv_cekalat.setVisibility(View.GONE);
         }
     }
 
