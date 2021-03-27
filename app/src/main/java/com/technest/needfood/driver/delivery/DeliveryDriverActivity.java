@@ -116,9 +116,6 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
     private MyArrayList alat_id = new MyArrayList();
     private MyArrayList alat_status = new MyArrayList();
     private MyArrayList alat_jumlah = new MyArrayList();
-//    private ArrayList<String> alat_id = new ArrayList<>();
-//    private ArrayList<String> alat_status = new ArrayList<>();
-//    private ArrayList<String> alat_jumlah = new ArrayList<>();
 
     private SharedPreferences mPreferences;
     private static final String TAG = DeliveryDriverActivity.class.getSimpleName();
@@ -164,6 +161,7 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
 
         img_whatsapp = findViewById(R.id.img_whatsapp);
         cv_cekalat = findViewById(R.id.cv_cekalat);
+        cv_cekalat.setVisibility(View.GONE);
 
         btn_close = findViewById(R.id.btn_close);
         btn_close.setOnClickListener(new View.OnClickListener() {
@@ -500,6 +498,10 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
 
     private void clickCekAlat(View view) {
         Intent intent = new Intent(DeliveryDriverActivity.this, CekAlatActivity.class);
+        intent.putExtra("ID_PESANAN", id_pesanan);
+        intent.putExtra("KODE_PESANAN", pesanan_parce.getKd_pemesanan());
+        intent.putExtra("NAMA_PESANAN", pesanan_parce.getNama());
+        intent.putExtra("ALAMAT_PESANAN", pesanan_parce.getDeskripsi_lokasi());
         startActivity(intent);
     }
 
@@ -543,6 +545,7 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
                         cv_foto_pesanan.setVisibility(View.GONE);
                     }
                 } else {
+                    cekAlat((ArrayList<AlatPesanan>) pesanan_parce.getAlat());
                     cv_foto_pesanan.setVisibility(View.GONE);
                 }
                 tv_lokasi_tujuan.setText(pesanan_parce.getDeskripsi_lokasi());
@@ -844,5 +847,11 @@ public class DeliveryDriverActivity extends AppCompatActivity implements OnMapRe
 //        LatLng latLngzoom = new LatLng(-5.160892, 119.456143);
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latlingPesanan, 15));
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadDataPesanan(id_pesanan);
     }
 }

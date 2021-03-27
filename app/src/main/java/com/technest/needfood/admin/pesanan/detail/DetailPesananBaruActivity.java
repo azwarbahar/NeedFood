@@ -83,6 +83,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
     private TextView tv_tanggal;
     private TextView tv_waktu;
     private TextView tv_catatatn;
+    private TextView tv_cod;
 
     // PanelUp
     private TextView tv_total_harga;
@@ -145,6 +146,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         sliding_layout = findViewById(R.id.sliding_layout);
         rl_btn_bukti = findViewById(R.id.rl_btn_bukti);
         tv_alamat = findViewById(R.id.tv_alamat);
+        tv_cod = findViewById(R.id.tv_cod);
         tv_kode_pesanan = findViewById(R.id.tv_kode_pesanan);
         tv_nama = findViewById(R.id.tv_nama);
         tv_telpon = findViewById(R.id.tv_telpon);
@@ -203,6 +205,13 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
 
         Pesanan pesanan = getIntent().getParcelableExtra(EXTRA_DATA);
         assert pesanan != null;
+
+        String metode_bayar = pesanan.getMetode_bayar();
+        if (metode_bayar.equals("Transfer Bank")){
+            tv_cod.setVisibility(View.GONE);
+        } else {
+            tv_cod.setVisibility(View.VISIBLE);
+        }
         tv_kode_pesanan.setText(pesanan.getKd_pemesanan());
         tv_nama.setText(pesanan.getNama());
         tv_telpon.setText(pesanan.getNo_telepon());
@@ -212,7 +221,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         tv_tanggal.setText(getDate(pesanan.getCreated_at()));
         tv_waktu.setText(pesanan.getWaktu_antar());
         tv_catatatn.setText(pesanan.getCatatan());
-        setDataPanelUp(pesanan.getTransaksi(), pesanan.getNama(), pesanan.getKd_pemesanan(), pesanan.getBukti_pembayaran());
+        setDataPanelUp(metode_bayar, pesanan.getTransaksi(), pesanan.getNama(), pesanan.getKd_pemesanan(), pesanan.getBukti_pembayaran());
         setDataPaker((ArrayList<Paket>) pesanan.getPaket());
         setDataAddiyional((ArrayList<Additional>) pesanan.getAdditional());
         setMapLokasi(pesanan.getLatitude(), pesanan.getLogitude());
@@ -249,18 +258,23 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         img_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pesanan.getStatus().equals("New")){
-                    new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Maaf")
-                            .setContentText("Pelanggan Belum Megirimkan Bukti Pembayaran.")
-                            .setConfirmText("OK")
-                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                @Override
-                                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                    sweetAlertDialog.dismissWithAnimation();
-                                }
-                            })
-                            .show();
+                String metode_bayar = pesanan.getMetode_bayar();
+                if (metode_bayar.equals("Transfer Bank")){
+                    if (pesanan.getStatus().equals("New")){
+                        new SweetAlertDialog(DetailPesananBaruActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Maaf")
+                                .setContentText("Pelanggan Belum Megirimkan Bukti Pembayaran.")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.dismissWithAnimation();
+                                    }
+                                })
+                                .show();
+                    } else {
+                        dialogAccept(String.valueOf(pesanan.getId()), "Proccess");
+                    }
                 } else {
                     dialogAccept(String.valueOf(pesanan.getId()), "Proccess");
                 }
@@ -453,7 +467,7 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
 
     }
 
-    private void setDataPanelUp(Transaksi transaksi, String nama, String kd_pemesanan, String bukti_pembayaran) {
+    private void setDataPanelUp(String metode_bayar, Transaksi transaksi, String nama, String kd_pemesanan, String bukti_pembayaran) {
 
         tv_total_harga = findViewById(R.id.tv_total_harga);
         tv_harga_lainnya = findViewById(R.id.tv_harga_lainnya);
@@ -473,15 +487,29 @@ public class DetailPesananBaruActivity extends AppCompatActivity implements OnMa
         tv_harga_lainnya.setText(String.valueOf(transaksi.getHargaLainnya()));
         tv_total_harga.setText(String.valueOf(transaksi.getTotalHarga()));
 
-        if (bukti_pembayaran != null) {
+        if (metode_bayar.equals("Transfer Bank")){
+            if (bukti_pembayaran != null) {
+                Glide.with(DetailPesananBaruActivity.this)
+                        .load(Constanta.url_foto_bukti_pesanan + bukti_pembayaran)
+                        .placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.ic_broken_image)
+                        .into(img_bukti_pembayaran);
+
+                Glide.with(DetailPesananBaruActivity.this)
+                        .load(Constanta.url_foto_bukti_pesanan + bukti_pembayaran)
+                        .placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.ic_broken_image)
+                        .into(img_zoom);
+            }
+        } else {
             Glide.with(DetailPesananBaruActivity.this)
-                    .load(Constanta.url_foto_bukti_pesanan + bukti_pembayaran)
+                    .load(R.drawable.img_cod)
                     .placeholder(R.drawable.loading_animation)
                     .error(R.drawable.ic_broken_image)
                     .into(img_bukti_pembayaran);
 
             Glide.with(DetailPesananBaruActivity.this)
-                    .load(Constanta.url_foto_bukti_pesanan + bukti_pembayaran)
+                    .load(R.drawable.img_cod)
                     .placeholder(R.drawable.loading_animation)
                     .error(R.drawable.ic_broken_image)
                     .into(img_zoom);

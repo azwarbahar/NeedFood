@@ -20,6 +20,23 @@
             android:textSize="16dp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/tv_cod"
+            android:layout_marginLeft="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_kode_pesanan"
+            android:layout_alignBottom="@id/tv_kode_pesanan"
+            android:layout_marginVertical="3dp"
+            android:layout_toRightOf="@id/tv_kode_pesanan"
+            android:background="@drawable/bg_cod"
+            android:gravity="center"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="2dp"
+            android:text="COD"
+            android:textColor="@color/doneText"
+            android:textSize="8dp" />
+
         <ImageView
             android:id="@+id/img_accept"
             android:layout_width="wrap_content"
@@ -36,7 +53,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@id/img_accept"
-            android:src="@drawable/ic_icon_refuse"/>
+            android:src="@drawable/ic_icon_refuse" />
 
         <TextView
             android:id="@+id/tv1"
@@ -64,10 +81,10 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/tv1"
             android:layout_marginLeft="25dp"
+            android:layout_marginRight="8dp"
             android:layout_toLeftOf="@id/img_refuse"
             android:layout_toRightOf="@id/tv1"
             android:ellipsize="end"
-            android:layout_marginRight="8dp"
             android:maxLines="1"
             android:text=": Azwar Bahar"
             android:textSize="12dp" />

@@ -29,6 +29,8 @@ public class Pesanan implements Parcelable {
     private String latitude;
     @SerializedName("longitude")
     private String logitude;
+    @SerializedName("metode_bayar")
+    private String metode_bayar;
     @SerializedName("catatan")
     private String catatan;
     @SerializedName("status")
@@ -64,184 +66,96 @@ public class Pesanan implements Parcelable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getKd_pemesanan() {
         return kd_pemesanan;
-    }
-
-    public void setKd_pemesanan(String kd_pemesanan) {
-        this.kd_pemesanan = kd_pemesanan;
     }
 
     public String getNama() {
         return nama;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
-
     public String getNo_telepon() {
         return no_telepon;
-    }
-
-    public void setNo_telepon(String no_telepon) {
-        this.no_telepon = no_telepon;
     }
 
     public String getNo_wa() {
         return no_wa;
     }
 
-    public void setNo_wa(String no_wa) {
-        this.no_wa = no_wa;
-    }
-
     public String getTanggal_antar() {
         return tanggal_antar;
-    }
-
-    public void setTanggal_antar(String tanggal_antar) {
-        this.tanggal_antar = tanggal_antar;
     }
 
     public String getWaktu_antar() {
         return waktu_antar;
     }
 
-    public void setWaktu_antar(String waktu_antar) {
-        this.waktu_antar = waktu_antar;
-    }
-
     public String getDeskripsi_lokasi() {
         return deskripsi_lokasi;
-    }
-
-    public void setDeskripsi_lokasi(String deskripsi_lokasi) {
-        this.deskripsi_lokasi = deskripsi_lokasi;
     }
 
     public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
     public String getLogitude() {
         return logitude;
     }
 
-    public void setLogitude(String logitude) {
-        this.logitude = logitude;
+    public String getMetode_bayar() {
+        return metode_bayar;
     }
 
     public String getCatatan() {
         return catatan;
     }
 
-    public void setCatatan(String catatan) {
-        this.catatan = catatan;
-    }
-
     public String getStatus() {
         return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public int getPengantaran() {
         return pengantaran;
     }
 
-    public void setPengantaran(int pengantaran) {
-        this.pengantaran = pengantaran;
-    }
-
     public int getPenjemputan() {
         return penjemputan;
-    }
-
-    public void setPenjemputan(int penjemputan) {
-        this.penjemputan = penjemputan;
     }
 
     public String getBukti_pembayaran() {
         return bukti_pembayaran;
     }
 
-    public void setBukti_pembayaran(String bukti_pembayaran) {
-        this.bukti_pembayaran = bukti_pembayaran;
-    }
-
     public String getFoto_pesanan() {
         return foto_pesanan;
-    }
-
-    public void setFoto_pesanan(String foto_pesanan) {
-        this.foto_pesanan = foto_pesanan;
     }
 
     public String getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
-    }
-
     public String getUpdated_at() {
         return updated_at;
-    }
-
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
     }
 
     public List<Paket> getPaket() {
         return paket;
     }
 
-    public void setPaket(List<Paket> paket) {
-        this.paket = paket;
-    }
-
     public List<Additional> getAdditional() {
         return additional;
-    }
-
-    public void setAdditional(List<Additional> additional) {
-        this.additional = additional;
     }
 
     public Transaksi getTransaksi() {
         return transaksi;
     }
 
-    public void setTransaksi(Transaksi transaksi) {
-        this.transaksi = transaksi;
-    }
-
     public List<BahanPesanan> getBahan() {
         return bahan;
     }
 
-    public void setBahan(List<BahanPesanan> bahan) {
-        this.bahan = bahan;
-    }
-
     public List<AlatPesanan> getAlat() {
         return alat;
-    }
-
-    public void setAlat(List<AlatPesanan> alat) {
-        this.alat = alat;
     }
 
     protected Pesanan(Parcel in) {
@@ -255,6 +169,7 @@ public class Pesanan implements Parcelable {
         deskripsi_lokasi = in.readString();
         latitude = in.readString();
         logitude = in.readString();
+        metode_bayar = in.readString();
         catatan = in.readString();
         status = in.readString();
         pengantaran = in.readInt();
@@ -299,6 +214,7 @@ public class Pesanan implements Parcelable {
         dest.writeString(deskripsi_lokasi);
         dest.writeString(latitude);
         dest.writeString(logitude);
+        dest.writeString(metode_bayar);
         dest.writeString(catatan);
         dest.writeString(status);
         dest.writeInt(pengantaran);

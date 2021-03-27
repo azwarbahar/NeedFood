@@ -40,10 +40,18 @@ public class PesananBelumBayarAdapter extends RecyclerView.Adapter<PesananBelumB
     @Override
     public void onBindViewHolder(@NonNull PesananBelumBayarAdapter.MyHolderView holder, int position) {
 
+        String metode_bayar = pesananArrayList.get(position).getMetode_bayar();
+
+        if (metode_bayar.equals("Transfer Bank")){
+            holder.tv_cod.setVisibility(View.GONE);
+        } else {
+            holder.tv_cod.setText("COD");
+            holder.tv_cod.setVisibility(View.VISIBLE);
+        }
+
         holder.tv_alamat.setText(pesananArrayList.get(position).getDeskripsi_lokasi());
         holder.tv_kode_pesanan.setText(pesananArrayList.get(position).getKd_pemesanan());
         holder.tv_nama_pelanggan.setText(pesananArrayList.get(position).getNama());
-
         holder.img_refuse.setVisibility(View.GONE);
         holder.img_accept.setVisibility(View.GONE);
 
@@ -68,6 +76,7 @@ public class PesananBelumBayarAdapter extends RecyclerView.Adapter<PesananBelumB
         private TextView tv_kode_pesanan;
         private TextView tv_nama_pelanggan;
         private TextView tv_alamat;
+        private TextView tv_cod;
         private ImageView img_accept;
         private ImageView img_refuse;
 
@@ -77,6 +86,7 @@ public class PesananBelumBayarAdapter extends RecyclerView.Adapter<PesananBelumB
             tv_kode_pesanan = itemView.findViewById(R.id.tv_kode_pesanan);
             tv_nama_pelanggan = itemView.findViewById(R.id.tv_nama_pelanggan);
             tv_alamat = itemView.findViewById(R.id.tv_alamat);
+            tv_cod = itemView.findViewById(R.id.tv_cod);
             img_accept = itemView.findViewById(R.id.img_accept);
             img_refuse = itemView.findViewById(R.id.img_refuse);
 

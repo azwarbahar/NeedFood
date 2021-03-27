@@ -104,6 +104,4 @@ dependencies {
 
 //    implementation 'com.hrules:charter:1.5.1'
 
-    // round button
-    implementation 'com.marozzi.roundbutton:round-button:1.0.7'
 }

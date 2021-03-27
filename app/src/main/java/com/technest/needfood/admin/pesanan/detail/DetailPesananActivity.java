@@ -82,6 +82,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
     private TextView tv_waktu;
     private TextView tv_catatatn;
     private TextView tv_tanggal;
+    private TextView tv_cod;
 
     // PanelUp
     private TextView tv_total_harga;
@@ -202,6 +203,7 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         tv_status_pesanan = findViewById(R.id.tv_status_pesanan);
         tv_alamat = findViewById(R.id.tv_alamat);
         tv_tanggal = findViewById(R.id.tv_tanggal);
+        tv_cod = findViewById(R.id.tv_cod);
         tv_kode_pesanan = findViewById(R.id.tv_kode_pesanan);
         tv_nama = findViewById(R.id.tv_nama);
         tv_telpon = findViewById(R.id.tv_telpon);
@@ -289,6 +291,12 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
         pesanan_parcelable = getIntent().getParcelableExtra(EXTRA_DATA);
         if (pesanan_parcelable != null) {
             setStatus(pesanan_parcelable.getStatus());
+            String metode_bayar = pesanan_parcelable.getMetode_bayar();
+            if (metode_bayar.equals("Transfer Bank")){
+                tv_cod.setVisibility(View.GONE);
+            } else {
+                tv_cod.setVisibility(View.VISIBLE);
+            }
             tv_kode_pesanan.setText(pesanan_parcelable.getKd_pemesanan());
             tv_kode_pesanan_bahan.setText(pesanan_parcelable.getKd_pemesanan());
             tv_kode_pesanan_bahan3.setText(pesanan_parcelable.getKd_pemesanan());
@@ -350,6 +358,12 @@ public class DetailPesananActivity extends AppCompatActivity implements OnMapRea
 
     private void setBundle(Pesanan pesanan_bundle) {
         setStatus(pesanan_bundle.getStatus());
+        String metode_bayar = pesanan_bundle.getMetode_bayar();
+        if (metode_bayar.equals("Transfer Bank")){
+            tv_cod.setVisibility(View.GONE);
+        } else {
+            tv_cod.setVisibility(View.VISIBLE);
+        }
         tv_kode_pesanan.setText(pesanan_bundle.getKd_pemesanan());
         tv_kode_pesanan_bahan.setText(pesanan_bundle.getKd_pemesanan());
         tv_kode_pesanan_bahan3.setText(pesanan_bundle.getKd_pemesanan());

@@ -68,18 +68,21 @@
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                     <TextView
-                        android:id="@+id/tv_jam"
+                        android:id="@+id/tv_cod"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="12dp"
-                        android:text="12.22" />
+                        android:background="@drawable/bg_cod"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="3dp"
+                        android:text="COD" />
 
                     <TextView
                         android:id="@+id/tv_tanggal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_jam"
+                        android:layout_below="@id/tv_cod"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="14dp"
                         android:text="Jumat 14 Januari 2020"
@@ -113,10 +116,10 @@
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/bg_trans_primary"
                         android:paddingHorizontal="12dp"
-                        android:textSize="11sp"
                         android:paddingVertical="2dp"
                         android:text="Accept"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="11sp" />
 
                     <TextView
                         android:id="@+id/tv1"
@@ -1220,12 +1223,12 @@
 
                     <TextView
                         android:id="@+id/tv_kosong_antar"
-                        android:layout_centerInParent="true"
-                        android:textSize="12dp"
-                        android:textStyle="italic"
-                        android:text="-Belum Tersedia-"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="-Belum Tersedia-"
+                        android:textSize="12dp"
+                        android:textStyle="italic" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cv_img_foto_driver_antar"
@@ -1304,12 +1307,12 @@
 
                     <TextView
                         android:id="@+id/tv_kosong_jemput"
-                        android:layout_centerInParent="true"
-                        android:textSize="12dp"
-                        android:textStyle="italic"
-                        android:text="-Belum Tersedia-"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="-Belum Tersedia-"
+                        android:textSize="12dp"
+                        android:textStyle="italic" />
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cv_img_foto_driver_jemput"
